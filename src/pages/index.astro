@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import TweetCarousel from '../components/TweetCarousel.astro';
 import { projects } from '../data/work';
 import { career, capabilities, industries } from '../data/career';
 import { siteConfig } from '../../site.config';
@@ -132,6 +133,22 @@ const principles = [
 
       <div class="grid" data-grid>
         {projects.map((p, i) => <ProjectCard project={p} index={i + 2} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TWEETS ========== -->
+  <section class="tweets-sec" id="tweets">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="kicker">Off the clock</div>
+          <h2>Funny <em>in public</em> since 2008.</h2>
+        </div>
+        <p class="aside">A few favorites from fourteen years of tweeting as @swasko.</p>
+      </div>
+      <div class="reveal">
+        <TweetCarousel />
       </div>
     </div>
   </section>
@@ -609,6 +626,26 @@ const principles = [
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
+  }
+
+  /* ---------- Tweets ---------- */
+  .tweets-sec {
+    background: var(--ink);
+    color: var(--paper);
+    overflow-x: clip; /* the slide-in nudge must never widen the page */
+    padding: clamp(56px, 8vw, 104px) 0;
+  }
+  .tweets-sec .section-head {
+    border-top-color: var(--paper);
+  }
+  .tweets-sec .kicker {
+    color: var(--accent-soft);
+  }
+  .tweets-sec .section-head h2 em {
+    color: var(--accent-soft);
+  }
+  .tweets-sec .aside {
+    color: rgba(234, 231, 222, 0.7);
   }
 
   /* ---------- About ---------- */
