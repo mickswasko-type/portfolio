@@ -136,9 +136,14 @@ const year = new Date().getFullYear();
       let group: HTMLElement[] = [];
       let at = 0;
 
+      function setZoom(on: boolean) {
+        lb.classList.toggle('zoomed', on);
+      }
+
       function show(i: number) {
         at = (i + group.length) % group.length;
         const el = group[at];
+        setZoom(false);
         lbImg.src = el.dataset.full!;
         lbImg.alt = el.dataset.alt ?? '';
         lbCap.textContent = el.dataset.alt ?? '';
@@ -152,6 +157,10 @@ const year = new Date().getFullYear();
         lb.showModal();
         document.body.style.overflow = 'hidden';
       }
+
+      lbImg.addEventListener('load', () => {
+        lbImg.style.cursor = lbImg.naturalWidth > lbImg.clientWidth * 1.25 ? 'zoom-in' : '';
+      });
 
       lb.addEventListener('close', () => {
         document.body.style.overflow = '';
@@ -170,6 +179,24 @@ const year = new Date().getFullYear();
         const zoom = t.closest<HTMLElement>('[data-full]');
         if (zoom) return open(zoom);
 
+        // Wide spreads are unreadable fitted to the screen: a click shows them at full size.
+        if (t === lbImg) {
+          const zoomable = lb.classList.contains('zoomed') || lbImg.naturalWidth > lbImg.clientWidth * 1.25;
+          if (zoomable) {
+            const r = lbImg.getBoundingClientRect();
+            const fx = (ev.clientX - r.left) / r.width;
+            const fy = (ev.clientY - r.top) / r.height;
+            setZoom(!lb.classList.contains('zoomed'));
+            if (lb.classList.contains('zoomed')) {
+              // Wait a frame for the full-size layout, then center on the spot that was clicked.
+              requestAnimationFrame(() =>
+                lb.scrollTo(fx * lb.scrollWidth - lb.clientWidth / 2, fy * lb.scrollHeight - lb.clientHeight / 2),
+              );
+            }
+          }
+          return;
+        }
+
         const step = t.closest<HTMLElement>('[data-lb-step]');
         if (step) return show(at + Number(step.dataset.lbStep));
         if (t.closest('[data-lb-close]') || t === lb) lb.close();
@@ -177,6 +204,7 @@ const year = new Date().getFullYear();
 
       document.addEventListener('keydown', (ev) => {
         if (lb.open) {
+          if (lb.classList.contains('zoomed') && ev.key.startsWith('Arrow')) return; // let arrows pan
           if (ev.key === 'ArrowRight') show(at + 1);
           if (ev.key === 'ArrowLeft') show(at - 1);
           return;
@@ -355,7 +383,7 @@ const year = new Date().getFullYear();
     pointer-events: none;
   }
   .lightbox img {
-    max-width: min(1600px, 100%);
+    max-width: 100%;
     max-height: calc(100dvh - 150px);
     width: auto;
     object-fit: contain;
@@ -405,6 +433,33 @@ const year = new Date().getFullYear();
   }
   .lightbox.single .lb-nav {
     display: none;
+  }
+  /* Zoomed: the image shows at full size and the dialog scrolls to pan. */
+  .lightbox.zoomed[open] {
+    display: block;
+    overflow: auto;
+    place-items: start; /* centering would push the overflow off the left edge, out of reach */
+  }
+  .lightbox.zoomed figure {
+    display: block;
+    justify-self: start;
+    width: max-content;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    max-height: none;
+  }
+  .lightbox.zoomed img {
+    max-width: none;
+    max-height: none;
+    cursor: zoom-out !important;
+  }
+  .lightbox.zoomed figcaption,
+  .lightbox.zoomed .lb-nav {
+    display: none;
+  }
+  .lightbox.zoomed .lb-close {
+    position: fixed;
   }
 
   @media (max-width: 640px) {

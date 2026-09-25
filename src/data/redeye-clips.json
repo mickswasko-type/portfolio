@@ -1,0 +1,217 @@
+{
+  "publication": "RedEye (Chicago Tribune)",
+  "role": "Staff reporter",
+  "years": "2012–2015",
+  "clips": [
+    {
+      "slug": "on-the-wire",
+      "date": "2014-11-03",
+      "headline": "On the Wire",
+      "deck": "Nik Wallenda's walk above the Chicago River, as it happened",
+      "summary": "A minute-by-minute account of Nik Wallenda’s record-setting tightrope walks over the Chicago River, from the crowd below. I remember being cold and mad covering this story.",
+      "label": "Cover story",
+      "note": "Main story; a Curt Wagner piece shares the spread",
+      "featured": false,
+      "pages": [
+        6,
+        7
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/1UFYQWjp-msiLAUjzXM8cX8p4LafUmCNQ/view"
+    },
+    {
+      "slug": "southside-story",
+      "date": "2014-08-19",
+      "headline": "Southside Story",
+      "deck": "Behind the lens of a man's journey to capture Chicago",
+      "summary": "Photographer Jon Lowenstein on 15 years documenting South Side life — and the global Instagram following it built.",
+      "label": "Cover story",
+      "note": "",
+      "featured": false,
+      "pages": [
+        6,
+        7
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/1fwef5MGBOTYoQ8SjRxhLJiki9ux_gC2C/view"
+    },
+    {
+      "slug": "so-fresh-so-clean",
+      "date": "2014-07-28",
+      "headline": "So Fresh, So Clean",
+      "deck": "Two RedEye dudes say goodbye to their beards in the name of research",
+      "summary": "Ernest and I shaved off our beards to road-test the latest men’s shaving products. Fun fact: I forgot I wrote this and the cover ran the day I came back from a vacation, surprising me.",
+      "label": "Style",
+      "note": "Co-written with Ernest Wilkins",
+      "featured": false,
+      "pages": [
+        16,
+        17
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/1LCGBK1SepUGZ17p6F1K12lXcRMFi5kMC/view"
+    },
+    {
+      "slug": "chasing-the-high-score",
+      "date": "2014-04-15",
+      "headline": "Chasing the High Score",
+      "deck": "Neighborhood barcades give Chicago gamers big goals, community",
+      "summary": "The regulars chasing — and holding — high scores at Chicago's arcade bars, including a player ranked No. 2 in the world at Galaga.",
+      "label": "Cover story",
+      "note": "",
+      "featured": true,
+      "pages": [
+        6,
+        7
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/1TYPc7132J2pcE1l_R_hhIUDLLXYA44BK/view"
+    },
+    {
+      "slug": "net-worth",
+      "date": "2014-02-19",
+      "headline": "Net Worth",
+      "deck": "Is Chicago about to jump on the Bitcoin bandwagon?",
+      "summary": "An early look at Chicago’s Bitcoin community, from local meetups to the businesses starting to accept it. The folks featured in this story paid today’s equivalent of millions of dollars for beers and pizza.",
+      "label": "Cover story",
+      "note": "",
+      "featured": true,
+      "pages": [
+        6,
+        7
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/1InEE8pJoqNzZeQQ9J23tfV9Th4TSp6gH/view"
+    },
+    {
+      "slug": "into-thin-air",
+      "date": "2013-05-22",
+      "headline": "Into Thin Air",
+      "deck": "Missing persons cases weigh on families long after first report filed",
+      "summary": "Families of Chicago's missing — including a mother still searching five years later — on what happens after a report is filed.",
+      "label": "Cover story",
+      "note": "",
+      "featured": true,
+      "pages": [
+        6,
+        7
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/1A0GtmffIAxbM0gaTXV-sbR6GPWZjNQub/view"
+    },
+    {
+      "slug": "flame-warriors",
+      "date": "2012-11-01",
+      "headline": "Flame Warriors",
+      "deck": "Chicago firefighters get the TV treatment — but does NBC do it right?",
+      "summary": "Real Chicago firefighters size up NBC's 'Chicago Fire' against the job they actually do.",
+      "label": "Cover story",
+      "note": "",
+      "featured": false,
+      "pages": [
+        6,
+        7
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/12S9jF1j5pwnsr2jNH5q-zLpYrXHkozd0/view"
+    },
+    {
+      "slug": "game-on",
+      "date": "2012-10-10",
+      "headline": "Game On?",
+      "deck": "With 12 million gamers gone from the market, who's still playing?",
+      "summary": "As industry data showed millions of gamers leaving the market, a look at the kinds of Chicago gamers who kept playing.",
+      "label": "Newsflash",
+      "note": "Cover-teased feature, printed under the newsflash label",
+      "featured": false,
+      "pages": [
+        6,
+        7
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/1VmCh2LS1QiY62KhnYyZ4vZ0DUTYst3WR/view"
+    },
+    {
+      "slug": "fight-clubs",
+      "date": "2012-08-07",
+      "headline": "Fight Clubs",
+      "deck": "Booze and bruises: Which Chicago strips are bar brawl magnets?",
+      "summary": "A data-driven map of where Chicago's bar fights happen, built from years of police assault and battery reports.",
+      "label": "Cover story",
+      "note": "",
+      "featured": true,
+      "pages": [
+        6,
+        7
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/1u87FIwFq5-rIEP7i2JD27zednlg2Tbvu/view"
+    },
+    {
+      "slug": "fat-camp-for-pets",
+      "date": "2012-06-26",
+      "headline": "Fat Camp for Pets?",
+      "deck": "Not quite, but a custom workout might be just what the doctor ordered",
+      "summary": "How Chicago pet owners and trainers are putting overweight dogs on custom fitness plans.",
+      "label": "Cover story",
+      "note": "",
+      "featured": false,
+      "pages": [
+        6,
+        7
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/1OunRKG2VlWgUwNDScgNZFkWoLRZKktzU/view"
+    },
+    {
+      "slug": "head-to-head",
+      "date": "2012-06-21",
+      "headline": "Head to Head",
+      "deck": "To wear a helmet or not — that is the biker's question",
+      "summary": "Chicago cyclists weigh in on the bike-helmet debate as more riders share the city's streets.",
+      "label": "Cover story",
+      "note": "",
+      "featured": false,
+      "pages": [
+        6,
+        7
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/1N7uwACI0IkURDwkOGsJ0-hA9K_hMn2pM/view"
+    },
+    {
+      "slug": "dare-to-bare",
+      "date": "2012-06-06",
+      "headline": "Dare to Bare",
+      "deck": "Think waxing services are just for women? Think again",
+      "summary": "Inside the growing business of male waxing in Chicago, from grooms to full-Brazilian regulars.",
+      "label": "Cover story",
+      "note": "",
+      "featured": false,
+      "pages": [
+        6,
+        7
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/1Gq_3lzxQSTdtv5STT2JZ99G4vsrvk89o/view"
+    },
+    {
+      "slug": "the-startup-diet",
+      "date": "2012-02-22",
+      "headline": "The Startup Diet",
+      "deck": "Local entrepreneurs living by the skin of their teeth — until they cash in big",
+      "summary": "Chicago founders bootstrapping their startups on ramen budgets, plus a sidebar on where they work and an early look at GrubHub's beginnings.",
+      "label": "Cover story",
+      "note": "",
+      "featured": false,
+      "pages": [
+        6,
+        7
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/116WMz2ByOEAC8bE3xzgymMchTpM9Mqzp/view"
+    },
+    {
+      "slug": "ticket-magnets",
+      "date": "2012-01-12",
+      "headline": "Ticket Magnets",
+      "deck": "Veterans of Chicago's parking ticket wars are picking their spots to fight back",
+      "summary": "Chicago drivers fighting back against the city's parking-ticket machine, including Jeremy Smith, who helped found the then-new parking site SpotHero.",
+      "label": "Cover story",
+      "note": "",
+      "featured": false,
+      "pages": [
+        6,
+        7
+      ],
+      "fullIssuePdf": "https://drive.google.com/file/d/17SHCtpJJ5E9HngxWizY-gxxKUMqMQMUD/view"
+    }
+  ]
+}

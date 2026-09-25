@@ -16,6 +16,11 @@ import sauce3 from '../assets/work/sauce-3.png';
 import redeye1 from '../assets/work/redeye-1.png';
 import redeye2 from '../assets/work/redeye-2.png';
 import redeye3 from '../assets/work/redeye-3.png';
+import clipArcade from '../assets/redeye/chasing-the-high-score-cover.jpg';
+import clipBitcoin from '../assets/redeye/net-worth-cover.jpg';
+import clipMissing from '../assets/redeye/into-thin-air-cover.jpg';
+import clipBarFights from '../assets/redeye/fight-clubs-cover.jpg';
+import clipWallenda from '../assets/redeye/on-the-wire-cover.jpg';
 import acxiomBanner from '../assets/work/acxiom-banner.jpg';
 import acxiomTablet from '../assets/work/acxiom-tablet.jpg';
 import acxiomCards from '../assets/work/acxiom-cards.jpg';
@@ -33,7 +38,7 @@ export interface Project {
   /** Short category line shown above the name. */
   tag: string;
   /** Filter group. */
-  kind: 'Healthcare' | 'B2B tech' | 'AI & product' | 'Personal';
+  kind: 'Healthcare' | 'B2B tech' | 'AI & product' | 'Journalism' | 'Personal';
   summary: string;
   /** Grey credit line, always "Client × Agency · My role". */
   credit: string;
@@ -158,6 +163,24 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: 'redeye-reporting',
+    name: 'RedEye Cover Stories',
+    tag: 'Journalism · RedEye',
+    kind: 'Journalism',
+    summary:
+      'Before the agency years, I was a staff reporter at RedEye, the Chicago Tribune’s free daily. Fourteen of my stories made the front page, from Chicago’s first Bitcoin believers and a data map of bar fights to the families of the city’s missing and a minute-by-minute of Nik Wallenda’s tightrope walk.',
+    credit: 'RedEye × Chicago Tribune · Staff reporter',
+    caseStudy: 'redeye-reporting',
+    stage: 'dark',
+    slides: [
+      { src: clipArcade, alt: 'RedEye front page, April 15, 2014: Chasing the High Score' },
+      { src: clipBitcoin, alt: 'RedEye front page, Feb. 19, 2014: Virtually Rich' },
+      { src: clipMissing, alt: 'RedEye front page, May 22, 2013: Chicago’s Missing' },
+      { src: clipBarFights, alt: 'RedEye front page, Aug. 7, 2012: Bar Fight Tracker' },
+      { src: clipWallenda, alt: 'RedEye front page, Nov. 3, 2014: Evening Commute' },
+    ],
+  },
+  {
     id: 'red-paper-box',
     name: 'The Red Paper Box',
     tag: 'Personal project · RedEye archive',
@@ -170,7 +193,6 @@ export const projects: Project[] = [
       label: 'Visit the archive',
     },
     stage: 'light',
-    wide: true,
     slides: [
       { src: redeye1, alt: 'Chicago News Archive home — a tabloid archiving project, 2008 to 2016' },
       { src: redeye2, alt: 'Featured collections and the full archive — 2,304 issues, with RedEye front pages' },

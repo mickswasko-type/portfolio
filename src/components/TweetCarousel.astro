@@ -2,13 +2,8 @@
 import { Image } from 'astro:assets';
 import tweets from '../data/tweets.json';
 import avatar from '../assets/tweets/avatar.jpg';
+import { apDate } from '../lib/format';
 
-// AP style: "Sept. 1, 2020", "March 4, 2019".
-const MONTHS = ['Jan.', 'Feb.', 'March', 'April', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'];
-function apDate(iso: string) {
-  const [y, m, d] = iso.split('-').map(Number);
-  return `${MONTHS[m - 1]} ${d}, ${y}`;
-}
 
 // AP style: "8:09 p.m.", "10 a.m." (Chicago time, as it showed when posted).
 function apTime(hhmm: string) {
