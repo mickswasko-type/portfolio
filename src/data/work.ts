@@ -3,9 +3,6 @@ import type { ImageMetadata } from 'astro';
 import dangerousFoods1 from '../assets/work/dangerous-foods-1.jpg';
 import dangerousFoods2 from '../assets/work/dangerous-foods-2.jpg';
 import dangerousFoods3 from '../assets/work/dangerous-foods-3.jpg';
-import jack1 from '../assets/work/jack-1.jpg';
-import jack2 from '../assets/work/jack-2.jpg';
-import jack3 from '../assets/work/jack-3.jpg';
 import aiGuide from '../assets/work/ai-guide.jpg';
 import everettes1 from '../assets/work/everettes-1.png';
 import everettes2 from '../assets/work/everettes-2.png';
@@ -79,10 +76,6 @@ export const projects: Project[] = [
       'An undiagnosed food allergy is a predator hiding in plain sight. So the Park & Battery team made the metaphor literal: sushi as a coiled snake, a cheese board as a shark — a campaign built to stop a scrolling clinician in their tracks. I brought brainstorming, copywriting, and oversight on this project.',
     credit: 'Thermo Fisher × Park & Battery · Contributor',
     caseStudy: 'dangerous-foods',
-    link: {
-      href: 'https://parkandbattery.com/our-work-cs/dangerous-foods/',
-      label: 'View case study',
-    },
     stage: 'dark',
     slides: [
       { src: dangerousFoodsCroc, alt: 'Some treats turn on you — an ice cream sundae shaped like a crocodile' },
@@ -92,19 +85,19 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'jacks-new-stack',
-    name: 'Jack’s New Stack',
-    tag: 'Brand voice · Enterprise tech',
-    kind: 'B2B tech',
+    id: 'ai-guide',
+    name: 'A No-Bullsh*t Guide to AI & B2B Content',
+    tag: 'AI enablement · Park & Battery',
+    kind: 'AI & product',
     summary:
-      '1,800 franchise owners needed to understand a point-of-sale migration nobody wanted to read about — especially not in the formats Jack in the Box IT typically uses to announce change. I let AI chew through the technical spec so I could spend my time on the only hard part: making it fun.',
-    credit: 'Jack in the Box · 2024 · Internal sample',
-    stage: 'light',
-    slides: [
-      { src: jack1, alt: 'What’s Next: Key Decisions and Milestones' },
-      { src: jack2, alt: 'Ingredients for Improvement — the Qu system' },
-      { src: jack3, alt: 'Glossary with the Jack mascot' },
-    ],
+      'A field guide that gets skeptical B2B marketers to actually use AI. We poked holes in the dread first, then handed over real prompts and workflows. The result? Peers who said, “AI can do that now?!”',
+    credit: 'Park & Battery · 2025 · Lead writer',
+    link: {
+      href: 'https://parkandbattery.com/wp-content/uploads/2025/02/2025_B2BMX_AI-for-Marketers_Feb21.pdf',
+      label: 'View the guide',
+    },
+    stage: 'dark',
+    slides: [{ src: aiGuide, alt: 'A No-Bullsh*t Guide to AI and B2B Content cover' }],
   },
   {
     id: 'leadership-in-crisis',
@@ -126,21 +119,6 @@ export const projects: Project[] = [
       { src: kaiser3, alt: 'Stages: Safety and Basic needs' },
       { src: kaiser4, alt: 'Crisis impact statistics' },
     ],
-  },
-  {
-    id: 'ai-guide',
-    name: 'A No-Bullsh*t Guide to AI & B2B Content',
-    tag: 'AI enablement · Park & Battery',
-    kind: 'AI & product',
-    summary:
-      'A field guide that gets skeptical B2B marketers to actually use AI. We poked holes in the dread first, then handed over real prompts and workflows. The result? Peers who said, “AI can do that now?!”',
-    credit: 'Park & Battery · 2025 · Lead writer',
-    link: {
-      href: 'https://parkandbattery.com/wp-content/uploads/2025/02/2025_B2BMX_AI-for-Marketers_Feb21.pdf',
-      label: 'View the guide',
-    },
-    stage: 'dark',
-    slides: [{ src: aiGuide, alt: 'A No-Bullsh*t Guide to AI and B2B Content cover' }],
   },
   {
     id: 'pick-your-method',
@@ -169,7 +147,6 @@ export const projects: Project[] = [
       label: 'View the full report',
     },
     stage: 'light',
-    wide: true,
     slides: [
       {
         src: sauce1,
