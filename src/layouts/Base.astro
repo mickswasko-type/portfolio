@@ -53,8 +53,9 @@ const year = new Date().getFullYear();
         </a>
         <nav aria-label="Primary">
           <a href={`${home}#work`}>Work</a>
-          <a href={`${home}#approach`} class="hide-sm">Approach</a>
-          <a href={`${home}#experience`}>Experience</a>
+          <a href={`${home}#about`} class="hide-sm">About</a>
+          <a href={`${home}#experience`} class="hide-sm">Experience</a>
+          <a href={`${base}resume/`}>Résumé</a>
           <a href={`${home}#contact`} class="nav-cta">Contact</a>
         </nav>
       </div>
@@ -72,6 +73,10 @@ const year = new Date().getFullYear();
         </div>
         <div class="foot-bottom">
           <span>Content strategy &amp; storytelling · {siteConfig.location}</span>
+          <span class="foot-links">
+            <a href={siteConfig.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+            <a href={`${base}resume/`}>Résumé</a>
+          </span>
           <span>© {year} Mick Swasko</span>
           <a href="#main">Back to top ↑</a>
         </div>
@@ -307,6 +312,13 @@ const year = new Date().getFullYear();
   }
   .foot-bottom a {
     text-decoration: none;
+  }
+  .foot-bottom a:hover {
+    color: var(--accent-soft);
+  }
+  .foot-links {
+    display: inline-flex;
+    gap: 18px;
   }
 
   .lightbox {

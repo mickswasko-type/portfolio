@@ -19,6 +19,11 @@ import sauce3 from '../assets/work/sauce-3.png';
 import redeye1 from '../assets/work/redeye-1.png';
 import redeye2 from '../assets/work/redeye-2.png';
 import redeye3 from '../assets/work/redeye-3.png';
+import acxiomBanner from '../assets/work/acxiom-banner.jpg';
+import acxiomTablet from '../assets/work/acxiom-tablet.jpg';
+import acxiomCards from '../assets/work/acxiom-cards.jpg';
+import acxiomGuidelines from '../assets/work/acxiom-guidelines.jpg';
+import dangerousFoodsCroc from '../assets/work/dangerous-foods-croc.jpg';
 
 export interface Slide {
   src: ImageMetadata;
@@ -35,6 +40,8 @@ export interface Project {
   summary: string;
   credit: string;
   link?: { href: string; label: string };
+  /** Slug of a full case study page under /work/. */
+  caseStudy?: string;
   slides: Slide[];
   /** Dark stage behind the images (for photography), otherwise paper. */
   stage: 'dark' | 'light';
@@ -44,24 +51,21 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'leadership-in-crisis',
-    name: 'Leadership in Crisis',
-    tag: 'Thought leadership · Kaiser Permanente',
-    kind: 'Healthcare',
+    id: 'love-the-solve',
+    name: 'Love the Solve',
+    tag: 'Sales enablement · Acxiom',
+    kind: 'B2B tech',
     summary:
-      'Nobody trains a manager for the day someone on their team loses everything. This is the playbook for that day — built for Kaiser Permanente on a single idea: long after the details blur, people remember how you made them feel. It covers everything from the first few minutes of a crisis to leading a team back out of one, whether it’s a natural disaster, workplace violence, or significant layoffs.',
-    credit: 'Kaiser Permanente · 2025',
-    link: {
-      href: 'https://business.kaiserpermanente.org/content/dam/kp/ccp/documents/leading-through-disruption-playbook.pdf',
-      label: 'View the playbook',
-    },
-    stage: 'light',
+      'Acxiom quietly powers some of the world’s best marketing — and in a market fixated on AI, hardly anyone noticed. Park & Battery rebuilt the brand around one rallying cry. My part was carrying it into the field: the sales narrative, the pitch, and the go-to-market content that gave sellers proof to put in front of buyers.',
+    credit: 'Acxiom × Park & Battery · Content & sales enablement',
+    caseStudy: 'love-the-solve',
+    stage: 'dark',
     wide: true,
     slides: [
-      { src: kaiser1, alt: 'Head and Heart: Supporting your employees when they need you most' },
-      { src: kaiser2, alt: 'Assessing disruptive events framework' },
-      { src: kaiser3, alt: 'Stages: Safety and Basic needs' },
-      { src: kaiser4, alt: 'Crisis impact statistics' },
+      { src: acxiomBanner, alt: 'Love The Solve. The tougher, the better — launch banner and pull-up stand' },
+      { src: acxiomTablet, alt: 'Light-trail brand photography: a woman working on a tablet' },
+      { src: acxiomCards, alt: 'Love The Solve sales and outreach cards' },
+      { src: acxiomGuidelines, alt: 'Acxiom brand guidelines spreads' },
     ],
   },
   {
@@ -70,14 +74,16 @@ export const projects: Project[] = [
     tag: 'Healthcare creative · Thermo Fisher',
     kind: 'Healthcare',
     summary:
-      'An undiagnosed food allergy is a predator hiding in plain sight. So we made the metaphor literal: sushi as a coiled snake, a cheese board as a shark. It’s a campaign designed to stop a scrolling clinician in their tracks.',
-    credit: 'Thermo Fisher × Park & Battery',
+      'An undiagnosed food allergy is a predator hiding in plain sight. So the Park & Battery team made the metaphor literal: sushi as a coiled snake, a cheese board as a shark — a campaign built to stop a scrolling clinician in their tracks. I was one of the contributors behind it.',
+    credit: 'Thermo Fisher × Park & Battery · Contributor',
+    caseStudy: 'dangerous-foods',
     link: {
       href: 'https://parkandbattery.com/our-work-cs/dangerous-foods/',
       label: 'View case study',
     },
     stage: 'dark',
     slides: [
+      { src: dangerousFoodsCroc, alt: 'Some treats turn on you — an ice cream sundae shaped like a crocodile' },
       { src: dangerousFoods1, alt: 'Sometimes dinner strikes like danger — sushi as a coiled snake' },
       { src: dangerousFoods2, alt: 'Sometimes the cheese board bites back — cheese board as a shark' },
       { src: dangerousFoods3, alt: 'Dangerous Foods campaign running on LinkedIn' },
@@ -99,26 +105,24 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'developer-burnout',
-    name: 'Getting to the Bottom of Developer Burnout in Gaming',
-    tag: 'Long-form data campaign · Sauce Labs',
-    kind: 'B2B tech',
+    id: 'leadership-in-crisis',
+    name: 'Leadership in Crisis',
+    tag: 'Thought leadership · Kaiser Permanente',
+    kind: 'Healthcare',
     summary:
-      'A third of developers admit they’ve shipped a buggy game before it was ready. Nobody wanted to say why out loud. I designed the survey and wrote the report that got them talking — 150 developers and 500 gamers, on the pressure, burnout, and harassment behind every rushed launch. Full report, plus a companion infographic for the skimmers.',
-    credit: 'Sauce Labs × Walker Sands · Survey design, lead writer',
+      'Nobody trains a manager for the day someone on their team loses everything. This is the playbook for that day — built for Kaiser Permanente on a single idea: long after the details blur, people remember how you made them feel. It covers everything from the first few minutes of a crisis to leading a team back out of one, whether it’s a natural disaster, workplace violence, or significant layoffs.',
+    credit: 'Kaiser Permanente · 2025',
     link: {
-      href: 'https://drive.google.com/file/d/17fipRrG7-rNsTB4lH_OZ5wY881ASLxwp/view',
-      label: 'View the full report',
+      href: 'https://business.kaiserpermanente.org/content/dam/kp/ccp/documents/leading-through-disruption-playbook.pdf',
+      label: 'View the playbook',
     },
     stage: 'light',
     wide: true,
     slides: [
-      {
-        src: sauce1,
-        alt: 'Pressure to release is a boss fight — 33% of developers say they have released a game under pressure before it’s fully debugged or ready',
-      },
-      { src: sauce2, alt: 'When gamers rage quit — chart of gamer reactions to bugs' },
-      { src: sauce3, alt: 'Negative feedback takes its toll — chart of developer mental and physical health impacts' },
+      { src: kaiser1, alt: 'Head and Heart: Supporting your employees when they need you most' },
+      { src: kaiser2, alt: 'Assessing disruptive events framework' },
+      { src: kaiser3, alt: 'Stages: Safety and Basic needs' },
+      { src: kaiser4, alt: 'Crisis impact statistics' },
     ],
   },
   {
@@ -148,6 +152,29 @@ export const projects: Project[] = [
     slides: [
       { src: everettes1, alt: 'Pour Over method panel with Sunbean roast pairing' },
       { src: everettes2, alt: 'Compare-all-methods table with Everette’s roast pick per method' },
+    ],
+  },
+  {
+    id: 'developer-burnout',
+    name: 'Getting to the Bottom of Developer Burnout in Gaming',
+    tag: 'Long-form data campaign · Sauce Labs',
+    kind: 'B2B tech',
+    summary:
+      'A third of developers admit they’ve shipped a buggy game before it was ready. Nobody wanted to say why out loud. I designed the survey and wrote the report that got them talking — 150 developers and 500 gamers, on the pressure, burnout, and harassment behind every rushed launch. Full report, plus a companion infographic for the skimmers.',
+    credit: 'Sauce Labs × Walker Sands · Survey design, lead writer',
+    link: {
+      href: 'https://drive.google.com/file/d/17fipRrG7-rNsTB4lH_OZ5wY881ASLxwp/view',
+      label: 'View the full report',
+    },
+    stage: 'light',
+    wide: true,
+    slides: [
+      {
+        src: sauce1,
+        alt: 'Pressure to release is a boss fight — 33% of developers say they have released a game under pressure before it’s fully debugged or ready',
+      },
+      { src: sauce2, alt: 'When gamers rage quit — chart of gamer reactions to bugs' },
+      { src: sauce3, alt: 'Negative feedback takes its toll — chart of developer mental and physical health impacts' },
     ],
   },
   {

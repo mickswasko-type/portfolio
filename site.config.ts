@@ -8,6 +8,7 @@ export const siteConfig = {
   description:
     'Content strategist and former Chicago Tribune reporter. Healthcare, B2B tech and thought leadership — complex topics made human.',
   email: 'mickswasko@gmail.com',
+  resumePdf: 'mick-swasko-resume.pdf',
   location: 'Lombard, Illinois',
-  linkedin: null as string | null,
+  linkedin: 'https://www.linkedin.com/in/mick-swasko-95342512/',
 };

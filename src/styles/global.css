@@ -240,3 +240,21 @@ button {
     text-align: left;
   }
 }
+
+@media print {
+  body {
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .site-header,
+  .site-footer,
+  .skip,
+  .lightbox {
+    display: none !important;
+  }
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

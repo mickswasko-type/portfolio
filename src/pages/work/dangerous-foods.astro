@@ -1,0 +1,122 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseHero from '../../components/CaseHero.astro';
+import ImageGrid from '../../components/ImageGrid.astro';
+import MoreWork from '../../components/MoreWork.astro';
+import '../../styles/case-study.css';
+
+import poster from '../../assets/work/dangerous-foods-poster.jpg';
+import croc from '../../assets/work/dangerous-foods-croc.jpg';
+import snake from '../../assets/work/dangerous-foods-snake.jpg';
+import shark from '../../assets/work/dangerous-foods-shark.jpg';
+import scorpion from '../../assets/work/dangerous-foods-scorpion.jpg';
+import article from '../../assets/work/dangerous-foods-article.jpg';
+import social from '../../assets/work/dangerous-foods-3.jpg';
+---
+
+<Base
+  title="Thermo Fisher’s “Dangerous Foods” — Case Study"
+  description="A food allergy campaign for Thermo Fisher that renders everyday foods as camouflaged predators, built to get clinicians testing sooner."
+  current="case-study"
+>
+  <CaseHero
+    kicker="Case study · Healthcare creative"
+    subtitle="Making an invisible risk impossible to scroll past."
+    dek="For Thermo Fisher, dinner became the predator."
+    cover={poster}
+    coverAlt="Some treats turn on you — campaign poster in a clinic waiting room"
+    coverStyle="flat"
+    meta={[
+      { k: 'Client', v: 'Thermo Fisher Scientific' },
+      { k: 'My role', v: 'Contributor on the Park & Battery team' },
+      { k: 'Agency', v: 'Park & Battery' },
+      { k: 'Audience', v: 'Physicians & parents' },
+    ]}
+  >
+    Dangerous <em>Foods</em>
+  </CaseHero>
+
+  <section class="seed">
+    <div class="wrap">
+      <div class="label reveal">The problem</div>
+      <p class="reveal">
+        Food allergies are a growing public health threat, and many go undiagnosed until a reaction forces the issue.
+        Thermo Fisher wanted physicians to test proactively, before anaphylaxis rather than after it.
+      </p>
+      <p class="pullquote reveal">The riskiest foods on the plate look completely harmless.</p>
+    </div>
+  </section>
+
+  <section class="seed">
+    <div class="wrap">
+      <div class="label reveal">The idea</div>
+      <p class="reveal">
+        Show the danger hiding in plain sight. Using hyperreal AI-generated imagery, the campaign renders everyday foods
+        as camouflaged predators. Sushi coils like a snake. A cheese board bares its teeth. An ice cream sundae turns
+        out to be a crocodile. Next to images like these, a routine allergy test starts to look like protection.
+      </p>
+    </div>
+  </section>
+
+  <section class="artifact">
+    <div class="wrap">
+      <div class="label reveal">The work</div>
+      <p class="cap reveal">
+        <b>An integrated campaign:</b> hero creative, social, physician education content, and product collateral.
+      </p>
+      <ImageGrid
+        images={[
+          { src: croc, alt: 'An ice cream sundae shaped like a crocodile', wide: true },
+          { src: snake, alt: 'Sushi arranged as a coiled snake' },
+          { src: shark, alt: 'A cheese board shaped like a shark' },
+          { src: scorpion, alt: 'A bowl of snack mix hiding a scorpion', wide: true },
+          { src: article, alt: 'Physician education article on a laptop' },
+          { src: social, alt: 'Dangerous Foods social posts on LinkedIn' },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="discipline">
+    <div class="wrap">
+      <div class="label reveal">Who did what</div>
+      <div class="split reveal">
+        <div>
+          <h3>What the campaign took</h3>
+          <ul>
+            <li>Campaign strategy and positioning</li>
+            <li>Physician behavior-change messaging</li>
+            <li>A risk-based narrative</li>
+            <li>Hyperreal AI-generated creative</li>
+            <li>Physician education content and product collateral</li>
+          </ul>
+        </div>
+        <div>
+          <h3>My part</h3>
+          <ul>
+            <li>
+              Dangerous Foods was a team effort at Park &amp; Battery, and I was one of its contributors. This page covers
+              the whole campaign, not just my piece of it.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="takeaway">
+    <div class="wrap">
+      <div class="label reveal">Why it matters</div>
+      <p class="big reveal">
+        In healthcare, the science is rarely the hard part. The hard part is getting a busy clinician to <em>stop and look</em>.
+      </p>
+      <p class="reveal ext">
+        <a class="arrow-link" href="https://parkandbattery.com/our-work-cs/dangerous-foods/" target="_blank" rel="noopener"
+          >See the Park &amp; Battery case study <span aria-hidden="true">↗</span></a
+        >
+      </p>
+    </div>
+  </section>
+
+  <MoreWork exclude="dangerous-foods" />
+</Base>

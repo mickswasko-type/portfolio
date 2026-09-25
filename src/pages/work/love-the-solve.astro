@@ -1,0 +1,150 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseHero from '../../components/CaseHero.astro';
+import ImageGrid from '../../components/ImageGrid.astro';
+import MoreWork from '../../components/MoreWork.astro';
+import '../../styles/case-study.css';
+
+import banner from '../../assets/work/acxiom-banner.jpg';
+import team from '../../assets/work/acxiom-team.jpg';
+import guidelines from '../../assets/work/acxiom-guidelines.jpg';
+import cards from '../../assets/work/acxiom-cards.jpg';
+import linkedin from '../../assets/work/acxiom-linkedin.jpg';
+import tablet from '../../assets/work/acxiom-tablet.jpg';
+import flight from '../../assets/work/acxiom-flight.jpg';
+---
+
+<Base
+  title="Acxiom’s “Love the Solve” — Case Study"
+  description="Rebranding a data giant for the AI era, and the sales narrative and go-to-market content that carried it into the field."
+  current="case-study"
+>
+  <CaseHero
+    kicker="Case study · Sales enablement"
+    subtitle="Rebranding a data giant for the AI era — and arming the people who sell it."
+    dek="A legacy brand learns to say out loud what it has always done best."
+    cover={banner}
+    coverAlt="Love The Solve. The tougher, the better — launch banner and pull-up stand"
+    coverStyle="flat"
+    meta={[
+      { k: 'Client', v: 'Acxiom' },
+      { k: 'My role', v: 'Content & sales enablement: sales narrative, pitch & go-to-market content' },
+      { k: 'Agency', v: 'Park & Battery' },
+      { k: 'Scope', v: 'Brand relaunch' },
+    ]}
+  >
+    Love <em>the Solve</em>
+  </CaseHero>
+
+  <section class="seed">
+    <div class="wrap">
+      <div class="label reveal">The challenge</div>
+      <p class="reveal">
+        Acxiom has been a data powerhouse for decades, and it was at the center of Omnicom’s acquisition of IPG. But in a
+        market obsessed with AI, media, and performance, the company had become underappreciated. Buyers knew the name
+        without knowing why it mattered.
+      </p>
+      <p class="reveal">
+        The research pointed to what customers already believed: Acxiom is who marketers call when things get hard.
+        Complex integrations, identity gaps, privacy emergencies. The competition, as one participant put it:
+      </p>
+      <p class="pullquote reveal">“All slideware, no software.”</p>
+    </div>
+  </section>
+
+  <section class="seed">
+    <div class="wrap">
+      <div class="label reveal">The idea</div>
+      <p class="reveal">
+        <b>Love the Solve.</b> It’s a rallying cry built on Acxiom’s obsession with hard problems, with the optimism and client empathy
+        that come with it. The visual identity runs on “light trails,” a moving brand device for the way Acxiom connects
+        data, identity, AI, and real-world results. It speaks to the doers who run toward complexity instead of away
+        from it.
+      </p>
+    </div>
+  </section>
+
+  <section class="artifact">
+    <div class="wrap">
+      <div class="label reveal">The work</div>
+      <p class="cap reveal">
+        <b>A full relaunch:</b> brand platform, identity system, launch creative, and the sales and go-to-market content
+        that put it in front of buyers.
+      </p>
+      <ImageGrid
+        images={[
+          { src: team, alt: 'Light-trail brand photography: two colleagues collaborating', wide: true },
+          { src: guidelines, alt: 'Acxiom brand guidelines spreads' },
+          { src: cards, alt: 'Love The Solve outreach cards' },
+          { src: tablet, alt: 'Light-trail brand photography: a woman working on a tablet' },
+          { src: linkedin, alt: 'Refreshed Acxiom LinkedIn presence' },
+          { src: flight, alt: 'Light-trail brand photography: a traveler on a phone mid-flight', wide: true },
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="discipline">
+    <div class="wrap">
+      <div class="label reveal">Who did what</div>
+      <div class="split reveal">
+        <div>
+          <h3>My part</h3>
+          <ul>
+            <li>The sales narrative that turned the new positioning into a story sellers could tell</li>
+            <li>Pitch development</li>
+            <li>Integrated go-to-market content assets</li>
+            <li>Proof points showing Acxiom turns data complexity into growth</li>
+          </ul>
+        </div>
+        <div>
+          <h3>The wider Park &amp; Battery effort</h3>
+          <ul>
+            <li>Brand platform and positioning for the AI era</li>
+            <li>Value proposition and messaging architecture</li>
+            <li>Visual identity and design system</li>
+            <li>Brand film, launch creative, and events</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="results">
+    <div class="wrap">
+      <div class="label reveal">What it drove</div>
+      <h2 class="reveal">Pipeline, revenue, and a louder voice in the market.</h2>
+      <div class="stats">
+        <div class="reveal">
+          <span class="statnum">113%</span><span class="statlab">year-over-year growth in marketing-influenced revenue</span>
+        </div>
+        <div class="reveal"><span class="statnum">75%</span><span class="statlab">increase in pipeline</span></div>
+        <div class="reveal">
+          <span class="statnum">146%</span><span class="statlab">year-over-year increase in revenue per marketing-engaged lead</span>
+        </div>
+      </div>
+      <p class="note reveal">
+        On top of the numbers: a 45% increase in key media mentions and a 5% boost in share of voice.
+      </p>
+      <p class="disclaimer">
+        Results as reported by Park &amp; Battery for the full campaign, which was the work of the whole team.
+      </p>
+    </div>
+  </section>
+
+  <section class="takeaway">
+    <div class="wrap">
+      <div class="label reveal">Why it matters</div>
+      <p class="big reveal">
+        A brand promise only works if the sales team can <em>say it out loud</em> and back it up in the room.
+      </p>
+      <p class="reveal ext">
+        <a class="arrow-link" href="https://parkandbattery.com/our-work-cs/love-the-solve/" target="_blank" rel="noopener"
+          >See the Park &amp; Battery case study <span aria-hidden="true">↗</span></a
+        >
+      </p>
+    </div>
+  </section>
+
+  <MoreWork exclude="love-the-solve" />
+</Base>

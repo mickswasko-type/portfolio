@@ -1,0 +1,29 @@
+---
+import { Image, getImage } from 'astro:assets';
+import type { Slide } from '../data/work';
+
+interface Props {
+  images: (Slide & { wide?: boolean })[];
+}
+
+const { images } = Astro.props;
+const full = await Promise.all(
+  images.map((i) => getImage({ src: i.src, width: Math.min(i.src.width, 1800), format: 'webp' })),
+);
+---
+
+<div class="img-grid" data-gallery>
+  {
+    images.map((i, k) => (
+      <button type="button" class:list={['tile', 'reveal', { wide: i.wide }]} data-full={full[k].src} data-alt={i.alt}>
+        <Image
+          src={i.src}
+          alt={i.alt}
+          widths={[480, 800, 1200].filter((w) => w < i.src.width).concat([i.src.width])}
+          sizes={i.wide ? '(max-width: 1180px) 100vw, 1100px' : '(max-width: 760px) 100vw, 540px'}
+          format="webp"
+        />
+      </button>
+    ))
+  }
+</div>

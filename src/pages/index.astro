@@ -10,6 +10,7 @@ import speakUpCover from '../assets/work/speak-up-cover.jpg';
 import dangerousFoods from '../assets/work/dangerous-foods-2.jpg';
 import redeye from '../assets/work/redeye-1.png';
 import kaiser from '../assets/work/kaiser-1.jpg';
+import headshot from '../assets/headshot.jpg';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const kinds = [...new Set(projects.map((p) => p.kind))];
@@ -145,6 +146,39 @@ const principles = [
     </div>
   </section>
 
+  <!-- ========== ABOUT ========== -->
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <figure class="portrait reveal">
+        <Image src={headshot} alt="Mick Swasko" widths={[360, 560, 840]} sizes="(max-width: 860px) 70vw, 380px" format="webp" />
+      </figure>
+      <div class="about-copy reveal">
+        <div class="kicker">About</div>
+        <h2>Reporter by training. <em>Strategist</em> by trade.</h2>
+        <p>
+          Storied newspapers. Historic aquariums. Startup incubators. Regulated healthcare systems. Growing B2B brands. In a
+          career spent where journalism meets marketing, the assignments have varied wildly. The through-line hasn’t.
+          Whether it’s a front-page byline, a clinical white paper, or a product launch, good content starts with an open
+          ear and depends on curiosity, empathy, and the discipline to get it right.
+        </p>
+        <p>
+          I bring a reporter’s instincts, a managing editor’s eye, and the strategic fluency to tie content to buyer
+          journeys, business goals, and brand authority. I also know AI tools well, and that fluency came from using them
+          on real work.
+        </p>
+        <div class="about-links">
+          <a class="btn solid" href={`${base}${siteConfig.resumePdf}`} target="_blank" rel="noopener">
+            Résumé (PDF) <span aria-hidden="true">↓</span>
+          </a>
+          <a class="btn ghost" href={`${base}resume/`}>Read it online</a>
+          <a class="arrow-link" href={siteConfig.linkedin} target="_blank" rel="noopener">
+            LinkedIn <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== APPROACH ========== -->
   <section class="approach" id="approach">
     <div class="wrap">
@@ -153,10 +187,7 @@ const principles = [
           <div class="kicker">Approach</div>
           <h2>A reporter’s instincts. <em>A strategist’s</em> brief.</h2>
         </div>
-        <p class="aside">
-          Storied newspapers, historic aquariums, startup incubators, regulated health systems. The assignments vary
-          wildly. The through-line doesn’t.
-        </p>
+        <p class="aside">Four rules I’ve carried from the newsroom into every brief since.</p>
       </div>
       <ol class="principles">
         {
@@ -243,13 +274,14 @@ const principles = [
           available on request.
         </p>
         <a class="mail" href={`mailto:${siteConfig.email}`}>{siteConfig.email} <span aria-hidden="true">→</span></a>
-        {
-          siteConfig.linkedin && (
-            <a class="arrow-link" href={siteConfig.linkedin} target="_blank" rel="noopener">
-              LinkedIn <span aria-hidden="true">↗</span>
-            </a>
-          )
-        }
+        <div class="contact-links">
+          <a class="arrow-link" href={siteConfig.linkedin} target="_blank" rel="noopener">
+            LinkedIn <span aria-hidden="true">↗</span>
+          </a>
+          <a class="arrow-link" href={`${base}${siteConfig.resumePdf}`} target="_blank" rel="noopener">
+            Résumé (PDF) <span aria-hidden="true">↓</span>
+          </a>
+        </div>
         <span class="loc">Based in {siteConfig.location} · Chicago area</span>
       </div>
     </div>
@@ -632,6 +664,54 @@ const principles = [
     gap: 20px;
   }
 
+  /* ---------- About ---------- */
+  .about {
+    padding: clamp(56px, 8vw, 104px) 0;
+    border-top: 1px solid var(--line);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+    gap: clamp(36px, 6vw, 88px);
+    align-items: center;
+  }
+  .portrait {
+    position: relative;
+    max-width: 400px;
+    border: 2px solid var(--ink);
+    box-shadow: 16px 16px 0 var(--ink);
+    background: var(--accent);
+  }
+  .portrait :global(img) {
+    width: 100%;
+    height: auto;
+  }
+  .about-copy h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(34px, 4.6vw, 56px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    margin: 12px 0 22px;
+  }
+  .about-copy h2 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .about-copy p {
+    font-size: 18.5px;
+    line-height: 1.55;
+    max-width: 58ch;
+    margin-bottom: 16px;
+  }
+  .about-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 18px;
+    margin-top: 26px;
+  }
+
   /* ---------- Approach ---------- */
   .approach {
     background: var(--panel);
@@ -864,6 +944,10 @@ const principles = [
     color: #fff;
     border-bottom-color: rgba(255, 255, 255, 0.5);
   }
+  .contact-links {
+    display: flex;
+    gap: 20px;
+  }
   .loc {
     font-family: var(--display);
     font-size: 13px;
@@ -921,8 +1005,13 @@ const principles = [
       padding: 0;
       display: none;
     }
-    .contact-grid {
+    .contact-grid,
+    .about-grid {
       grid-template-columns: 1fr;
+    }
+    .portrait {
+      max-width: 300px;
+      margin-right: 16px;
     }
     .ledger {
       grid-template-columns: 1fr;

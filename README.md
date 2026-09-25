@@ -17,7 +17,9 @@ npm run build    # outputs to dist/
 | Project cards (copy, links, images) | `src/data/work.ts` |
 | Experience, capabilities, industries | `src/data/career.ts` |
 | Home page | `src/pages/index.astro` |
-| Speak Up case study | `src/pages/work/speak-up.astro` |
+| Case studies | `src/pages/work/*.astro` (shared styles in `src/styles/case-study.css`) |
+| Résumé page | `src/pages/resume.astro` (content from `src/data/career.ts`) |
+| Résumé PDF | `public/mick-swasko-resume.pdf` |
 | Site URL, email, LinkedIn | `site.config.ts` |
 | Colors and type | `src/styles/global.css` |
 | Images | `src/assets/work/` |
@@ -33,7 +35,18 @@ Images are resized and converted to WebP at build time, so originals can be larg
 
 ### Add a full case study
 
-Copy `src/pages/work/speak-up.astro` to `src/pages/work/<slug>.astro`. It's served at `/work/<slug>/`.
+Copy `src/pages/work/love-the-solve.astro` to `src/pages/work/<slug>.astro` (served at `/work/<slug>/`),
+then set `caseStudy: '<slug>'` on the project in `src/data/work.ts` so its card links there.
+
+### Update the résumé
+
+Edit `src/data/career.ts`, then with `npm run dev` running, regenerate the PDF:
+
+```bash
+npm run resume:pdf
+```
+
+The PDF deliberately has no phone number.
 
 ## Moving to a custom domain
 

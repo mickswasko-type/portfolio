@@ -1,0 +1,35 @@
+---
+import { projects } from '../data/work';
+
+interface Props {
+  /** Project id to leave out (the page you're on). */
+  exclude?: string;
+}
+
+const { exclude } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const next = projects.filter((p) => p.id !== exclude).slice(0, 3);
+const href = (p: (typeof projects)[number]) => (p.caseStudy ? `${base}work/${p.caseStudy}/` : `${base}#${p.id}`);
+---
+
+<section class="more">
+  <div class="wrap">
+    <div class="more-head">
+      <span class="label">More work</span>
+      <a class="arrow-link" href={`${base}#work`}>See everything <span aria-hidden="true">→</span></a>
+    </div>
+    <ul class="more-list">
+      {
+        next.map((p) => (
+          <li>
+            <a href={href(p)}>
+              <span class="m-tag">{p.tag}</span>
+              <span class="m-name">{p.name}</span>
+              <span class="m-go" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
