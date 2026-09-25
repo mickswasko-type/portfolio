@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import TweetCarousel from '../components/TweetCarousel.astro';
 import { projects } from '../data/work';
-import { career, capabilities, industries } from '../data/career';
+import { career, capabilities, homeIndustries } from '../data/career';
 import { siteConfig } from '../../site.config';
 
 import speakUpCover from '../assets/work/speak-up-cover.jpg';
@@ -20,22 +20,22 @@ const principles = [
   {
     n: '01',
     head: 'Start with an open ear.',
-    body: 'Good content starts with curiosity and empathy. Before the messaging framework or the campaign, I listen for what the audience actually needs — which isn’t always what the brief asked for.',
+    body: 'Good content starts with curiosity and empathy. Before the messaging framework or the campaign, I listen for what the audience actually needs — which isn’t always what the brief asked for. I live for “optional” thought leadership calls.',
   },
   {
     n: '02',
     head: 'Get it right.',
-    body: 'Reporter’s instincts, managing editor’s eye. Clinical claims, survey data, and regulated copy get checked like they’re running on the front page tomorrow.',
+    body: 'Reporter’s instincts, managing editor’s eye. Clinical claims, survey data, and regulated copy get checked like they’re running on the front page tomorrow. Claude sneaks nothing by me.',
   },
   {
     n: '03',
     head: 'Make it move something.',
-    body: 'Content is tied to buyer journeys, pipeline, and brand authority — mapped by buying stage, built for the whole committee, and measured against goals.',
+    body: 'Content is tied to buyer journeys, pipeline, and brand authority — mapped by buying stage, built for the whole committee, and measured against goals. TL;DR: Did it work?',
   },
   {
     n: '04',
     head: 'Let AI do the heavy lifting.',
-    body: 'I was among the first at Walker Sands to put generative AI into production content work. It chews through the spec; I spend the saved hours on what matters — voice, depth, and making it fun.',
+    body: 'I led efforts to put generative AI into production content work, the right way, from the start. It chews through the spec; I spend the saved hours on what matters — voice, depth, and making it fun.',
   },
 ];
 ---
@@ -46,14 +46,15 @@ const principles = [
     <div class="wrap hero-grid">
       <div class="hero-copy">
         <div class="dateline rise">
-          <span>Content Strategy</span><span>Storytelling</span><span>AI-Fluent</span>
+          <span>Content Strategy</span><span>Storytelling</span><span>AI-Friendly</span>
         </div>
         <h1 class="rise" style="--d: 0.08s">
-          Complex topics, <em>made&nbsp;human.</em>
+          Make it make <span class="mark">sense<svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 60 6, 120 4, 180 10 S 270 18, 296 8" pathLength="1" /></svg></span><span class="stop">.</span>
         </h1>
         <p class="lede rise" style="--d: 0.16s">
-          I’m Mick Swasko — a former Chicago Tribune reporter turned content strategist. For nearly two decades I’ve
-          turned clinical research, enterprise tech, and hard data into stories people actually read.
+          I’m Mick Swasko — a former Chicago Tribune and RedEye reporter that dove into the B2B content funnel. For
+          nearly two decades I’ve turned original reporting, clinical research, enterprise tech, and hard data into
+          stories people actually read.
         </p>
         <div class="cta rise" style="--d: 0.24s">
           <a class="btn solid" href="#work">See the work <span aria-hidden="true">↓</span></a>
@@ -82,6 +83,7 @@ const principles = [
         <div class="ledger-label">From newsroom to boardroom</div>
         <ul>
           <li>Chicago Tribune</li>
+          <li>RedEye</li>
           <li>Shedd Aquarium</li>
           <li>1871</li>
           <li>Walker Sands</li>
@@ -99,7 +101,7 @@ const principles = [
           <div class="kicker">Selected work</div>
           <h2><em>Bold</em> ideas and <em>big</em> swings.</h2>
         </div>
-        <p class="aside">Deliverables against the odds — for healthcare systems, B2B tech brands, and a few people I like.</p>
+        <p class="aside">Deliverables against the odds — for healthcare systems, B2B tech brands, and folks I like.</p>
       </div>
 
       <!-- Lead story -->
@@ -112,7 +114,7 @@ const principles = [
           <h3><a href={`${base}work/speak-up/`}>Ensono’s <em>“Speak Up”</em></a></h3>
           <p class="lead-dek">
             One tweet about an empty women’s restroom at a tech conference became a five-edition research franchise on
-            women in tech — and a thought-leadership engine the press trusted for six years.
+            women in tech — and a thought-leadership engine the press sought out for commentary.
           </p>
           <dl class="lead-stats">
             <div><dt>140+</dt><dd>pieces of earned coverage</dd></div>
@@ -161,7 +163,7 @@ const principles = [
       </figure>
       <div class="about-copy reveal">
         <div class="kicker">About</div>
-        <h2>Reporter by training. <em>Strategist</em> by trade.</h2>
+        <h2>Reporter by training. <em>Strategist</em> by trade. Writer by instinct.</h2>
         <p>
           Storied newspapers. Historic aquariums. Startup incubators. Regulated healthcare systems. Growing B2B brands. In a
           career spent where journalism meets marketing, the assignments have varied wildly. The through-line hasn’t.
@@ -169,9 +171,9 @@ const principles = [
           ear and depends on curiosity, empathy, and the discipline to get it right.
         </p>
         <p>
-          I bring a reporter’s instincts, a managing editor’s eye, and the strategic fluency to tie content to buyer
-          journeys, business goals, and brand authority. I also know AI tools well, and that fluency came from using them
-          on real work.
+          I bring a reporter’s intuition, a managing editor’s eye, and the strategic fluency to tie content to buyer
+          journeys, business goals, and brand authority. I’ve embraced AI since its infancy — I use it where it’s
+          useful, and have worked with it long enough to know where it isn’t.
         </p>
         <div class="about-links">
           <a class="btn solid" href={`${base}${siteConfig.resumePdf}`} target="_blank" rel="noopener">
@@ -192,9 +194,9 @@ const principles = [
       <div class="section-head reveal">
         <div>
           <div class="kicker">Approach</div>
-          <h2>A reporter’s instincts. <em>A strategist’s</em> brief.</h2>
+          <h2>Bringing a <em>reporter’s intuition</em> to every project.</h2>
         </div>
-        <p class="aside">Four rules I’ve carried from the newsroom into every brief since.</p>
+        <p class="aside">Four rules I’ve carried from the newsroom into every assignment since.</p>
       </div>
       <ol class="principles">
         {
@@ -224,8 +226,8 @@ const principles = [
       </div>
 
       <div class="industries reveal">
-        <span class="ind-label">Industries</span>
-        <ul>{industries.map((i) => <li>{i}</li>)}</ul>
+        <span class="ind-label">Industry expertise</span>
+        <ul>{homeIndustries.map((i) => <li>{i}</li>)}</ul>
       </div>
     </div>
   </section>
@@ -273,12 +275,12 @@ const principles = [
     <div class="wrap contact-grid">
       <div class="reveal">
         <div class="kicker">Contact</div>
-        <h2>Got a hard story to&nbsp;tell? <em>Let’s talk.</em></h2>
+        <h2>At a loss for words? <em>Let’s&nbsp;chat.</em></h2>
       </div>
       <div class="contact-side reveal">
         <p>
-          I’m open to content strategy and editorial leadership roles. Full case studies and more samples are
-          available on request.
+          I’m open to content strategy, copywriting, and editorial leadership roles. Consulting too. Full case studies
+          and more samples are available on request.
         </p>
         <a class="mail" href={`mailto:${siteConfig.email}`}>{siteConfig.email} <span aria-hidden="true">→</span></a>
         <div class="contact-links">
@@ -347,8 +349,35 @@ const principles = [
     letter-spacing: -0.045em;
     margin: 20px 0 26px;
   }
-  h1 em {
-    font-style: normal;
+  /* "sense" gets a hand-drawn red stroke that writes itself in on load. */
+  h1 .mark {
+    position: relative;
+    white-space: nowrap;
+  }
+  h1 .mark svg {
+    position: absolute;
+    left: -2%;
+    width: 104%;
+    bottom: -0.1em;
+    height: 0.26em;
+    overflow: visible;
+  }
+  h1 .mark path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: clamp(5px, 0.75vw, 10px);
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 0.9s 0.7s cubic-bezier(0.6, 0, 0.3, 1) forwards;
+  }
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  h1 .stop {
     color: var(--accent);
   }
   .lede {
@@ -448,10 +477,9 @@ const principles = [
     border-top: 3px solid var(--ink);
     border-bottom: 1px solid var(--ink);
     display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    gap: 24px;
-    padding: 16px 0;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 14px 0 16px;
   }
   .ledger-label {
     font-family: var(--body);

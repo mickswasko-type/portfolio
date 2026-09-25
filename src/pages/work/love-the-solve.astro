@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CaseHero from '../../components/CaseHero.astro';
+import AwardBadge from '../../components/AwardBadge.astro';
 import ImageGrid from '../../components/ImageGrid.astro';
 import MoreWork from '../../components/MoreWork.astro';
 import '../../styles/case-study.css';
@@ -34,6 +35,9 @@ import flight from '../../assets/work/acxiom-flight.jpg';
     ]}
   >
     Love <em>the Solve</em>
+    <div class="hero-award" slot="after-dek">
+      <AwardBadge level="Silver" event="2026 ANA Awards" category="Corporate Identity Program" />
+    </div>
   </CaseHero>
 
   <section class="seed">
@@ -126,6 +130,9 @@ import flight from '../../assets/work/acxiom-flight.jpg';
       <p class="note reveal">
         On top of the numbers: a 45% increase in key media mentions and a 5% boost in share of voice.
       </p>
+      <div class="reveal results-award">
+        <AwardBadge level="Silver" event="2026 ANA Awards" category="Corporate Identity Program" tone="dark" />
+      </div>
       <p class="disclaimer">
         Results as reported by Park &amp; Battery for the full campaign, which was the work of the whole team.
       </p>

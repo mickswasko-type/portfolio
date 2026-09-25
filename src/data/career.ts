@@ -108,7 +108,7 @@ export const capabilities = [
       'Buyer journey & buying-stage content maps',
       'Content architecture & taxonomy',
       'SEO-informed content modeling',
-      'Generative search strategy',
+      'Generative search strategy (GEO/AEO)',
     ],
   },
   {
@@ -118,7 +118,7 @@ export const capabilities = [
       'Long- and short-form writing',
       'Style guides & quality standards',
       'Team leadership & mentorship',
-      'Client presentation',
+      'Sales and upsells',
     ],
   },
   {
@@ -158,6 +158,9 @@ export const industries = [
   'Legal',
   'Artificial Intelligence',
 ];
+
+// The home page list adds Conservation (Shedd); the résumé keeps its own list above.
+export const homeIndustries = ['Healthcare', 'Conservation', ...industries.slice(1)];
 
 export const coreSkills = [
   'Content Strategy',

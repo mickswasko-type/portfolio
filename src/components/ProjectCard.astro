@@ -1,5 +1,6 @@
 ---
 import Gallery from './Gallery.astro';
+import AwardBadge from './AwardBadge.astro';
 import type { Project } from '../data/work';
 
 interface Props {
@@ -22,6 +23,7 @@ const caseHref = p.caseStudy ? `${base}work/${p.caseStudy}/` : null;
       <span class="num">{num}</span>
       <span class="tag">{p.tag}</span>
     </div>
+    {p.award && <div class="award-row"><AwardBadge {...p.award} /></div>}
     <h3 class="name">{caseHref ? <a href={caseHref}>{p.name}</a> : p.name}</h3>
     <p class="summary">{p.summary}</p>
     <div class="cred">
@@ -89,6 +91,9 @@ const caseHref = p.caseStudy ? `${base}work/${p.caseStudy}/` : null;
     letter-spacing: 0.11em;
     text-transform: uppercase;
     color: var(--ink-soft);
+  }
+  .award-row {
+    margin-top: 12px;
   }
   .name {
     font-family: var(--display);

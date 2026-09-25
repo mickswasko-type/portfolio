@@ -42,6 +42,7 @@ export interface Project {
   link?: { href: string; label: string };
   /** Slug of a full case study page under /work/. */
   caseStudy?: string;
+  award?: { level: string; event: string; category: string };
   slides: Slide[];
   /** Dark stage behind the images (for photography), otherwise paper. */
   stage: 'dark' | 'light';
@@ -59,6 +60,7 @@ export const projects: Project[] = [
       'Acxiom quietly powers some of the world’s best marketing — and in a market fixated on AI, hardly anyone noticed. Park & Battery rebuilt the brand around one rallying cry. My part was carrying it into the field: the sales narrative, the pitch, and the go-to-market content that gave sellers proof to put in front of buyers.',
     credit: 'Acxiom × Park & Battery · Content & sales enablement',
     caseStudy: 'love-the-solve',
+    award: { level: 'Silver', event: '2026 ANA Awards', category: 'Corporate Identity Program' },
     stage: 'dark',
     wide: true,
     slides: [
@@ -74,7 +76,7 @@ export const projects: Project[] = [
     tag: 'Healthcare creative · Thermo Fisher',
     kind: 'Healthcare',
     summary:
-      'An undiagnosed food allergy is a predator hiding in plain sight. So the Park & Battery team made the metaphor literal: sushi as a coiled snake, a cheese board as a shark — a campaign built to stop a scrolling clinician in their tracks. I was one of the contributors behind it.',
+      'An undiagnosed food allergy is a predator hiding in plain sight. So the Park & Battery team made the metaphor literal: sushi as a coiled snake, a cheese board as a shark — a campaign built to stop a scrolling clinician in their tracks. I brought brainstorming, copywriting, and oversight on this project.',
     credit: 'Thermo Fisher × Park & Battery · Contributor',
     caseStudy: 'dangerous-foods',
     link: {
@@ -110,7 +112,7 @@ export const projects: Project[] = [
     tag: 'Thought leadership · Kaiser Permanente',
     kind: 'Healthcare',
     summary:
-      'Nobody trains a manager for the day someone on their team loses everything. This is the playbook for that day — built for Kaiser Permanente on a single idea: long after the details blur, people remember how you made them feel. It covers everything from the first few minutes of a crisis to leading a team back out of one, whether it’s a natural disaster, workplace violence, or significant layoffs.',
+      'Nobody trains a manager for the day someone on their team loses everything. This is the playbook for that day. It was built for Kaiser Permanente on a single idea: long after the details blur, people remember how you made them feel. It covers everything from the first few minutes of a crisis to leading a team back out of one, whether it’s a natural disaster, workplace violence, or significant layoffs.',
     credit: 'Kaiser Permanente · 2025',
     link: {
       href: 'https://business.kaiserpermanente.org/content/dam/kp/ccp/documents/leading-through-disruption-playbook.pdf',
@@ -131,7 +133,7 @@ export const projects: Project[] = [
     tag: 'AI enablement · Park & Battery',
     kind: 'AI & product',
     summary:
-      'A field guide that gets skeptical B2B marketers to actually use AI. We poke holes in the dread first, then hand over real prompts and workflows. The result? Peers who said, “AI can do that now?!”',
+      'A field guide that gets skeptical B2B marketers to actually use AI. We poked holes in the dread first, then handed over real prompts and workflows. The result? Peers who said, “AI can do that now?!”',
     credit: 'Park & Battery · 2025 · Lead writer',
     link: {
       href: 'https://parkandbattery.com/wp-content/uploads/2025/02/2025_B2BMX_AI-for-Marketers_Feb21.pdf',
@@ -146,7 +148,7 @@ export const projects: Project[] = [
     tag: 'Interactive demo · Everette’s Coffee',
     kind: 'AI & product',
     summary:
-      'John, a former colleague, wanted content to keep his coffee roasting blog fresh. After some listening, what he actually needed was more interactive product information for customers and the stores he sells to. I pulled pairing logic straight from his own product notes and had a working prototype by that afternoon.',
+      'John, a former agency colleague that took up coffee roasting, wanted content to keep things fresh. After some listening, what he actually needed was more interactive product information for customers and the stores he sells to. I pulled pairing logic straight from his own product notes and had a working prototype by that afternoon.',
     credit: 'Everette’s Coffee · Concept',
     stage: 'light',
     slides: [
@@ -183,7 +185,7 @@ export const projects: Project[] = [
     tag: 'Personal project · RedEye archive',
     kind: 'Personal',
     summary:
-      'I build personal projects to keep learning how dangerous I can be with the latest models in my hands. Recently, I built a living archive of RedEye so dozens of former colleagues could find their old work again in one place. All of it was solo — from scraping the Internet Archive for old issues to building out special collections.',
+      'I build personal projects to keep learning how dangerous I can be with the latest AI models in my hands. Recently, I built a living archive of RedEye, so dozens of former colleagues could find their old work again in one place. All of it was solo — from scraping the Internet Archive for old issues to building out special collections.',
     credit: 'Personal project · 2,304 issues',
     link: {
       href: 'https://mickswasko-type.github.io/red-paper-box/',

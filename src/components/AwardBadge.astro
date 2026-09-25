@@ -1,0 +1,74 @@
+---
+interface Props {
+  level: string;
+  event: string;
+  category: string;
+  /** 'dark' when the badge sits on the ink background. */
+  tone?: 'light' | 'dark';
+}
+
+const { level, event, category, tone = 'light' } = Astro.props;
+// Unique per instance: a page can show the badge more than once.
+const gid = `silver-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div class:list={['award', tone]}>
+  <svg class="medal" viewBox="0 0 32 40" aria-hidden="true">
+    <defs>
+      <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f4f6f8" />
+        <stop offset="0.5" stop-color="#b9c0c7" />
+        <stop offset="1" stop-color="#8a939c" />
+      </linearGradient>
+    </defs>
+    <path d="M9 0h6l3 12h-6zM17 0h6l-3 12h-6z" fill="#c8341c" />
+    <circle cx="16" cy="25" r="12" fill={`url(#${gid})`} stroke="#6f7881" stroke-width="1.2" />
+    <circle cx="16" cy="25" r="8.5" fill="none" stroke="#fff" stroke-opacity="0.7" stroke-width="1" />
+    <path d="m16 19.5 1.7 3.5 3.8.5-2.8 2.6.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.6 3.8-.5z" fill="#6f7881" />
+  </svg>
+  <span class="words">
+    <span class="top">{level} · {event}</span>
+    <span class="cat">{category}</span>
+  </span>
+</div>
+
+<style>
+  .award {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px 7px 10px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    font-family: var(--display);
+    line-height: 1.15;
+  }
+  .award.dark {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--paper);
+  }
+  .medal {
+    width: 22px;
+    height: 28px;
+    flex: none;
+  }
+  .words {
+    display: flex;
+    flex-direction: column;
+  }
+  .top {
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cat {
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .dark .cat {
+    color: rgba(234, 231, 222, 0.7);
+  }
+</style>

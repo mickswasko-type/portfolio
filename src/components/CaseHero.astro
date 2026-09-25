@@ -27,6 +27,7 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
         <h1><slot /></h1>
         <p class="subtitle">{subtitle}</p>
         <p class="dek">{dek}</p>
+        <slot name="after-dek" />
       </div>
       <div class="cover" data-gallery>
         <button type="button" class="zoomable" data-full={cover.src} data-alt={coverAlt}>
