@@ -35,6 +35,7 @@ export interface Project {
   /** Filter group. */
   kind: 'Healthcare' | 'B2B tech' | 'AI & product' | 'Personal';
   summary: string;
+  /** Grey credit line, always "Client × Agency · My role". */
   credit: string;
   link?: { href: string; label: string };
   /** Slug of a full case study page under /work/. */
@@ -74,7 +75,7 @@ export const projects: Project[] = [
     kind: 'Healthcare',
     summary:
       'An undiagnosed food allergy is a predator hiding in plain sight. So the Park & Battery team made the metaphor literal: sushi as a coiled snake, a cheese board as a shark — a campaign built to stop a scrolling clinician in their tracks. I brought brainstorming, copywriting, and oversight on this project.',
-    credit: 'Thermo Fisher × Park & Battery · Contributor',
+    credit: 'Thermo Fisher × Park & Battery · Brainstorming, copywriting & oversight',
     caseStudy: 'dangerous-foods',
     stage: 'dark',
     slides: [
@@ -91,7 +92,7 @@ export const projects: Project[] = [
     kind: 'AI & product',
     summary:
       'A field guide that gets skeptical B2B marketers to actually use AI. We poked holes in the dread first, then handed over real prompts and workflows. The result? Peers who said, “AI can do that now?!”',
-    credit: 'Park & Battery · 2025 · Lead writer',
+    credit: 'Park & Battery × In-house · Lead writer',
     link: {
       href: 'https://parkandbattery.com/wp-content/uploads/2025/02/2025_B2BMX_AI-for-Marketers_Feb21.pdf',
       label: 'View the guide',
@@ -106,7 +107,7 @@ export const projects: Project[] = [
     kind: 'Healthcare',
     summary:
       'Nobody trains a manager for the day someone on their team loses everything. This is the playbook for that day. It was built for Kaiser Permanente on a single idea: long after the details blur, people remember how you made them feel. It covers everything from the first few minutes of a crisis to leading a team back out of one, whether it’s a natural disaster, workplace violence, or significant layoffs.',
-    credit: 'Kaiser Permanente · 2025',
+    credit: 'Kaiser Permanente × Park & Battery · Content strategy & writing',
     link: {
       href: 'https://business.kaiserpermanente.org/content/dam/kp/ccp/documents/leading-through-disruption-playbook.pdf',
       label: 'View the playbook',
@@ -127,7 +128,7 @@ export const projects: Project[] = [
     kind: 'AI & product',
     summary:
       'John, a former agency colleague that took up coffee roasting, wanted content to keep things fresh. After some listening, what he actually needed was more interactive product information for customers and the stores he sells to. I pulled pairing logic straight from his own product notes and had a working prototype by that afternoon.',
-    credit: 'Everette’s Coffee · Concept',
+    credit: 'Everette’s Coffee × Freelance · Concept & prototype',
     stage: 'light',
     slides: [
       { src: everettes1, alt: 'Pour Over method panel with Sunbean roast pairing' },
@@ -141,7 +142,7 @@ export const projects: Project[] = [
     kind: 'B2B tech',
     summary:
       'A third of developers admit they’ve shipped a buggy game before it was ready. Nobody wanted to say why out loud. I designed the survey and wrote the report that got them talking — 150 developers and 500 gamers, on the pressure, burnout, and harassment behind every rushed launch. Full report, plus a companion infographic for the skimmers.',
-    credit: 'Sauce Labs × Walker Sands · Survey design, lead writer',
+    credit: 'Sauce Labs × Walker Sands · Survey design & lead writer',
     link: {
       href: 'https://drive.google.com/file/d/17fipRrG7-rNsTB4lH_OZ5wY881ASLxwp/view',
       label: 'View the full report',
@@ -163,7 +164,7 @@ export const projects: Project[] = [
     kind: 'Personal',
     summary:
       'I build personal projects to keep learning how dangerous I can be with the latest AI models in my hands. Recently, I built a living archive of RedEye, so dozens of former colleagues could find their old work again in one place. All of it was solo — from scraping the Internet Archive for old issues to building out special collections.',
-    credit: 'Personal project · 2,304 issues',
+    credit: 'RedEye archive × Personal project · Solo build',
     link: {
       href: 'https://mickswasko-type.github.io/red-paper-box/',
       label: 'Visit the archive',
