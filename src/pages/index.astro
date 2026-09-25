@@ -90,16 +90,6 @@ const principles = [
     </div>
   </section>
 
-  <!-- ========== NUMBERS ========== -->
-  <section class="numbers" aria-label="By the numbers">
-    <div class="wrap numbers-grid">
-      <div class="reveal"><span class="big">17+</span><span class="lab">years across newsrooms, nonprofits, and agencies</span></div>
-      <div class="reveal"><span class="big">650</span><span class="lab">developers and gamers surveyed for a single report</span></div>
-      <div class="reveal"><span class="big">1,800</span><span class="lab">franchise owners walked through a system migration</span></div>
-      <div class="reveal"><span class="big">2,304</span><span class="lab">RedEye issues archived, solo, for fun</span></div>
-    </div>
-  </section>
-
   <!-- ========== WORK ========== -->
   <section class="work" id="work">
     <div class="wrap">
@@ -465,49 +455,6 @@ const principles = [
     font-weight: 700;
     font-size: clamp(16px, 1.9vw, 22px);
     letter-spacing: -0.015em;
-  }
-
-  /* ---------- Numbers ---------- */
-  .numbers {
-    padding: clamp(40px, 6vw, 72px) 0;
-  }
-  .numbers-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .numbers-grid > div {
-    padding: 4px 24px;
-    border-left: 1px solid var(--line);
-  }
-  .numbers-grid > div:first-child {
-    border-left: none;
-    padding-left: 0;
-  }
-  .numbers-grid > div:nth-child(2) {
-    transition-delay: 0.08s;
-  }
-  .numbers-grid > div:nth-child(3) {
-    transition-delay: 0.16s;
-  }
-  .numbers-grid > div:nth-child(4) {
-    transition-delay: 0.24s;
-  }
-  .big {
-    display: block;
-    font-family: var(--display);
-    font-weight: 800;
-    font-size: clamp(40px, 5.4vw, 68px);
-    line-height: 1;
-    letter-spacing: -0.04em;
-    color: var(--accent);
-  }
-  .lab {
-    display: block;
-    margin-top: 10px;
-    font-size: 16px;
-    line-height: 1.35;
-    color: var(--ink-soft);
-    max-width: 22ch;
   }
 
   /* ---------- Work ---------- */
@@ -986,14 +933,6 @@ const principles = [
     }
     .grid {
       grid-template-columns: 1fr;
-    }
-    .numbers-grid {
-      grid-template-columns: repeat(2, 1fr);
-      row-gap: 28px;
-    }
-    .numbers-grid > div:nth-child(3) {
-      border-left: none;
-      padding-left: 0;
     }
     .role {
       grid-template-columns: 1fr;
