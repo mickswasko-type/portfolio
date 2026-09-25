@@ -1,0 +1,150 @@
+---
+import Gallery from './Gallery.astro';
+import type { Project } from '../data/work';
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project: p, index } = Astro.props;
+const num = String(index).padStart(2, '0');
+---
+
+<article class:list={['card', 'reveal', { wide: p.wide }]} id={p.id} data-kind={p.kind} data-wide={String(!!p.wide)}>
+  <div class="viz">
+    <Gallery slides={p.slides} stage={p.stage} width={p.wide ? 680 : 560} label={`${p.name} images`} />
+  </div>
+  <div class="body">
+    <div class="top">
+      <span class="num">{num}</span>
+      <span class="tag">{p.tag}</span>
+    </div>
+    <h3 class="name">{p.name}</h3>
+    <p class="summary">{p.summary}</p>
+    <div class="cred">
+      <span>{p.credit}</span>
+      {
+        p.link && (
+          <a class="arrow-link" href={p.link.href} target="_blank" rel="noopener">
+            {p.link.label} <span aria-hidden="true">↗</span>
+          </a>
+        )
+      }
+    </div>
+  </div>
+</article>
+
+<style>
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    transition:
+      box-shadow 0.35s var(--ease),
+      transform 0.35s var(--ease),
+      opacity 0.8s var(--ease);
+  }
+  .card:hover {
+    box-shadow: 0 24px 50px -28px rgba(26, 22, 19, 0.45);
+  }
+  .viz {
+    aspect-ratio: 16 / 10;
+    border-bottom: 1px solid var(--line);
+  }
+  .body {
+    padding: 22px 26px 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .top {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .num {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .tag {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(22px, 2.4vw, 27px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 10px 0 12px;
+    text-wrap: balance;
+  }
+  .summary {
+    font-size: 17px;
+    line-height: 1.5;
+    flex: 1;
+  }
+  .cred {
+    margin-top: 18px;
+    padding-top: 12px;
+    border-top: 1px dotted var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px 16px;
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+  }
+  .cred .arrow-link {
+    font-size: 13px;
+  }
+
+  .card.wide {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+  }
+  .card.wide .viz {
+    aspect-ratio: auto;
+    min-height: 380px;
+    border-bottom: none;
+    border-right: 1px solid var(--line);
+  }
+  .card.wide .body {
+    justify-content: center;
+    padding: 36px 40px;
+  }
+  .card.wide .name {
+    font-size: clamp(26px, 3vw, 36px);
+  }
+  .card.wide .summary {
+    flex: 0;
+  }
+
+  @media (max-width: 860px) {
+    .card.wide {
+      display: flex;
+    }
+    .card.wide .viz {
+      aspect-ratio: 16 / 10;
+      min-height: 0;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .card.wide .body {
+      padding: 22px 26px;
+    }
+  }
+</style>

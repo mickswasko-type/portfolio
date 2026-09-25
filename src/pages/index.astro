@@ -1,0 +1,962 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/work';
+import { career, capabilities, industries } from '../data/career';
+import { siteConfig } from '../../site.config';
+
+import speakUpCover from '../assets/work/speak-up-cover.jpg';
+import dangerousFoods from '../assets/work/dangerous-foods-2.jpg';
+import redeye from '../assets/work/redeye-1.png';
+import kaiser from '../assets/work/kaiser-1.jpg';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const kinds = [...new Set(projects.map((p) => p.kind))];
+
+const principles = [
+  {
+    n: '01',
+    head: 'Start with an open ear.',
+    body: 'Good content starts with curiosity and empathy. Before the messaging framework or the campaign, I listen for what the audience actually needs — which isn’t always what the brief asked for.',
+  },
+  {
+    n: '02',
+    head: 'Get it right.',
+    body: 'Reporter’s instincts, managing editor’s eye. Clinical claims, survey data, and regulated copy get checked like they’re running on the front page tomorrow.',
+  },
+  {
+    n: '03',
+    head: 'Make it move something.',
+    body: 'Content is tied to buyer journeys, pipeline, and brand authority — mapped by buying stage, built for the whole committee, and measured against goals.',
+  },
+  {
+    n: '04',
+    head: 'Let AI do the heavy lifting.',
+    body: 'I was among the first at Walker Sands to put generative AI into production content work. It chews through the spec; I spend the saved hours on what matters — voice, depth, and making it fun.',
+  },
+];
+---
+
+<Base>
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <div class="dateline rise">
+          <span>Content Strategy</span><span>Storytelling</span><span>AI-Fluent</span>
+        </div>
+        <h1 class="rise" style="--d: 0.08s">
+          Complex topics, <em>made&nbsp;human.</em>
+        </h1>
+        <p class="lede rise" style="--d: 0.16s">
+          I’m Mick Swasko — a former Chicago Tribune reporter turned content strategist. For nearly two decades I’ve
+          turned clinical research, enterprise tech, and hard data into stories people actually read.
+        </p>
+        <div class="cta rise" style="--d: 0.24s">
+          <a class="btn solid" href="#work">See the work <span aria-hidden="true">↓</span></a>
+          <a class="btn ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+
+      <a class="collage rise" style="--d: 0.2s" href="#work" aria-label="Jump to selected work">
+        <figure class="c c1">
+          <Image src={speakUpCover} alt="" widths={[300, 520]} sizes="260px" format="webp" loading="eager" />
+        </figure>
+        <figure class="c c2">
+          <Image src={dangerousFoods} alt="" widths={[320, 600]} sizes="300px" format="webp" loading="eager" />
+        </figure>
+        <figure class="c c3">
+          <Image src={redeye} alt="" widths={[400, 800]} sizes="380px" format="webp" loading="eager" />
+        </figure>
+        <figure class="c c4">
+          <Image src={kaiser} alt="" widths={[360, 700]} sizes="340px" format="webp" loading="eager" />
+        </figure>
+      </a>
+    </div>
+
+    <div class="wrap">
+      <div class="ledger rise" style="--d: 0.32s">
+        <div class="ledger-label">From newsroom to boardroom</div>
+        <ul>
+          <li>Chicago Tribune</li>
+          <li>Shedd Aquarium</li>
+          <li>1871</li>
+          <li>Walker Sands</li>
+          <li>Park &amp; Battery</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== NUMBERS ========== -->
+  <section class="numbers" aria-label="By the numbers">
+    <div class="wrap numbers-grid">
+      <div class="reveal"><span class="big">17+</span><span class="lab">years across newsrooms, nonprofits, and agencies</span></div>
+      <div class="reveal"><span class="big">650</span><span class="lab">developers and gamers surveyed for a single report</span></div>
+      <div class="reveal"><span class="big">1,800</span><span class="lab">franchise owners walked through a system migration</span></div>
+      <div class="reveal"><span class="big">2,304</span><span class="lab">RedEye issues archived, solo, for fun</span></div>
+    </div>
+  </section>
+
+  <!-- ========== WORK ========== -->
+  <section class="work" id="work">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="kicker">Selected work</div>
+          <h2><em>Bold</em> ideas and <em>big</em> swings.</h2>
+        </div>
+        <p class="aside">Deliverables against the odds — for healthcare systems, B2B tech brands, and a few people I like.</p>
+      </div>
+
+      <!-- Lead story -->
+      <article class="lead reveal" id="speak-up">
+        <a class="lead-img" href={`${base}work/speak-up/`} tabindex="-1" aria-hidden="true">
+          <Image src={speakUpCover} alt="" widths={[400, 700, 1000]} sizes="(max-width: 860px) 100vw, 420px" format="webp" />
+        </a>
+        <div class="lead-body">
+          <div class="lead-kicker"><span>Case study</span><span>Ensono × Walker Sands · 2019–2025</span></div>
+          <h3><a href={`${base}work/speak-up/`}>Ensono’s <em>“Speak Up”</em></a></h3>
+          <p class="lead-dek">
+            One tweet about an empty women’s restroom at a tech conference became a five-edition research franchise on
+            women in tech — and a thought-leadership engine the press trusted for six years.
+          </p>
+          <dl class="lead-stats">
+            <div><dt>140+</dt><dd>pieces of earned coverage</dd></div>
+            <div><dt>5</dt><dd>editions, three continents</dd></div>
+            <div><dt>1,500</dt><dd>women surveyed at its peak</dd></div>
+          </dl>
+          <p class="lead-pubs">
+            The Wall Street Journal <span>/</span> Forbes <span>/</span> Entrepreneur <span>/</span> Fast Company
+          </p>
+          <a class="btn solid light" href={`${base}work/speak-up/`}>Read the case study <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <div class="filters reveal" role="group" aria-label="Filter work">
+        <button type="button" data-filter="all" aria-pressed="true">All work</button>
+        {kinds.map((k) => <button type="button" data-filter={k} aria-pressed="false">{k}</button>)}
+      </div>
+
+      <div class="grid" data-grid>
+        {projects.map((p, i) => <ProjectCard project={p} index={i + 2} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== APPROACH ========== -->
+  <section class="approach" id="approach">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="kicker">Approach</div>
+          <h2>A reporter’s instincts. <em>A strategist’s</em> brief.</h2>
+        </div>
+        <p class="aside">
+          Storied newspapers, historic aquariums, startup incubators, regulated health systems. The assignments vary
+          wildly. The through-line doesn’t.
+        </p>
+      </div>
+      <ol class="principles">
+        {
+          principles.map((p) => (
+            <li class="reveal">
+              <span class="pn">{p.n}</span>
+              <h3>{p.head}</h3>
+              <p>{p.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="caps">
+        {
+          capabilities.map((c) => (
+            <div class="cap reveal">
+              <h3>{c.head}</h3>
+              <ul>
+                {c.items.map((i) => (
+                  <li>{i}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="industries reveal">
+        <span class="ind-label">Industries</span>
+        <ul>{industries.map((i) => <li>{i}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EXPERIENCE ========== -->
+  <section class="experience" id="experience">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <div class="kicker">Experience</div>
+          <h2>From <em>newsroom</em> to boardroom.</h2>
+        </div>
+        <p class="aside">Illinois State University — B.S. Journalism, minor in Political Science.</p>
+      </div>
+
+      <ol class="roles">
+        {
+          career.map((r) => (
+            <li class="role reveal">
+              <div class="r-years">{r.years}</div>
+              <div class="r-main">
+                <h3>
+                  {r.org}
+                  <span class="r-title">{r.title}</span>
+                </h3>
+                <p class="r-sum">{r.summary}</p>
+                {r.points.length > 0 && (
+                  <ul class="r-points">
+                    {r.points.map((pt) => (
+                      <li>{pt}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <div class="r-dates">{r.dates}</div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section class="contact" id="contact">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <div class="kicker">Contact</div>
+        <h2>Got a hard story to&nbsp;tell? <em>Let’s talk.</em></h2>
+      </div>
+      <div class="contact-side reveal">
+        <p>
+          I’m open to content strategy and editorial leadership roles. Full case studies and more samples are
+          available on request.
+        </p>
+        <a class="mail" href={`mailto:${siteConfig.email}`}>{siteConfig.email} <span aria-hidden="true">→</span></a>
+        {
+          siteConfig.linkedin && (
+            <a class="arrow-link" href={siteConfig.linkedin} target="_blank" rel="noopener">
+              LinkedIn <span aria-hidden="true">↗</span>
+            </a>
+          )
+        }
+        <span class="loc">Based in {siteConfig.location} · Chicago area</span>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const grid = document.querySelector<HTMLElement>('[data-grid]')!;
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  buttons.forEach((b) =>
+    b.addEventListener('click', () => {
+      const f = b.dataset.filter!;
+      buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      grid.querySelectorAll<HTMLElement>('.card').forEach((c) => {
+        const show = f === 'all' || c.dataset.kind === f;
+        c.hidden = !show;
+        // Filtered views are short, so every card gets the side-by-side layout.
+        c.classList.toggle('wide', c.dataset.wide === 'true' || f !== 'all');
+      });
+    }),
+  );
+</script>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: clamp(40px, 7vw, 88px) 0 0;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+  }
+  .dateline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 0;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .dateline span + span::before {
+    content: '·';
+    margin: 0 10px;
+    color: var(--ink-soft);
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(52px, 9vw, 118px);
+    line-height: 0.9;
+    letter-spacing: -0.045em;
+    margin: 20px 0 26px;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .lede {
+    font-size: clamp(19px, 1.9vw, 23px);
+    line-height: 1.45;
+    max-width: 38ch;
+    color: var(--ink);
+  }
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .rise {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: rise 0.9s var(--ease) forwards;
+    animation-delay: var(--d, 0s);
+  }
+  @keyframes rise {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .collage {
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1.02;
+    width: 100%;
+    max-width: 520px;
+    justify-self: end;
+  }
+  .c {
+    position: absolute;
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: 0 22px 44px -22px rgba(26, 22, 19, 0.55);
+    overflow: hidden;
+    transition: transform 0.6s var(--ease);
+  }
+  .c :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .c1 {
+    width: 48%;
+    aspect-ratio: 1224 / 1584;
+    left: 2%;
+    top: 4%;
+    transform: rotate(-5deg);
+    z-index: 2;
+  }
+  .c2 {
+    width: 52%;
+    aspect-ratio: 1;
+    right: 0;
+    top: 0;
+    transform: rotate(4deg);
+    z-index: 1;
+  }
+  .c3 {
+    width: 66%;
+    aspect-ratio: 1718 / 670;
+    right: 0;
+    bottom: 26%;
+    transform: rotate(-2deg);
+    z-index: 3;
+  }
+  .c4 {
+    width: 56%;
+    aspect-ratio: 972 / 572;
+    left: 8%;
+    bottom: 0;
+    transform: rotate(3deg);
+    z-index: 4;
+  }
+  .collage:hover .c1 {
+    transform: rotate(-8deg) translate(-8px, -6px);
+  }
+  .collage:hover .c2 {
+    transform: rotate(7deg) translate(8px, -8px);
+  }
+  .collage:hover .c3 {
+    transform: rotate(-1deg) translate(10px, 4px);
+  }
+  .collage:hover .c4 {
+    transform: rotate(5deg) translate(-8px, 8px);
+  }
+
+  .ledger {
+    margin-top: clamp(48px, 7vw, 84px);
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 24px;
+    padding: 16px 0;
+  }
+  .ledger-label {
+    font-family: var(--body);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .ledger ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 20px;
+  }
+  .ledger li {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(16px, 1.9vw, 22px);
+    letter-spacing: -0.015em;
+  }
+
+  /* ---------- Numbers ---------- */
+  .numbers {
+    padding: clamp(40px, 6vw, 72px) 0;
+  }
+  .numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .numbers-grid > div {
+    padding: 4px 24px;
+    border-left: 1px solid var(--line);
+  }
+  .numbers-grid > div:first-child {
+    border-left: none;
+    padding-left: 0;
+  }
+  .numbers-grid > div:nth-child(2) {
+    transition-delay: 0.08s;
+  }
+  .numbers-grid > div:nth-child(3) {
+    transition-delay: 0.16s;
+  }
+  .numbers-grid > div:nth-child(4) {
+    transition-delay: 0.24s;
+  }
+  .big {
+    display: block;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(40px, 5.4vw, 68px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+  }
+  .lab {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 1.35;
+    color: var(--ink-soft);
+    max-width: 22ch;
+  }
+
+  /* ---------- Work ---------- */
+  .work {
+    padding: clamp(40px, 6vw, 72px) 0 clamp(56px, 8vw, 104px);
+  }
+  .lead {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    background: var(--ink);
+    color: var(--paper);
+    margin-bottom: 40px;
+    overflow: hidden;
+  }
+  .lead-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2a2420;
+    padding: clamp(28px, 4vw, 56px);
+    overflow: hidden;
+  }
+  .lead-img :global(img) {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+    transform: rotate(-2deg);
+    transition: transform 0.7s var(--ease);
+  }
+  .lead:hover .lead-img :global(img) {
+    transform: rotate(0deg) scale(1.02);
+  }
+  .lead-body {
+    padding: clamp(28px, 4.5vw, 56px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .lead-kicker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #e8a38f;
+  }
+  .lead-kicker span:first-child {
+    background: var(--accent);
+    color: #fff;
+    padding: 2px 8px;
+  }
+  .lead h3 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(40px, 4.6vw, 62px);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    margin: 16px 0 16px;
+  }
+  .lead h3 a {
+    text-decoration: none;
+  }
+  .lead h3 em {
+    white-space: nowrap;
+    font-style: normal;
+    color: var(--accent-soft);
+  }
+  .lead-dek {
+    font-size: clamp(18px, 1.8vw, 21px);
+    line-height: 1.45;
+    opacity: 0.92;
+    max-width: 44ch;
+  }
+  .lead-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 28px 0 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  .lead-stats div {
+    padding: 16px 12px 16px 0;
+  }
+  .lead-stats dt {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(28px, 3.4vw, 40px);
+    line-height: 1;
+    color: var(--accent-soft);
+    letter-spacing: -0.02em;
+  }
+  .lead-stats dd {
+    font-size: 14.5px;
+    line-height: 1.3;
+    margin-top: 6px;
+    opacity: 0.8;
+  }
+  .lead-pubs {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 26px;
+  }
+  .lead-pubs span {
+    color: var(--accent);
+    padding: 0 4px;
+    font-weight: 400;
+  }
+  .btn.light {
+    align-self: flex-start;
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--paper);
+  }
+  .btn.light:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .filters button {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 8px 14px;
+    border: 1.5px solid var(--ink);
+    background: transparent;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      color 0.2s;
+  }
+  .filters button:hover {
+    background: var(--panel);
+  }
+  .filters button[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  /* ---------- Approach ---------- */
+  .approach {
+    background: var(--panel);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: clamp(56px, 8vw, 104px) 0;
+  }
+  .principles {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 40px;
+  }
+  .principles li {
+    padding: 0 24px;
+    border-left: 1px solid var(--line);
+  }
+  .principles li:first-child {
+    padding-left: 0;
+    border-left: none;
+  }
+  .pn {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 13px;
+    color: var(--accent);
+  }
+  .principles h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 10px 0 10px;
+  }
+  .principles p {
+    font-size: 16.5px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  .caps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    padding: 40px 0 36px;
+  }
+  .cap h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 6px;
+  }
+  .cap ul {
+    list-style: none;
+  }
+  .cap li {
+    font-size: 16px;
+    line-height: 1.35;
+    padding: 9px 0;
+    border-bottom: 1px dotted var(--line);
+  }
+  .industries {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    align-items: baseline;
+  }
+  .ind-label {
+    font-family: var(--body);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+  .industries ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .industries li {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 5px 11px;
+    border: 1px solid var(--line);
+    background: var(--card);
+  }
+
+  /* ---------- Experience ---------- */
+  .experience {
+    padding: clamp(56px, 8vw, 104px) 0;
+  }
+  .roles {
+    list-style: none;
+  }
+  .role {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr) 190px;
+    gap: 28px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .role:first-child {
+    padding-top: 4px;
+  }
+  .r-years {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    line-height: 1.1;
+  }
+  .role h3 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(24px, 2.8vw, 32px);
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+  }
+  .r-title {
+    display: block;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+  .r-sum {
+    margin-top: 12px;
+    font-size: 17.5px;
+    line-height: 1.5;
+    max-width: 62ch;
+  }
+  .r-points {
+    list-style: none;
+    margin-top: 12px;
+    max-width: 62ch;
+  }
+  .r-points li {
+    font-size: 16px;
+    line-height: 1.45;
+    padding: 5px 0 5px 20px;
+    position: relative;
+    color: var(--ink);
+  }
+  .r-points li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 15px;
+    width: 8px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .r-dates {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-align: right;
+    padding-top: 6px;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact {
+    background: var(--accent);
+    color: #fff;
+    padding: clamp(64px, 9vw, 120px) 0;
+  }
+  .contact .kicker {
+    color: #fff;
+    opacity: 0.8;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(32px, 5vw, 72px);
+    align-items: end;
+  }
+  .contact h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(44px, 7vw, 96px);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    margin-top: 14px;
+  }
+  .contact h2 em {
+    font-style: normal;
+    color: var(--ink);
+  }
+  .contact-side {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .contact-side p {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  .mail {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(18px, 2vw, 22px);
+    text-decoration: none;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 20px;
+    transition:
+      background 0.2s,
+      color 0.2s;
+    overflow-wrap: anywhere;
+  }
+  .mail:hover {
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .contact .arrow-link {
+    color: #fff;
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+  }
+  .loc {
+    font-family: var(--display);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    opacity: 0.85;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1000px) {
+    .principles,
+    .caps {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .principles {
+      row-gap: 32px;
+    }
+    .principles li:nth-child(3) {
+      padding-left: 0;
+      border-left: none;
+    }
+  }
+  @media (max-width: 860px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .collage {
+      justify-self: center;
+      max-width: 440px;
+    }
+    .lead {
+      grid-template-columns: 1fr;
+    }
+    .lead-img :global(img) {
+      width: auto;
+      max-height: 340px;
+    }
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    .numbers-grid {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 28px;
+    }
+    .numbers-grid > div:nth-child(3) {
+      border-left: none;
+      padding-left: 0;
+    }
+    .role {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .r-dates {
+      text-align: left;
+      order: -1;
+      padding: 0;
+      display: none;
+    }
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+    .ledger {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .ledger ul {
+      justify-content: flex-start;
+    }
+  }
+  @media (max-width: 560px) {
+    .dateline {
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+    }
+    .dateline span + span::before {
+      margin: 0 7px;
+    }
+    .principles,
+    .caps {
+      grid-template-columns: 1fr;
+    }
+    .principles li {
+      padding: 0;
+      border-left: none;
+    }
+    .industries {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .lead-stats {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .lead-stats dd {
+      font-size: 13px;
+    }
+  }
+</style>

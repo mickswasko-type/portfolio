@@ -1,0 +1,259 @@
+---
+import { Image, getImage } from 'astro:assets';
+import type { Slide } from '../data/work';
+
+interface Props {
+  slides: Slide[];
+  stage: 'dark' | 'light';
+  /** Pixel width the gallery renders at on a wide screen, for `sizes`. */
+  width: number;
+  label: string;
+  fit?: 'contain' | 'cover';
+  eager?: boolean;
+}
+
+const { slides, stage, width, label, fit = 'contain', eager = false } = Astro.props;
+
+// Full-size copies for the lightbox, capped so a phone never pulls a 2,000px PNG.
+const full = await Promise.all(
+  slides.map((s) => getImage({ src: s.src, width: Math.min(s.src.width, 1800), format: 'webp' })),
+);
+const many = slides.length > 1;
+const widthsFor = (w: number) => [480, 800, 1200, 1600].filter((x) => x < w).concat(w <= 1600 ? [w] : []);
+---
+
+<div
+  class:list={['gallery', `stage-${stage}`, `fit-${fit}`]}
+  data-gallery
+  data-carousel={many ? '' : undefined}
+  data-index="0"
+  role={many ? 'region' : undefined}
+  aria-roledescription={many ? 'carousel' : undefined}
+  aria-label={label}
+  tabindex={many ? 0 : undefined}
+>
+  {
+    slides.map((s, i) => (
+      <button
+        type="button"
+        class:list={['slide', { active: i === 0 }]}
+        data-slide
+        data-full={full[i].src}
+        data-alt={s.alt}
+        aria-hidden={many ? String(i !== 0) : undefined}
+        aria-label={`Enlarge: ${s.alt}`}
+      >
+        <Image
+          src={s.src}
+          alt={s.alt}
+          widths={widthsFor(s.src.width)}
+          sizes={`(max-width: 760px) 100vw, ${width}px`}
+          format="webp"
+          loading={eager ? 'eager' : 'lazy'}
+        />
+      </button>
+    ))
+  }
+  <span class="zoom" aria-hidden="true">
+    <svg viewBox="0 0 16 16" width="12" height="12"
+      ><path d="M9.5 1.5h5v5M14.5 1.5 9 7M6.5 14.5h-5v-5M1.5 14.5 7 9" fill="none" stroke="currentColor" stroke-width="1.6"
+      ></path></svg
+    >
+  </span>
+  {
+    many && (
+      <>
+        <span class="count" data-count>
+          1 / {slides.length}
+        </span>
+        <button type="button" class="nav prev" data-step="-1" aria-label="Previous image">
+          ‹
+        </button>
+        <button type="button" class="nav next" data-step="1" aria-label="Next image">
+          ›
+        </button>
+        <div class="dots">
+          {slides.map((_, i) => (
+            <button type="button" class="dot" data-dot={i} aria-current={String(i === 0)} aria-label={`Image ${i + 1}`} />
+          ))}
+        </div>
+      </>
+    )
+  }
+</div>
+
+<style>
+  .gallery {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .stage-dark {
+    background: var(--night);
+  }
+  .stage-light {
+    background: var(--panel);
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background: none;
+    padding: 0;
+    cursor: zoom-in;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.5s ease,
+      visibility 0.5s;
+  }
+  .slide.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .slide :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.7s var(--ease);
+  }
+  .fit-cover .slide :global(img) {
+    object-fit: cover;
+  }
+  .stage-light.fit-contain .slide {
+    inset: 14px;
+  }
+  .gallery:hover .slide.active :global(img) {
+    transform: scale(1.025);
+  }
+
+  .zoom {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 3;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(26, 22, 19, 0.72);
+    color: #fff;
+    opacity: 0;
+    transform: scale(0.85);
+    transition:
+      opacity 0.25s,
+      transform 0.25s var(--ease);
+    pointer-events: none;
+  }
+  .gallery:hover .zoom {
+    opacity: 1;
+    transform: none;
+  }
+
+  .count {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 3;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    color: #fff;
+    background: rgba(26, 22, 19, 0.72);
+    padding: 4px 8px;
+    border-radius: 20px;
+  }
+  .nav {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(26, 22, 19, 0.82);
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    padding-bottom: 3px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transform: translateY(-50%) scale(0.9);
+    transition:
+      opacity 0.25s,
+      transform 0.25s var(--ease),
+      background 0.2s;
+  }
+  .stage-dark .nav {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--ink);
+  }
+  .nav:hover {
+    background: var(--accent) !important;
+    color: #fff !important;
+  }
+  .gallery:hover .nav,
+  .gallery:focus-within .nav {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+  .prev {
+    left: 10px;
+  }
+  .next {
+    right: 10px;
+  }
+  @media (hover: none) {
+    .nav {
+      opacity: 1;
+      transform: translateY(-50%);
+    }
+  }
+
+  .dots {
+    position: absolute;
+    bottom: 8px;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+  }
+  .dot {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+  .dot::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(26, 22, 19, 0.28);
+    transition:
+      width 0.25s var(--ease),
+      background 0.2s;
+  }
+  .dot[aria-current='true']::before {
+    width: 18px;
+    border-radius: 4px;
+    background: var(--ink);
+  }
+  .stage-dark .dot::before {
+    background: rgba(255, 255, 255, 0.45);
+  }
+  .stage-dark .dot[aria-current='true']::before {
+    background: #fff;
+  }
+</style>

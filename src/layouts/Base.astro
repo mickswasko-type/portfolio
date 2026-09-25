@@ -1,0 +1,423 @@
+---
+import '../styles/global.css';
+import { siteConfig } from '../../site.config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Where the "Work" nav link should point, relative to the home page. */
+  current?: 'home' | 'case-study';
+}
+
+const { title, description = siteConfig.description, current = 'home' } = Astro.props;
+const pageTitle = title ? `${title} — ${siteConfig.name}` : siteConfig.title;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const home = current === 'home' ? '' : base;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <meta name="theme-color" content="#EAE7DE" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="site-header" data-header>
+      <div class="wrap bar">
+        <a class="wordmark" href={base} aria-label="Mick Swasko, home">
+          Mick Swasko<span class="dot" aria-hidden="true"></span>
+        </a>
+        <nav aria-label="Primary">
+          <a href={`${home}#work`}>Work</a>
+          <a href={`${home}#approach`} class="hide-sm">Approach</a>
+          <a href={`${home}#experience`}>Experience</a>
+          <a href={`${home}#contact`} class="nav-cta">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="foot-top">
+          <a class="foot-name" href={base}>Mick Swasko</a>
+          <a class="foot-mail" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+        </div>
+        <div class="foot-bottom">
+          <span>Content strategy &amp; storytelling · {siteConfig.location}</span>
+          <span>© {year} Mick Swasko</span>
+          <a href="#main">Back to top ↑</a>
+        </div>
+      </div>
+    </footer>
+
+    <dialog class="lightbox" data-lightbox aria-label="Image viewer">
+      <button class="lb-close" data-lb-close aria-label="Close">×</button>
+      <figure>
+        <img data-lb-img alt="" />
+        <figcaption data-lb-cap></figcaption>
+      </figure>
+      <button class="lb-nav lb-prev" data-lb-step="-1" aria-label="Previous image">‹</button>
+      <button class="lb-nav lb-next" data-lb-step="1" aria-label="Next image">›</button>
+    </dialog>
+
+    <script>
+      // Header gains a rule once the page scrolls.
+      const header = document.querySelector<HTMLElement>('[data-header]');
+      const onScroll = () => header?.classList.toggle('scrolled', window.scrollY > 8);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // Reveal on scroll.
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add('in');
+              io.unobserve(e.target);
+            }
+          }
+        },
+        { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+      );
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+      // Carousels: one delegated handler for every carousel on the page.
+      function go(car: HTMLElement, n: number) {
+        const slides = car.querySelectorAll<HTMLElement>('[data-slide]');
+        const dots = car.querySelectorAll<HTMLElement>('[data-dot]');
+        const count = car.querySelector('[data-count]');
+        const i = (n + slides.length) % slides.length;
+        slides.forEach((s, k) => {
+          s.classList.toggle('active', k === i);
+          s.setAttribute('aria-hidden', String(k !== i));
+        });
+        dots.forEach((d, k) => d.setAttribute('aria-current', String(k === i)));
+        car.dataset.index = String(i);
+        if (count) count.textContent = `${i + 1} / ${slides.length}`;
+      }
+
+      // Lightbox.
+      const lb = document.querySelector<HTMLDialogElement>('[data-lightbox]')!;
+      const lbImg = lb.querySelector<HTMLImageElement>('[data-lb-img]')!;
+      const lbCap = lb.querySelector<HTMLElement>('[data-lb-cap]')!;
+      let group: HTMLElement[] = [];
+      let at = 0;
+
+      function show(i: number) {
+        at = (i + group.length) % group.length;
+        const el = group[at];
+        lbImg.src = el.dataset.full!;
+        lbImg.alt = el.dataset.alt ?? '';
+        lbCap.textContent = el.dataset.alt ?? '';
+        lb.classList.toggle('single', group.length < 2);
+      }
+
+      function open(el: HTMLElement) {
+        const set = el.closest('[data-gallery]');
+        group = set ? [...set.querySelectorAll<HTMLElement>('[data-full]')] : [el];
+        show(group.indexOf(el));
+        lb.showModal();
+        document.body.style.overflow = 'hidden';
+      }
+
+      lb.addEventListener('close', () => {
+        document.body.style.overflow = '';
+        const car = group[at]?.closest<HTMLElement>('[data-carousel]');
+        if (car) go(car, at);
+      });
+
+      document.addEventListener('click', (ev) => {
+        const t = ev.target as HTMLElement;
+        const nav = t.closest<HTMLElement>('[data-step]');
+        const dot = t.closest<HTMLElement>('[data-dot]');
+        const car = t.closest<HTMLElement>('[data-carousel]');
+        if (car && nav) return go(car, Number(car.dataset.index ?? 0) + Number(nav.dataset.step));
+        if (car && dot) return go(car, Number(dot.dataset.dot));
+
+        const zoom = t.closest<HTMLElement>('[data-full]');
+        if (zoom) return open(zoom);
+
+        const step = t.closest<HTMLElement>('[data-lb-step]');
+        if (step) return show(at + Number(step.dataset.lbStep));
+        if (t.closest('[data-lb-close]') || t === lb) lb.close();
+      });
+
+      document.addEventListener('keydown', (ev) => {
+        if (lb.open) {
+          if (ev.key === 'ArrowRight') show(at + 1);
+          if (ev.key === 'ArrowLeft') show(at - 1);
+          return;
+        }
+        const car = (ev.target as HTMLElement).closest?.<HTMLElement>('[data-carousel]');
+        if (!car) return;
+        if (ev.key === 'ArrowRight') go(car, Number(car.dataset.index ?? 0) + 1);
+        if (ev.key === 'ArrowLeft') go(car, Number(car.dataset.index ?? 0) - 1);
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(234, 231, 222, 0.86);
+    backdrop-filter: saturate(1.4) blur(12px);
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s;
+  }
+  .site-header.scrolled {
+    border-bottom-color: var(--line);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    height: 64px;
+  }
+  .wordmark {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: baseline;
+  }
+  .wordmark .dot {
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-left: 3px;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 2.6vw, 30px);
+  }
+  nav a {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--ink);
+    position: relative;
+  }
+  nav a:not(.nav-cta)::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s var(--ease);
+  }
+  nav a:hover::after {
+    transform: scaleX(1);
+  }
+  nav .nav-cta {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 8px 14px;
+    transition: background 0.2s;
+  }
+  nav .nav-cta:hover {
+    background: var(--accent);
+  }
+
+  .site-footer {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 56px 0 28px;
+  }
+  .foot-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  }
+  .foot-name {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(32px, 6vw, 64px);
+    letter-spacing: -0.035em;
+    line-height: 1;
+    text-decoration: none;
+  }
+  .foot-mail {
+    font-family: var(--body);
+    font-style: italic;
+    font-size: clamp(18px, 2.2vw, 22px);
+    color: var(--accent-soft);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(240, 181, 164, 0.4);
+  }
+  .foot-mail:hover {
+    border-bottom-color: var(--accent-soft);
+  }
+  .foot-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px 24px;
+    padding-top: 20px;
+    font-family: var(--display);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    opacity: 0.7;
+  }
+  .foot-bottom a {
+    text-decoration: none;
+  }
+
+  .lightbox {
+    border: 0;
+    padding: 0;
+    max-width: none;
+    max-height: none;
+    width: 100vw;
+    height: 100dvh;
+    background: rgba(21, 17, 14, 0.94);
+    color: var(--paper);
+  }
+  .lightbox[open] {
+    display: grid;
+    place-items: center;
+    animation: lb-in 0.25s var(--ease);
+  }
+  .lightbox::backdrop {
+    background: transparent;
+  }
+  @keyframes lb-in {
+    from {
+      opacity: 0;
+    }
+  }
+  .lightbox figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 64px 72px 28px;
+    max-width: 100%;
+    max-height: 100%;
+    pointer-events: none;
+  }
+  .lightbox img {
+    max-width: min(1600px, 100%);
+    max-height: calc(100dvh - 150px);
+    width: auto;
+    object-fit: contain;
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+    pointer-events: auto;
+  }
+  .lightbox figcaption {
+    font-style: italic;
+    font-size: 16px;
+    opacity: 0.75;
+    text-align: center;
+    max-width: 60ch;
+  }
+  .lb-close,
+  .lb-nav {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--paper);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background 0.2s;
+  }
+  .lb-close:hover,
+  .lb-nav:hover {
+    background: var(--accent);
+  }
+  .lb-close {
+    top: 16px;
+    right: 16px;
+  }
+  .lb-nav {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .lb-prev {
+    left: 14px;
+  }
+  .lb-next {
+    right: 14px;
+  }
+  .lightbox.single .lb-nav {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .hide-sm {
+      display: none;
+    }
+    .wordmark {
+      font-size: 17px;
+    }
+    nav {
+      gap: 14px;
+    }
+    nav a {
+      font-size: 13px;
+    }
+    nav .nav-cta {
+      padding: 7px 11px;
+    }
+    .lightbox figure {
+      padding: 64px 12px 24px;
+    }
+    .lb-nav {
+      top: auto;
+      bottom: 16px;
+      transform: none;
+    }
+  }
+</style>
