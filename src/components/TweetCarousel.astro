@@ -41,7 +41,7 @@ const total = tweets.length;
     {
       tweets.map((t, i) => {
         return (
-          <figure
+          <div
             class:list={['tweet', `size-${size(t.text)}`, { active: i === 0 }]}
             data-tweet
             role="group"
@@ -60,12 +60,12 @@ const total = tweets.length;
             <div class="body">
               <blockquote class="text">{parts(t.text).map((p) => (p.tag ? <span class="tag">{p.chunk}</span> : p.chunk))}</blockquote>
             </div>
-            <figcaption class="byline">
+            <div class="byline">
               <time datetime={`${t.date}T${t.time}`}>
                 {apTime(t.time)} · {apDate(t.date)}
               </time>
-            </figcaption>
-          </figure>
+            </div>
+          </div>
         );
       })
     }
@@ -164,7 +164,7 @@ const total = tweets.length;
     outline: none;
   }
   .tweets:focus-visible .stage {
-    outline: 2px solid var(--accent-soft);
+    outline: 2px solid var(--paper);
     outline-offset: 6px;
   }
 
@@ -307,8 +307,9 @@ const total = tweets.length;
       border-color 0.2s;
   }
   .nav:hover {
-    background: var(--accent);
-    border-color: var(--accent);
+    background: var(--paper);
+    border-color: var(--paper);
+    color: var(--ink);
   }
   .progress {
     display: flex;
@@ -333,7 +334,7 @@ const total = tweets.length;
   .fill {
     position: absolute;
     inset: 0 auto 0 0;
-    background: var(--accent-soft);
+    background: var(--paper);
     transition: width 0.35s var(--ease);
   }
 </style>

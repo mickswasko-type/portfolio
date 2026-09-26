@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import TweetCarousel from '../components/TweetCarousel.astro';
 import LogoStrip from '../components/LogoStrip.astro';
+import Swoop from '../components/Swoop.astro';
 import { projects } from '../data/work';
 import { career, capabilities, homeIndustries } from '../data/career';
 import { siteConfig } from '../../site.config';
@@ -46,16 +47,11 @@ const principles = [
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <div class="dateline rise">
-          <span>Content Strategy</span><span>Storytelling</span><span>AI-Friendly</span>
-        </div>
-        <h1 class="rise" style="--d: 0.08s">
-          Make it make <span class="mark">sense<svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 60 6, 120 4, 180 10 S 270 18, 296 8" pathLength="1" /></svg></span><span class="stop">.</span>
-        </h1>
+        <h1 class="rise" style="--d: 0.04s">Make it make <Swoop>sense</Swoop>.</h1>
         <p class="lede rise" style="--d: 0.16s">
-          I’m Mick Swasko — a former Chicago Tribune and RedEye reporter that dove into the B2B content funnel. For
-          nearly two decades I’ve turned original reporting, clinical research, enterprise tech, and hard data into
-          stories people actually read.
+          I’m Mick Swasko, a former Chicago Tribune and RedEye reporter who
+          dove into the B2B content funnel. For nearly two decades I’ve turned original reporting, clinical research,
+          enterprise tech, and hard data into stories people actually read.
         </p>
         <div class="cta rise" style="--d: 0.24s">
           <a class="btn solid" href="#work">See the work <span aria-hidden="true">↓</span></a>
@@ -98,9 +94,9 @@ const principles = [
   <section class="work" id="work">
     <div class="wrap">
       <div class="section-head reveal">
+        <div class="kicker">Selected work</div>
         <div>
-          <div class="kicker">Selected work</div>
-          <h2><em>Bold</em> ideas and <em>big</em> swings.</h2>
+          <h2>Bold ideas and big swings.</h2>
         </div>
         <p class="aside">Deliverables against the odds — for healthcare systems, B2B tech brands, and folks I like.</p>
       </div>
@@ -110,9 +106,9 @@ const principles = [
         <a class="lead-img" href={`${base}work/speak-up/`} tabindex="-1" aria-hidden="true">
           <Image src={speakUpCover} alt="" widths={[400, 700, 1000]} sizes="(max-width: 860px) 100vw, 420px" format="webp" />
         </a>
-        <div class="lead-body">
-          <div class="lead-kicker"><span>Case study</span><span>Ensono × Walker Sands · 2019–2025</span></div>
-          <h3><a href={`${base}work/speak-up/`}>Ensono’s <em>“Speak Up”</em></a></h3>
+        <div class="lead-body on-ink">
+          <p class="lead-kicker">Case study: Ensono, with Walker Sands, 2019–2025</p>
+          <h3><a href={`${base}work/speak-up/`}>Ensono’s “Speak Up”</a></h3>
           <p class="lead-dek">
             One tweet about an empty women’s restroom at a tech conference became a five-edition research franchise on
             women in tech — and a thought-leadership engine the press sought out for commentary.
@@ -135,16 +131,18 @@ const principles = [
       </div>
 
       <div class="grid" data-grid>
-        {projects.map((p, i) => <ProjectCard project={p} index={i + 2} />)}
+        {projects.map((p) => <ProjectCard project={p} />)}
       </div>
     </div>
   </section>
 
   <!-- ========== LOGOS ========== -->
   <section class="logos-sec" aria-labelledby="logos-head">
+    <div class="wrap">
+      <div class="kicker reveal">The obligatory logo scroll</div>
+    </div>
     <div class="wrap logos-head reveal">
-      <div class="kicker">The obligatory logo scroll</div>
-      <h2 id="logos-head">I love the B2B scroll‑y logo thing. <em>Here’s my scroll‑y logo thing.</em></h2>
+      <h2 id="logos-head">I love the B2B scroll‑y logo thing. <span class="line">Here’s my scroll‑y logo thing.</span></h2>
     </div>
     <div class="reveal">
       <LogoStrip />
@@ -152,12 +150,12 @@ const principles = [
   </section>
 
   <!-- ========== TWEETS ========== -->
-  <section class="tweets-sec" id="tweets">
+  <section class="tweets-sec on-ink" id="tweets">
     <div class="wrap">
       <div class="section-head reveal">
+        <div class="kicker">Off the clock</div>
         <div>
-          <div class="kicker">Off the clock</div>
-          <h2>Funny <em>when Twitter</em> was fun.</h2>
+          <h2>Funny when Twitter <Swoop>was</Swoop> fun.</h2>
         </div>
         <p class="aside">A few favorites from fourteen years of tweeting as @swasko.</p>
       </div>
@@ -169,13 +167,15 @@ const principles = [
 
   <!-- ========== ABOUT ========== -->
   <section class="about" id="about">
+    <div class="wrap">
+      <div class="kicker about-flag reveal">About</div>
+    </div>
     <div class="wrap about-grid">
       <figure class="portrait reveal">
         <Image src={headshot} alt="Mick Swasko" widths={[360, 560, 840]} sizes="(max-width: 860px) 70vw, 380px" format="webp" />
       </figure>
       <div class="about-copy reveal">
-        <div class="kicker">About</div>
-        <h2>Reporter by training. <em>Strategist</em> by trade. Writer by instinct.</h2>
+        <h2>Reporter by training. Strategist by trade. <Swoop>Writer</Swoop> by instinct.</h2>
         <p>
           Storied newspapers. Historic aquariums. Startup incubators. Regulated healthcare systems. Growing B2B brands. In a
           career spent where journalism meets marketing, the assignments have varied wildly. The through-line hasn’t.
@@ -204,9 +204,9 @@ const principles = [
   <section class="approach" id="approach">
     <div class="wrap">
       <div class="section-head reveal">
+        <div class="kicker">Approach</div>
         <div>
-          <div class="kicker">Approach</div>
-          <h2>Bringing a <em>reporter’s intuition</em> to every project.</h2>
+          <h2>Bringing a reporter’s intuition to every project.</h2>
         </div>
         <p class="aside">Four rules I’ve carried from the newsroom into every assignment since.</p>
       </div>
@@ -248,9 +248,9 @@ const principles = [
   <section class="experience" id="experience">
     <div class="wrap">
       <div class="section-head reveal">
+        <div class="kicker">Experience</div>
         <div>
-          <div class="kicker">Experience</div>
-          <h2>From <em>newsroom</em> to boardroom.</h2>
+          <h2>From newsroom to boardroom.</h2>
         </div>
         <p class="aside">Illinois State University — B.S. Journalism, minor in Political Science.</p>
       </div>
@@ -283,11 +283,13 @@ const principles = [
   </section>
 
   <!-- ========== CONTACT ========== -->
-  <section class="contact" id="contact">
+  <section class="contact on-ink" id="contact">
+    <div class="wrap">
+      <div class="kicker contact-flag reveal">Contact</div>
+    </div>
     <div class="wrap contact-grid">
       <div class="reveal">
-        <div class="kicker">Contact</div>
-        <h2>At a loss for words? <em>Let’s&nbsp;chat.</em></h2>
+        <h2>At a loss for words? Let’s&nbsp;chat.</h2>
       </div>
       <div class="contact-side reveal">
         <p>
@@ -303,7 +305,7 @@ const principles = [
             Résumé (PDF) <span aria-hidden="true">↓</span>
           </a>
         </div>
-        <span class="loc">Based in {siteConfig.location} · Chicago area</span>
+        <span class="loc">Based in {siteConfig.location}, in the Chicago area.</span>
       </div>
     </div>
   </section>
@@ -328,6 +330,9 @@ const principles = [
 
 <style>
   /* ---------- Hero ---------- */
+  h1 :global(.swoop path) {
+    stroke-width: clamp(5px, 0.75vw, 10px);
+  }
   .hero {
     padding: clamp(40px, 7vw, 88px) 0 0;
   }
@@ -336,22 +341,6 @@ const principles = [
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
     gap: clamp(32px, 5vw, 64px);
     align-items: center;
-  }
-  .dateline {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 0;
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-  .dateline span + span::before {
-    content: '·';
-    margin: 0 10px;
-    color: var(--ink-soft);
   }
   h1 {
     font-family: var(--display);
@@ -362,36 +351,6 @@ const principles = [
     margin: 20px 0 26px;
   }
   /* "sense" gets a hand-drawn red stroke that writes itself in on load. */
-  h1 .mark {
-    position: relative;
-    white-space: nowrap;
-  }
-  h1 .mark svg {
-    position: absolute;
-    left: -2%;
-    width: 104%;
-    bottom: -0.1em;
-    height: 0.26em;
-    overflow: visible;
-  }
-  h1 .mark path {
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: clamp(5px, 0.75vw, 10px);
-    stroke-linecap: round;
-    vector-effect: non-scaling-stroke;
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    animation: draw 0.9s 0.7s cubic-bezier(0.6, 0, 0.3, 1) forwards;
-  }
-  @keyframes draw {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-  h1 .stop {
-    color: var(--accent);
-  }
   .lede {
     font-size: clamp(19px, 1.9vw, 23px);
     line-height: 1.45;
@@ -494,7 +453,7 @@ const principles = [
     padding: 14px 0 16px;
   }
   .ledger-label {
-    font-family: var(--body);
+    font-family: var(--italic);
     font-style: italic;
     font-size: 16px;
     color: var(--ink-soft);
@@ -552,20 +511,10 @@ const principles = [
     justify-content: center;
   }
   .lead-kicker {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 14px;
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 11.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #e8a38f;
-  }
-  .lead-kicker span:first-child {
-    background: var(--accent);
-    color: #fff;
-    padding: 2px 8px;
+    font-family: var(--italic);
+    font-style: italic;
+    font-size: 17px;
+    color: rgba(234, 231, 222, 0.8);
   }
   .lead h3 {
     font-family: var(--display);
@@ -577,11 +526,6 @@ const principles = [
   }
   .lead h3 a {
     text-decoration: none;
-  }
-  .lead h3 em {
-    white-space: nowrap;
-    font-style: normal;
-    color: var(--accent-soft);
   }
   .lead-dek {
     font-size: clamp(18px, 1.8vw, 21px);
@@ -604,7 +548,7 @@ const principles = [
     font-weight: 800;
     font-size: clamp(28px, 3.4vw, 40px);
     line-height: 1;
-    color: var(--accent-soft);
+    color: var(--paper);
     letter-spacing: -0.02em;
   }
   .lead-stats dd {
@@ -620,7 +564,7 @@ const principles = [
     margin-bottom: 26px;
   }
   .lead-pubs span {
-    color: var(--accent);
+    color: rgba(234, 231, 222, 0.45);
     padding: 0 4px;
     font-weight: 400;
   }
@@ -631,9 +575,9 @@ const principles = [
     border-color: var(--paper);
   }
   .btn.light:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
+    background: transparent;
+    border-color: var(--paper);
+    color: var(--paper);
   }
 
   .filters {
@@ -686,10 +630,9 @@ const principles = [
     margin: 12px auto 0;
     text-wrap: balance;
   }
-  .logos-head h2 em {
+  .logos-head h2 .line {
     display: block;
-    font-style: normal;
-    color: var(--accent);
+    color: var(--ink-soft);
   }
   .logos-sec :global(.strip) {
     max-width: 1400px;
@@ -704,14 +647,8 @@ const principles = [
     overflow-x: clip; /* the slide-in nudge must never widen the page */
     padding: clamp(56px, 8vw, 104px) 0;
   }
-  .tweets-sec .section-head {
-    border-top-color: var(--paper);
-  }
   .tweets-sec .kicker {
-    color: var(--accent-soft);
-  }
-  .tweets-sec .section-head h2 em {
-    color: var(--accent-soft);
+    color: var(--paper);
   }
   .tweets-sec .aside {
     color: rgba(234, 231, 222, 0.7);
@@ -733,7 +670,7 @@ const principles = [
     max-width: 400px;
     border: 2px solid var(--ink);
     box-shadow: 16px 16px 0 var(--ink);
-    background: var(--accent);
+    background: var(--panel);
   }
   .portrait :global(img) {
     width: 100%;
@@ -746,10 +683,6 @@ const principles = [
     line-height: 0.98;
     letter-spacing: -0.03em;
     margin: 12px 0 22px;
-  }
-  .about-copy h2 em {
-    font-style: normal;
-    color: var(--accent);
   }
   .about-copy p {
     font-size: 18.5px;
@@ -792,7 +725,7 @@ const principles = [
     font-family: var(--display);
     font-weight: 800;
     font-size: 13px;
-    color: var(--accent);
+    color: var(--ink-soft);
   }
   .principles h3 {
     font-family: var(--display);
@@ -815,13 +748,12 @@ const principles = [
     padding: 40px 0 36px;
   }
   .cap h3 {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    padding-bottom: 10px;
+    font-family: var(--italic);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 19px;
+    color: var(--ink);
+    padding-bottom: 8px;
     border-bottom: 2px solid var(--ink);
     margin-bottom: 6px;
   }
@@ -841,7 +773,7 @@ const principles = [
     align-items: baseline;
   }
   .ind-label {
-    font-family: var(--body);
+    font-family: var(--italic);
     font-style: italic;
     font-size: 16px;
     color: var(--ink-soft);
@@ -884,7 +816,7 @@ const principles = [
     font-weight: 800;
     font-size: 24px;
     letter-spacing: -0.02em;
-    color: var(--accent);
+    color: var(--ink);
     line-height: 1.1;
   }
   .role h3 {
@@ -927,7 +859,7 @@ const principles = [
     top: 15px;
     width: 8px;
     height: 2px;
-    background: var(--accent);
+    background: var(--ink-soft);
   }
   .r-dates {
     font-family: var(--display);
@@ -940,13 +872,14 @@ const principles = [
 
   /* ---------- Contact ---------- */
   .contact {
-    background: var(--accent);
-    color: #fff;
+    background: var(--ink);
+    color: var(--paper);
     padding: clamp(64px, 9vw, 120px) 0;
+    border-bottom: 1px solid rgba(234, 231, 222, 0.14);
   }
-  .contact .kicker {
-    color: #fff;
-    opacity: 0.8;
+  .about-flag,
+  .contact-flag {
+    margin-bottom: clamp(28px, 4vw, 44px);
   }
   .contact-grid {
     display: grid;
@@ -961,10 +894,6 @@ const principles = [
     line-height: 0.92;
     letter-spacing: -0.04em;
     margin-top: 14px;
-  }
-  .contact h2 em {
-    font-style: normal;
-    color: var(--ink);
   }
   .contact-side {
     display: flex;
@@ -981,21 +910,18 @@ const principles = [
     font-weight: 700;
     font-size: clamp(18px, 2vw, 22px);
     text-decoration: none;
-    background: var(--ink);
-    color: var(--paper);
-    padding: 14px 20px;
+    background: var(--paper);
+    color: var(--ink);
+    border: 2px solid var(--paper);
+    padding: 12px 18px;
     transition:
       background 0.2s,
       color 0.2s;
     overflow-wrap: anywhere;
   }
   .mail:hover {
-    background: var(--paper);
-    color: var(--ink);
-  }
-  .contact .arrow-link {
-    color: #fff;
-    border-bottom-color: rgba(255, 255, 255, 0.5);
+    background: transparent;
+    color: var(--paper);
   }
   .contact-links {
     display: flex;
@@ -1067,13 +993,6 @@ const principles = [
     }
   }
   @media (max-width: 560px) {
-    .dateline {
-      font-size: 10.5px;
-      letter-spacing: 0.12em;
-    }
-    .dateline span + span::before {
-      margin: 0 7px;
-    }
     .principles,
     .caps {
       grid-template-columns: 1fr;

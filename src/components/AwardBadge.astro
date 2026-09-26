@@ -21,13 +21,13 @@ const gid = `silver-${Math.random().toString(36).slice(2, 8)}`;
         <stop offset="1" stop-color="#8a939c" />
       </linearGradient>
     </defs>
-    <path d="M9 0h6l3 12h-6zM17 0h6l-3 12h-6z" fill="#c8341c" />
+    <path d="M9 0h6l3 12h-6zM17 0h6l-3 12h-6z" fill="#1A1613" />
     <circle cx="16" cy="25" r="12" fill={`url(#${gid})`} stroke="#6f7881" stroke-width="1.2" />
     <circle cx="16" cy="25" r="8.5" fill="none" stroke="#fff" stroke-opacity="0.7" stroke-width="1" />
     <path d="m16 19.5 1.7 3.5 3.8.5-2.8 2.6.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.6 3.8-.5z" fill="#6f7881" />
   </svg>
   <span class="words">
-    <span class="top">{level} · {event}</span>
+    <span class="top">{level}, {event}</span>
     <span class="cat">{category}</span>
   </span>
 </div>

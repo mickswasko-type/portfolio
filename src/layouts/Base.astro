@@ -46,7 +46,7 @@ const year = new Date().getFullYear();
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Besley:ital,wght@1,400..600&display=swap"
       rel="stylesheet"
     />
     <script is:inline>
@@ -75,14 +75,14 @@ const year = new Date().getFullYear();
       <slot />
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer on-ink">
       <div class="wrap">
         <div class="foot-top">
           <a class="foot-name" href={base}>Mick Swasko</a>
           <a class="foot-mail" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
         </div>
         <div class="foot-bottom">
-          <span>Content strategy &amp; storytelling · {siteConfig.location}</span>
+          <span>Content strategy and storytelling, from {siteConfig.location}.</span>
           <span class="foot-links">
             <a href={siteConfig.linkedin} target="_blank" rel="noopener">LinkedIn</a>
             <a href={`${base}resume/`}>Résumé</a>
@@ -90,6 +90,12 @@ const year = new Date().getFullYear();
           <span>© {year} Mick Swasko</span>
           <a href="#main">Back to top ↑</a>
         </div>
+        <p class="credit">
+          <svg class="asterisk" viewBox="0 0 16 16" aria-hidden="true"
+            ><path d="M8 1.5v13M2.37 4.75l11.26 6.5M2.37 11.25l11.26-6.5" /></svg
+          >
+          Words and work by Mick. Site built with Claude. <a href={`${base}colophon/`}>Colophon</a>
+        </p>
       </div>
     </footer>
 
@@ -123,6 +129,19 @@ const year = new Date().getFullYear();
         { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
       );
       document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+      const swoops = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add('drawn');
+              swoops.unobserve(e.target);
+            }
+          }
+        },
+        { threshold: 0.9 },
+      );
+      document.querySelectorAll('.swoop').forEach((el) => swoops.observe(el));
 
       // Carousels: one delegated handler for every carousel on the page.
       function go(car: HTMLElement, n: number) {
@@ -301,7 +320,7 @@ const year = new Date().getFullYear();
     transition: background 0.2s;
   }
   nav .nav-cta:hover {
-    background: var(--accent);
+    background: #3a322b;
   }
 
   .site-footer {
@@ -327,15 +346,15 @@ const year = new Date().getFullYear();
     text-decoration: none;
   }
   .foot-mail {
-    font-family: var(--body);
+    font-family: var(--italic);
     font-style: italic;
     font-size: clamp(18px, 2.2vw, 22px);
-    color: var(--accent-soft);
+    color: var(--paper);
     text-decoration: none;
-    border-bottom: 1px solid rgba(240, 181, 164, 0.4);
+    border-bottom: 1px solid rgba(234, 231, 222, 0.4);
   }
   .foot-mail:hover {
-    border-bottom-color: var(--accent-soft);
+    border-bottom-color: var(--accent);
   }
   .foot-bottom {
     display: flex;
@@ -352,7 +371,41 @@ const year = new Date().getFullYear();
     text-decoration: none;
   }
   .foot-bottom a:hover {
-    color: var(--accent-soft);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+  }
+  .credit {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-family: var(--display);
+    font-size: 13px;
+    color: rgba(234, 231, 222, 0.7);
+  }
+  .credit a {
+    color: var(--paper);
+    text-decoration: underline;
+    text-decoration-color: rgba(234, 231, 222, 0.4);
+    text-underline-offset: 3px;
+  }
+  .credit a:hover {
+    text-decoration-color: var(--accent);
+  }
+  .asterisk {
+    width: 14px;
+    height: 14px;
+    flex: none;
+  }
+  .asterisk path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2.2;
+    stroke-linecap: round;
   }
   .foot-links {
     display: inline-flex;
@@ -401,6 +454,7 @@ const year = new Date().getFullYear();
     pointer-events: auto;
   }
   .lightbox figcaption {
+    font-family: var(--italic);
     font-style: italic;
     font-size: 16px;
     opacity: 0.75;
@@ -425,7 +479,8 @@ const year = new Date().getFullYear();
   }
   .lb-close:hover,
   .lb-nav:hover {
-    background: var(--accent);
+    background: var(--paper);
+    color: var(--ink);
   }
   .lb-close {
     top: 16px;

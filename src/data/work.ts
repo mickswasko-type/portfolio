@@ -35,13 +35,13 @@ export interface Slide {
 export interface Project {
   id: string;
   name: string;
-  /** Short category line shown above the name. */
+  /** Short category line shown above the name (the client lives in `facts`). */
   tag: string;
   /** Filter group. */
   kind: 'Healthcare' | 'B2B tech' | 'AI & product' | 'Journalism' | 'Personal';
   summary: string;
-  /** Grey credit line, always "Client × Agency · My role". */
-  credit: string;
+  /** Who it was for and what Mick did, one fact per line: [label, value]. */
+  facts: [string, string][];
   link?: { href: string; label: string };
   /** Slug of a full case study page under /work/. */
   caseStudy?: string;
@@ -57,11 +57,15 @@ export const projects: Project[] = [
   {
     id: 'love-the-solve',
     name: 'Love the Solve',
-    tag: 'Sales enablement · Acxiom',
+    tag: 'Sales enablement',
     kind: 'B2B tech',
     summary:
       'Acxiom quietly powers some of the world’s best marketing — and in a market fixated on AI, hardly anyone noticed. Park & Battery rebuilt the brand around one rallying cry. My part was carrying it into the field: the sales narrative, the pitch, and the go-to-market content that gave sellers proof to put in front of buyers.',
-    credit: 'Acxiom × Park & Battery · Content & sales enablement',
+    facts: [
+      ['Client', 'Acxiom'],
+      ['Agency', 'Park & Battery'],
+      ['Role', 'Content & sales enablement'],
+    ],
     caseStudy: 'love-the-solve',
     award: { level: 'Silver', event: '2026 ANA Awards', category: 'Corporate Identity Program' },
     stage: 'dark',
@@ -76,11 +80,15 @@ export const projects: Project[] = [
   {
     id: 'dangerous-foods',
     name: 'Dangerous Foods',
-    tag: 'Healthcare creative · Thermo Fisher',
+    tag: 'Healthcare creative',
     kind: 'Healthcare',
     summary:
       'An undiagnosed food allergy is a predator hiding in plain sight. So the Park & Battery team made the metaphor literal: sushi as a coiled snake, a cheese board as a shark — a campaign built to stop a scrolling clinician in their tracks. I brought brainstorming, copywriting, and oversight on this project.',
-    credit: 'Thermo Fisher × Park & Battery · Brainstorming, copywriting & oversight',
+    facts: [
+      ['Client', 'Thermo Fisher Scientific'],
+      ['Agency', 'Park & Battery'],
+      ['Role', 'Brainstorming, copywriting & oversight'],
+    ],
     caseStudy: 'dangerous-foods',
     stage: 'dark',
     slides: [
@@ -93,11 +101,14 @@ export const projects: Project[] = [
   {
     id: 'ai-guide',
     name: 'A No-Bullsh*t Guide to AI & B2B Content',
-    tag: 'AI enablement · Park & Battery',
+    tag: 'AI enablement',
     kind: 'AI & product',
     summary:
       'A field guide that gets skeptical B2B marketers to actually use AI. We poked holes in the dread first, then handed over real prompts and workflows. The result? Peers who said, “AI can do that now?!”',
-    credit: 'Park & Battery × In-house · Lead writer',
+    facts: [
+      ['Client', 'Park & Battery, in-house'],
+      ['Role', 'Lead writer'],
+    ],
     link: {
       href: 'https://parkandbattery.com/wp-content/uploads/2025/02/2025_B2BMX_AI-for-Marketers_Feb21.pdf',
       label: 'View the guide',
@@ -108,11 +119,15 @@ export const projects: Project[] = [
   {
     id: 'leadership-in-crisis',
     name: 'Leadership in Crisis',
-    tag: 'Thought leadership · Kaiser Permanente',
+    tag: 'Thought leadership',
     kind: 'Healthcare',
     summary:
       'Nobody trains a manager for the day someone on their team loses everything. This is the playbook for that day. It was built for Kaiser Permanente on a single idea: long after the details blur, people remember how you made them feel. It covers everything from the first few minutes of a crisis to leading a team back out of one, whether it’s a natural disaster, workplace violence, or significant layoffs.',
-    credit: 'Kaiser Permanente × Park & Battery · Content strategy & writing',
+    facts: [
+      ['Client', 'Kaiser Permanente'],
+      ['Agency', 'Park & Battery'],
+      ['Role', 'Content strategy & writing'],
+    ],
     link: {
       href: 'https://business.kaiserpermanente.org/content/dam/kp/ccp/documents/leading-through-disruption-playbook.pdf',
       label: 'View the playbook',
@@ -129,11 +144,14 @@ export const projects: Project[] = [
   {
     id: 'pick-your-method',
     name: 'Pick Your Method',
-    tag: 'Interactive demo · Everette’s Coffee',
+    tag: 'Interactive demo',
     kind: 'AI & product',
     summary:
       'John, a former agency colleague that took up coffee roasting, wanted content to keep things fresh. After some listening, what he actually needed was more interactive product information for customers and the stores he sells to. I pulled pairing logic straight from his own product notes and had a working prototype by that afternoon.',
-    credit: 'Everette’s Coffee × Freelance · Concept & prototype',
+    facts: [
+      ['Client', 'Everette’s Coffee, freelance'],
+      ['Role', 'Concept & prototype'],
+    ],
     stage: 'light',
     slides: [
       { src: everettes1, alt: 'Pour Over method panel with Sunbean roast pairing' },
@@ -143,11 +161,15 @@ export const projects: Project[] = [
   {
     id: 'developer-burnout',
     name: 'Getting to the Bottom of Developer Burnout in Gaming',
-    tag: 'Long-form data campaign · Sauce Labs',
+    tag: 'Long-form data campaign',
     kind: 'B2B tech',
     summary:
       'A third of developers admit they’ve shipped a buggy game before it was ready. Nobody wanted to say why out loud. I designed the survey and wrote the report that got them talking — 150 developers and 500 gamers, on the pressure, burnout, and harassment behind every rushed launch. Full report, plus a companion infographic for the skimmers.',
-    credit: 'Sauce Labs × Walker Sands · Survey design & lead writer',
+    facts: [
+      ['Client', 'Sauce Labs'],
+      ['Agency', 'Walker Sands'],
+      ['Role', 'Survey design & lead writer'],
+    ],
     link: {
       href: 'https://drive.google.com/file/d/17fipRrG7-rNsTB4lH_OZ5wY881ASLxwp/view',
       label: 'View the full report',
@@ -165,11 +187,14 @@ export const projects: Project[] = [
   {
     id: 'redeye-reporting',
     name: 'RedEye Cover Stories',
-    tag: 'Journalism · RedEye',
+    tag: 'Journalism',
     kind: 'Journalism',
     summary:
       'Before the agency years, I was a staff reporter at RedEye, the Chicago Tribune’s free daily. Fourteen of my stories made the front page, from Chicago’s first Bitcoin believers and a data map of bar fights to the families of the city’s missing and a minute-by-minute of Nik Wallenda’s tightrope walk.',
-    credit: 'RedEye × Chicago Tribune · Staff reporter',
+    facts: [
+      ['Publication', 'RedEye (Chicago Tribune)'],
+      ['Role', 'Staff reporter'],
+    ],
     caseStudy: 'redeye-reporting',
     stage: 'dark',
     slides: [
@@ -183,11 +208,13 @@ export const projects: Project[] = [
   {
     id: 'red-paper-box',
     name: 'The Red Paper Box',
-    tag: 'Personal project · RedEye archive',
+    tag: 'Personal project',
     kind: 'Personal',
     summary:
       'I build personal projects to keep learning how dangerous I can be with the latest AI models in my hands. Recently, I built a living archive of RedEye, so dozens of former colleagues could find their old work again in one place. All of it was solo — from scraping the Internet Archive for old issues to building out special collections.',
-    credit: 'RedEye archive × Personal project · Solo build',
+    facts: [
+      ['Project', 'Personal, built solo'],
+    ],
     link: {
       href: 'https://mickswasko-type.github.io/red-paper-box/',
       label: 'Visit the archive',

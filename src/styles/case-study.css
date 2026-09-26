@@ -1,12 +1,17 @@
 /* Shared by every page under /work/. */
+/* Section labels are newspaper flags: a thin rule, the name in Besley italic. */
 .label {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 12.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 14px;
+  display: block;
+  font-family: var(--italic);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.3;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: currentColor;
+  border-top: 1px solid currentColor;
+  padding-top: 10px;
+  margin-bottom: 16px;
 }
 h2 {
   font-family: var(--display);
@@ -18,6 +23,9 @@ h2 {
 }
 
 /* Header */
+.hero-flag {
+  margin-top: clamp(28px, 5vw, 56px);
+}
 .cs-head {
   padding: 28px 0 40px;
 }
@@ -29,14 +37,17 @@ h2 {
   color: var(--ink-soft);
 }
 .back:hover {
-  color: var(--accent);
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
 }
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
   gap: clamp(32px, 5vw, 64px);
   align-items: center;
-  margin-top: clamp(28px, 5vw, 56px);
+  margin-top: 18px;
 }
 .hero-copy {
   animation: rise 0.8s var(--ease) both;
@@ -55,10 +66,6 @@ h1 {
   letter-spacing: -0.04em;
   margin-bottom: 20px;
 }
-h1 em {
-  font-style: normal;
-  color: var(--accent);
-}
 .subtitle {
   font-family: var(--display);
   font-weight: 600;
@@ -68,6 +75,7 @@ h1 em {
   margin-bottom: 12px;
 }
 .dek {
+  font-family: var(--italic);
   font-style: italic;
   font-size: 19px;
   color: var(--ink-soft);
@@ -105,7 +113,7 @@ h1 em {
   margin-top: 44px;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr 1fr;
-  border-top: 3px solid var(--ink);
+  border-top: 1px solid var(--ink);
   border-bottom: 1px solid var(--line);
 }
 .meta div {
@@ -117,12 +125,11 @@ h1 em {
   border-left: none;
 }
 .meta dt {
-  font-family: var(--display);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-family: var(--italic);
+  font-style: italic;
+  font-size: 15px;
   color: var(--ink-soft);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 .meta dd {
   font-family: var(--display);
@@ -140,12 +147,13 @@ section {
   margin-bottom: 20px;
 }
 .pullquote {
+  font-family: var(--italic);
   font-style: italic;
   font-size: clamp(28px, 4vw, 44px) !important;
   line-height: 1.18;
   letter-spacing: -0.01em;
   padding-left: 26px;
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--ink);
   max-width: 22ch !important;
 }
 
@@ -189,7 +197,7 @@ section {
   top: 20px;
   bottom: -12px;
   width: 2px;
-  background: var(--accent);
+  background: var(--ink);
 }
 .edition {
   position: relative;
@@ -204,7 +212,7 @@ section {
   height: 16px;
   border-radius: 50%;
   background: var(--paper);
-  border: 3px solid var(--accent);
+  border: 3px solid var(--ink);
   z-index: 1;
 }
 .ed-year {
@@ -218,7 +226,7 @@ section {
   font-weight: 600;
   font-size: 13px;
   letter-spacing: 0.1em;
-  color: var(--accent);
+  color: var(--ink-soft);
   text-transform: uppercase;
   margin-left: 12px;
   vertical-align: middle;
@@ -246,9 +254,9 @@ section {
   font-weight: 800;
 }
 .chip.held {
-  border-color: #e3c9c0;
-  background: #f7ece8;
-  color: var(--accent-deep);
+  border-color: var(--ink);
+  background: transparent;
+  color: var(--ink);
 }
 
 .split {
@@ -271,7 +279,7 @@ section {
   margin-bottom: 12px;
 }
 .split > div:first-child h3 {
-  color: var(--accent);
+  color: var(--ink);
 }
 .split ul {
   list-style: none;
@@ -294,7 +302,7 @@ section {
 }
 .results .label,
 .pl-lab {
-  color: #e8a38f;
+  color: rgba(234, 231, 222, 0.8);
 }
 .stats {
   display: grid;
@@ -314,7 +322,7 @@ section {
   font-size: clamp(40px, 5.6vw, 64px);
   line-height: 1;
   letter-spacing: -0.035em;
-  color: var(--accent-soft);
+  color: var(--paper);
 }
 .statlab {
   display: block;
@@ -340,7 +348,7 @@ section {
   letter-spacing: -0.015em;
 }
 .pl-list span {
-  color: var(--accent);
+  color: rgba(234, 231, 222, 0.45);
   font-weight: 400;
   padding: 0 6px;
 }
@@ -352,6 +360,7 @@ section {
 }
 .disclaimer {
   font-size: 12px;
+  font-family: var(--italic);
   font-style: italic;
   opacity: 0.5;
   margin-top: 22px;
@@ -369,10 +378,6 @@ section {
   letter-spacing: -0.02em;
   max-width: 26ch;
 }
-.takeaway .big em {
-  font-style: normal;
-  color: var(--accent);
-}
 
 .more {
   padding: 0 0 72px;
@@ -381,8 +386,8 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  border-top: 3px solid var(--ink);
-  padding-top: 16px;
+  border-top: 1px solid var(--ink);
+  padding-top: 10px;
 }
 .more-list {
   list-style: none;
@@ -401,11 +406,9 @@ section {
   padding-left: 12px;
 }
 .m-tag {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
+  font-family: var(--italic);
+  font-style: italic;
+  font-size: 16px;
   color: var(--ink-soft);
 }
 .m-name {
@@ -418,7 +421,7 @@ section {
 .m-go {
   font-family: var(--display);
   font-size: 22px;
-  color: var(--accent);
+  color: var(--ink);
 }
 
 @media (max-width: 760px) {
@@ -500,6 +503,7 @@ section {
 /* "My part" vs. the wider team — keeps credit honest. */
 .split .note {
   font-size: 15px;
+  font-family: var(--italic);
   font-style: italic;
   color: var(--ink-soft);
   margin-top: 12px;
@@ -530,4 +534,11 @@ section {
 }
 .results-award {
   margin-top: 22px;
+}
+
+/* The More work head draws its own rule, so its flag label doesn't need one. */
+.more-head .label {
+  border-top: 0;
+  padding-top: 0;
+  margin-bottom: 0;
 }

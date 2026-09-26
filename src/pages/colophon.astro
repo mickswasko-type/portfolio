@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import MoreWork from '../components/MoreWork.astro';
+import '../styles/case-study.css';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<Base
+  title="Colophon"
+  description="How this site was made: the words and work are Mick Swasko's; the code was written with Claude."
+  current="case-study"
+>
+  <article class="colophon">
+    <div class="wrap">
+      <a class="back" href={base}>← Home</a>
+      <div class="kicker">Colophon</div>
+      <h1>This site was built the way I work now.</h1>
+
+      <div class="body">
+        <p>
+          The words are mine. So is the work it describes: the reporting, the campaigns, the case studies and the jokes
+          about the Blue Line. The code was written with Claude.
+        </p>
+        <p>
+          I use AI the same way on client work. It handles the heavy lifting, like chewing through a technical spec or
+          building a first prototype, so I can spend my time on the parts that need a person: what the story is, who
+          it’s for, and whether it’s right.
+        </p>
+      </div>
+
+      <p class="set-in">
+        Set in <span class="f-display">Bricolage Grotesque</span>, <span class="f-body">Newsreader</span> and
+        <span class="f-italic">Besley</span>. Hosted on GitHub Pages.
+      </p>
+    </div>
+  </article>
+
+  <MoreWork />
+</Base>
+
+<style>
+  .colophon {
+    padding: 28px 0 72px;
+  }
+  .colophon .kicker {
+    margin-top: clamp(28px, 5vw, 56px);
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(38px, 6vw, 76px);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    max-width: 16ch;
+    margin: 18px 0 32px;
+    text-wrap: balance;
+  }
+  .body p {
+    font-size: 20px;
+    line-height: 1.6;
+    max-width: 58ch;
+    margin-bottom: 18px;
+  }
+  .set-in {
+    margin-top: 36px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    max-width: 58ch;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+  .f-display {
+    font-family: var(--display);
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .f-body {
+    font-family: var(--body);
+    color: var(--ink);
+  }
+  .f-italic {
+    font-family: var(--italic);
+    font-style: italic;
+    color: var(--ink);
+  }
+</style>
