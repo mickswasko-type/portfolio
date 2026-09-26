@@ -14,7 +14,8 @@ import speakUpCover from '../assets/work/speak-up-cover.jpg';
 import dangerousFoods from '../assets/work/dangerous-foods-2.jpg';
 import redeye from '../assets/work/redeye-1.png';
 import kaiser from '../assets/work/kaiser-1.jpg';
-import headshot from '../assets/headshot.jpg';
+import headshot from '../assets/headshot-halftone.png';
+import headshotCoarse from '../assets/headshot-halftone-coarse.png';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const kinds = [...new Set(projects.map((p) => p.kind))];
@@ -182,8 +183,12 @@ const principles = [
       <div class="kicker about-flag reveal">About</div>
     </div>
     <div class="wrap about-grid">
-      <figure class="portrait reveal">
-        <Image src={headshot} alt="Mick Swasko" widths={[360, 560, 840]} sizes="(max-width: 860px) 70vw, 380px" format="webp" />
+      <figure class="portrait-wrap reveal">
+        <div class="portrait" data-develop>
+          <Image class="fine" src={headshot} alt="Mick Swasko" widths={[400, 800]} sizes="(max-width: 860px) 300px, 400px" format="png" />
+          <Image class="coarse" src={headshotCoarse} alt="" aria-hidden="true" widths={[400, 800]} sizes="(max-width: 860px) 300px, 400px" format="png" />
+        </div>
+        <figcaption>File photo.</figcaption>
       </figure>
       <div class="about-copy reveal">
         <h2>Reporter by training. Strategist by trade. <Swoop>Writer</Swoop> by instinct.</h2>
@@ -323,6 +328,20 @@ const principles = [
 </Base>
 
 <script>
+  // The About photo develops once it's mostly on screen.
+  const developIO = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add('developed');
+          developIO.unobserve(e.target);
+        }
+      }
+    },
+    { threshold: 0.5 },
+  );
+  document.querySelectorAll('[data-develop]').forEach((el) => developIO.observe(el));
+
   const grid = document.querySelector<HTMLElement>('[data-grid]')!;
   const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
   buttons.forEach((b) =>
@@ -690,16 +709,45 @@ const principles = [
     gap: clamp(36px, 6vw, 88px);
     align-items: center;
   }
+  .portrait-wrap {
+    max-width: 400px;
+  }
   .portrait {
     position: relative;
-    max-width: 400px;
     border: 2px solid var(--ink);
     box-shadow: 16px 16px 0 var(--ink);
-    background: var(--panel);
+    background: var(--accent);
   }
   .portrait :global(img) {
+    display: block;
     width: 100%;
     height: auto;
+  }
+  /* "Develops" like a photo coming off the press: coarse screen resolves to fine. */
+  .portrait :global(.coarse) {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.6s ease 0.25s;
+  }
+  :global(.js) .portrait :global(.coarse) {
+    opacity: 1;
+  }
+  :global(.js) .portrait.developed :global(.coarse) {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .portrait :global(.coarse) {
+      display: none;
+    }
+  }
+  .portrait-wrap figcaption {
+    margin-top: 28px;
+    font-family: var(--italic);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--ink-soft);
   }
   .about-copy h2 {
     font-family: var(--display);
@@ -1005,7 +1053,7 @@ const principles = [
     .about-grid {
       grid-template-columns: 1fr;
     }
-    .portrait {
+    .portrait-wrap {
       max-width: 300px;
       margin-right: 16px;
     }
