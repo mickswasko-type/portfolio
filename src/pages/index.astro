@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import TweetCarousel from '../components/TweetCarousel.astro';
+import LogoStrip from '../components/LogoStrip.astro';
 import { projects } from '../data/work';
 import { career, capabilities, homeIndustries } from '../data/career';
 import { siteConfig } from '../../site.config';
@@ -136,6 +137,17 @@ const principles = [
       <div class="grid" data-grid>
         {projects.map((p, i) => <ProjectCard project={p} index={i + 2} />)}
       </div>
+    </div>
+  </section>
+
+  <!-- ========== LOGOS ========== -->
+  <section class="logos-sec" aria-labelledby="logos-head">
+    <div class="wrap logos-head reveal">
+      <div class="kicker">The obligatory logo scroll</div>
+      <h2 id="logos-head">I love the B2B scroll‑y logo thing. <em>Here’s my scroll‑y logo thing.</em></h2>
+    </div>
+    <div class="reveal">
+      <LogoStrip />
     </div>
   </section>
 
@@ -654,6 +666,35 @@ const principles = [
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
+  }
+
+  /* ---------- Logos ---------- */
+  .logos-sec {
+    padding: clamp(56px, 7vw, 88px) 0 clamp(72px, 9vw, 112px);
+    border-top: 1px solid var(--line);
+  }
+  .logos-head {
+    text-align: center;
+    margin-bottom: clamp(32px, 4vw, 48px);
+  }
+  .logos-head h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(26px, 3.4vw, 42px);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    margin: 12px auto 0;
+    text-wrap: balance;
+  }
+  .logos-head h2 em {
+    display: block;
+    font-style: normal;
+    color: var(--accent);
+  }
+  .logos-sec :global(.strip) {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--gutter);
   }
 
   /* ---------- Tweets ---------- */

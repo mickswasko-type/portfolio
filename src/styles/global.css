@@ -133,6 +133,7 @@ button {
   line-height: 0.98;
   letter-spacing: -0.03em;
   margin-top: 10px;
+  text-wrap: balance;
 }
 
 .section-head h2 em {

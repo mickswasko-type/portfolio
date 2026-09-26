@@ -1,0 +1,180 @@
+---
+// Clients Mick has done work for, via Walker Sands and Park & Battery.
+// `aspect` is width/height of each logo's trimmed artwork (see public/logos/).
+// Each logo ships twice: `<slug>.svg` in brand color, `<slug>-mono.svg` in ink
+// with light details knocked out to paper, so cut-outs like the Deere deer survive.
+const logos = [
+  { slug: 'kaiser', name: 'Kaiser Permanente', aspect: 8.8 },
+  { slug: 'softwareone', name: 'SoftwareONE', aspect: 2.81 },
+  { slug: 'thermo-fisher', name: 'Thermo Fisher Scientific', aspect: 4.59 },
+  { slug: 'sauce-labs', name: 'Sauce Labs', aspect: 5.63 },
+  { slug: 'john-deere', name: 'John Deere', aspect: 5.24 },
+  { slug: 'healthequity', name: 'HealthEquity', aspect: 5.84 },
+  { slug: 'aws', name: 'Amazon Web Services', aspect: 1.66 },
+  { slug: 'ingredion', name: 'Ingredion', aspect: 1.55 },
+  { slug: 'acxiom', name: 'Acxiom', aspect: 6.24 },
+  { slug: 'madison-logic', name: 'Madison Logic', aspect: 3.34 },
+  { slug: 'liveramp', name: 'LiveRamp', aspect: 5.46 },
+  { slug: 'aptos', name: 'Aptos', aspect: 2.47 },
+  { slug: 'ensono', name: 'Ensono', aspect: 5.74 },
+  { slug: 'arity', name: 'Arity', aspect: 2.6 },
+];
+
+// Equal visual weight: size by area, not height, so a long wordmark and a
+// stacked mark read as the same size. Heights clamp to keep extremes sane.
+const AREA = 7800;
+const sized = logos.map((l) => {
+  const h = Math.round(Math.min(56, Math.max(24, Math.sqrt(AREA / l.aspect))));
+  return { ...l, h, w: Math.round(h * l.aspect) };
+});
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<div class="strip" data-strip>
+  <div class="marquee">
+    <div class="track">
+      {
+        [0, 1].map((copy) => (
+          <ul class="group" aria-hidden={copy === 1 ? 'true' : undefined} aria-label={copy === 0 ? 'Clients' : undefined}>
+            {sized.map((l) => (
+              <li class="logo" style={`--w:${l.w}px;--h:${l.h}px`}>
+                <img class="mono" src={`${base}logos/${l.slug}-mono.svg`} alt={copy === 0 ? l.name : ''} width={l.w} height={l.h} loading="lazy" decoding="async" />
+                <img class="color" src={`${base}logos/${l.slug}.svg`} alt="" width={l.w} height={l.h} loading="lazy" decoding="async" />
+              </li>
+            ))}
+          </ul>
+        ))
+      }
+    </div>
+  </div>
+  <button type="button" class="toggle" data-strip-toggle aria-pressed="false">
+    <span class="when-playing">Pause</span><span class="when-paused">Play</span>
+    <span class="sr-only"> logo scroll</span>
+  </button>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-strip]').forEach((strip) => {
+    const btn = strip.querySelector<HTMLButtonElement>('[data-strip-toggle]')!;
+    btn.addEventListener('click', () => {
+      const paused = strip.classList.toggle('paused');
+      btn.setAttribute('aria-pressed', String(paused));
+    });
+  });
+</script>
+
+<style>
+  .strip {
+    position: relative;
+  }
+  .marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    padding: 10px 0;
+  }
+  .track {
+    display: flex;
+    width: max-content;
+    animation: scroll 55s linear infinite;
+  }
+  /* Two identical groups; sliding exactly one group's width makes the loop seamless. */
+  .group {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: clamp(48px, 6vw, 84px);
+    padding-right: clamp(48px, 6vw, 84px);
+  }
+  @keyframes scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  .marquee:hover .track,
+  .strip.paused .track {
+    animation-play-state: paused;
+  }
+
+  .logo {
+    --s: 1;
+    position: relative;
+    flex: none;
+    width: calc(var(--w) * var(--s));
+    height: calc(var(--h) * var(--s));
+  }
+  @media (max-width: 640px) {
+    .logo {
+      --s: 0.65;
+    }
+  }
+  .logo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.35s ease;
+  }
+  .mono {
+    opacity: 0.82;
+  }
+  .color {
+    opacity: 0;
+  }
+  .logo:hover .mono {
+    opacity: 0;
+  }
+  .logo:hover .color {
+    opacity: 1;
+  }
+
+  .toggle {
+    display: block;
+    margin: 14px 0 0 auto;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: none;
+    border: 0;
+    padding: 4px 0;
+    cursor: pointer;
+  }
+  .toggle:hover {
+    color: var(--accent);
+  }
+  .when-paused,
+  .paused .when-playing {
+    display: none;
+  }
+  .paused .when-paused {
+    display: inline;
+  }
+
+  /* No motion: show every logo once, as a centered wall. */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .track {
+      animation: none;
+      width: auto;
+    }
+    .group {
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 36px;
+      padding-right: 0;
+    }
+    .group[aria-hidden] {
+      display: none;
+    }
+    .toggle {
+      display: none;
+    }
+  }
+</style>
