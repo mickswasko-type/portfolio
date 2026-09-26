@@ -5,6 +5,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import TweetCarousel from '../components/TweetCarousel.astro';
 import LogoStrip from '../components/LogoStrip.astro';
 import Swoop from '../components/Swoop.astro';
+import MickInAMinute from '../components/MickInAMinute.astro';
 import { projects } from '../data/work';
 import { career, capabilities, homeIndustries } from '../data/career';
 import { siteConfig } from '../../site.config';
@@ -86,6 +87,16 @@ const principles = [
           <li>Walker Sands</li>
           <li>Park &amp; Battery</li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MICK IN A MINUTE ========== -->
+  <section class="minute-sec" id="minute" aria-labelledby="minute-flag">
+    <div class="wrap">
+      <div class="kicker minute-flag reveal" id="minute-flag">Mick in a Minute</div>
+      <div class="reveal">
+        <MickInAMinute />
       </div>
     </div>
   </section>
@@ -474,6 +485,14 @@ const principles = [
     font-weight: 700;
     font-size: clamp(16px, 1.9vw, 22px);
     letter-spacing: -0.015em;
+  }
+
+  /* ---------- Mick in a Minute ---------- */
+  .minute-sec {
+    padding: clamp(48px, 7vw, 88px) 0 clamp(24px, 4vw, 48px);
+  }
+  .minute-flag {
+    margin-bottom: clamp(28px, 4vw, 44px);
   }
 
   /* ---------- Work ---------- */

@@ -45,6 +45,8 @@ export interface Project {
   link?: { href: string; label: string };
   /** Slug of a full case study page under /work/. */
   caseStudy?: string;
+  /** Button text for the case study link; defaults to "Read the case study". */
+  caseLabel?: string;
   award?: { level: string; event: string; category: string };
   slides: Slide[];
   /** Dark stage behind the images (for photography), otherwise paper. */
@@ -186,7 +188,7 @@ export const projects: Project[] = [
   },
   {
     id: 'redeye-reporting',
-    name: 'RedEye Cover Stories',
+    name: 'Bylines',
     tag: 'Journalism',
     kind: 'Journalism',
     summary:
@@ -196,6 +198,7 @@ export const projects: Project[] = [
       ['Role', 'Staff reporter'],
     ],
     caseStudy: 'redeye-reporting',
+    caseLabel: 'Read more',
     stage: 'dark',
     slides: [
       { src: clipArcade, alt: 'RedEye front page, April 15, 2014: Chasing the High Score' },

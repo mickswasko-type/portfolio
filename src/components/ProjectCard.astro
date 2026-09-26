@@ -36,7 +36,7 @@ const caseHref = p.caseStudy ? `${base}work/${p.caseStudy}/` : null;
         {
           caseHref && (
             <a class="case-link" href={caseHref}>
-              Read the case study <span aria-hidden="true">→</span>
+              {p.caseLabel ?? 'Read the case study'} <span aria-hidden="true">→</span>
             </a>
           )
         }
