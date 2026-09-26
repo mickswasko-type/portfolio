@@ -11,7 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "resume:pdf": "sh scripts/resume-pdf.sh"
+    "resume:pdf": "sh scripts/resume-pdf.sh",
+    "og": "sh scripts/og.sh"
   },
   "dependencies": {
     "astro": "^7.3.5"

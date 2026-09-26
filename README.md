@@ -48,6 +48,17 @@ npm run resume:pdf
 
 The PDF deliberately has no phone number.
 
+### Update the link-preview card
+
+The image shown when the site is shared (`public/og.png`) is rendered from
+`scripts/og/og.html`. Edit that page, then:
+
+```bash
+npm run og
+```
+
+The share title and description live in `site.config.ts`.
+
 ## Moving to a custom domain
 
 Set `site` in `site.config.ts` to the domain and `base` to `'/'`, then add the domain under the repo's Settings → Pages.
