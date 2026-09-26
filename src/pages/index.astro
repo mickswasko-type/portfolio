@@ -47,7 +47,7 @@ const principles = [
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <h1 class="rise" style="--d: 0.04s">Make it make <Swoop>sense</Swoop>.</h1>
+        <h1 class="rise" style="--d: 0.04s">Make it make <Swoop>sense</Swoop><span class="stop">.</span></h1>
         <p class="lede rise" style="--d: 0.16s">
           I’m Mick Swasko, a former Chicago Tribune and RedEye reporter who
           dove into the B2B content funnel. For nearly two decades I’ve turned original reporting, clinical research,
@@ -139,7 +139,7 @@ const principles = [
   <!-- ========== LOGOS ========== -->
   <section class="logos-sec" aria-labelledby="logos-head">
     <div class="wrap">
-      <div class="kicker reveal">The obligatory logo scroll</div>
+      <div class="kicker logos-flag reveal">The obligatory logo scroll</div>
     </div>
     <div class="wrap logos-head reveal">
       <h2 id="logos-head">I love the B2B scroll‑y logo thing. <span class="line">Here’s my scroll‑y logo thing.</span></h2>
@@ -330,6 +330,9 @@ const principles = [
 
 <style>
   /* ---------- Hero ---------- */
+  h1 .stop {
+    color: var(--accent);
+  }
   h1 :global(.swoop path) {
     stroke-width: clamp(5px, 0.75vw, 10px);
   }
@@ -616,6 +619,9 @@ const principles = [
   .logos-sec {
     padding: clamp(56px, 7vw, 88px) 0 clamp(72px, 9vw, 112px);
     border-top: 1px solid var(--line);
+  }
+  .logos-flag {
+    text-align: center;
   }
   .logos-head {
     text-align: center;
