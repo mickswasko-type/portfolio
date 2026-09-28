@@ -68,7 +68,7 @@ export const projects: Project[] = [
       ['Agency', 'Park & Battery'],
       ['Role', 'Content & sales enablement'],
     ],
-    caseStudy: 'love-the-solve',
+    link: { href: 'https://parkandbattery.com/our-work-cs/love-the-solve/', label: 'Read the case study' },
     award: { level: 'Silver', event: '2026 ANA Awards', category: 'Corporate Identity Program' },
     stage: 'dark',
     wide: true,
@@ -91,7 +91,7 @@ export const projects: Project[] = [
       ['Agency', 'Park & Battery'],
       ['Role', 'Brainstorming, copywriting & oversight'],
     ],
-    caseStudy: 'dangerous-foods',
+    link: { href: 'https://parkandbattery.com/our-work-cs/dangerous-foods/', label: 'Read the case study' },
     stage: 'dark',
     slides: [
       { src: dangerousFoodsCroc, alt: 'Some treats turn on you — an ice cream sundae shaped like a crocodile' },
