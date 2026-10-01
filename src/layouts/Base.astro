@@ -17,6 +17,28 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 // Link previews need an absolute URL.
 const ogImage = new URL(`${base}${siteConfig.ogImage}`, Astro.site).href;
 const year = new Date().getFullYear();
+
+// The clicks worth knowing about: who reaches out, grabs the résumé, or follows a case study out.
+const umamiEvents = `
+  // Visit any page with ?notrack once and this browser stops being counted (?track undoes it).
+  try {
+    const q = location.search;
+    if (/[?&]notrack(&|=|$)/.test(q)) localStorage.setItem('umami.disabled', '1');
+    if (/[?&]track(&|=|$)/.test(q)) localStorage.removeItem('umami.disabled');
+  } catch (e) {}
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[href]');
+    if (!a || !window.umami) return;
+    const href = a.getAttribute('href') || '';
+    const low = href.toLowerCase();
+    let name = null;
+    if (low.startsWith('mailto:')) name = 'email-click';
+    else if (low.includes('resume') && low.includes('.pdf')) name = 'resume-download';
+    else if (low.includes('linkedin.com')) name = 'linkedin-click';
+    else if (low.includes('parkandbattery.com')) name = 'case-study-out';
+    if (name) window.umami.track(name, { href });
+  });
+`;
 ---
 
 <!doctype html>
@@ -52,6 +74,18 @@ const year = new Date().getFullYear();
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
+    {
+      siteConfig.umamiId && (
+        // Cookie-free page counts. Only the live host counts (not localhost previews), and Do Not Track is honored.
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id={siteConfig.umamiId}
+          data-domains={new URL(siteConfig.site).hostname}
+          data-do-not-track="true"
+        />
+      )
+    }
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -244,6 +278,7 @@ const year = new Date().getFullYear();
         if (ev.key === 'ArrowLeft') go(car, Number(car.dataset.index ?? 0) - 1);
       });
     </script>
+    {siteConfig.umamiId && <script is:inline set:html={umamiEvents} />}
   </body>
 </html>
 

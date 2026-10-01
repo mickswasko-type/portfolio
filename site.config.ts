@@ -14,4 +14,6 @@ export const siteConfig = {
   resumePdf: 'mick-swasko-resume.pdf',
   location: 'Lombard, Illinois',
   linkedin: 'https://www.linkedin.com/in/mick-swasko-95342512/',
+  /** Traffic counting. Paste the Umami "Website ID" here to switch it on; empty = no tracking at all. */
+  umamiId: 'b878e095-ab69-43ef-a1e5-67ab50b968e5',
 };
