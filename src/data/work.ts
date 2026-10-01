@@ -154,6 +154,7 @@ export const projects: Project[] = [
       ['Client', 'Everette’s Coffee, freelance'],
       ['Role', 'Concept & prototype'],
     ],
+    link: { href: 'https://everettescoffee.com/', label: 'Visit Everette’s Coffee' },
     stage: 'light',
     slides: [
       { src: everettes1, alt: 'Pour Over method panel with Sunbean roast pairing' },
