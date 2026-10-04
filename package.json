@@ -14,7 +14,8 @@
     "resume:pdf": "sh scripts/resume-pdf.sh",
     "og": "sh scripts/og.sh",
     "qr": "node scripts/qr.mjs",
-    "og:local": "sh scripts/og-local.sh"
+    "og:local": "sh scripts/og-local.sh",
+    "local": "sh scripts/local.sh"
   },
   "dependencies": {
     "astro": "^7.3.5"

@@ -8,7 +8,24 @@ Three pages that sit next to the portfolio and share its fonts, colors and compo
 | `/local/slop-test/` | `src/pages/local/slop-test.astro` | The QR destination. Also prints to one US Letter page as the handout |
 | `/local/thanks/` | `src/pages/local/thanks.astro` | Form confirmation (always `noindex`) |
 
-**Status: designed and tested, not launched.** It lives on the `local-services` branch and has not been pushed. The site deploys from `main`, so nothing here goes public until that branch is merged.
+**Status: designed and tested. Not merged or deployed yet.** It lives on the `local-services` branch.
+
+## The switch
+
+One repo variable, `LOCAL_MODE`, controls whether the pages exist on the live site. Flipping it never touches a commit:
+
+```
+npm run local -- status     # what it is now
+npm run local -- preview    # built and reachable by URL, hidden from search (noindex)
+npm run local -- live       # built and indexable
+npm run local -- off        # gone from the site
+```
+
+Each one sets the variable and re-runs the deploy (about a minute). The same thing works from the browser: GitHub repo → Settings → Secrets and variables → Actions → Variables → `LOCAL_MODE`, then Actions → "Build & deploy" → Run workflow.
+
+How it works: the deploy workflow runs `scripts/local-prune.sh` before the build. Unless `LOCAL_MODE` is `preview` or `live`, it deletes `src/pages/local` and `public/local` from the CI checkout, so with the switch off there are no `/local` files in the site at all. Unset means off. The merged code is inert until the variable is set.
+
+What "off" does not hide: the repo is public, so the page source, copy and prices stay readable on GitHub. Pages Cache for up to about 10 minutes after a deploy, so a just-hidden page can linger briefly. A `preview` page is `noindex`, so search engines shouldn't pick it up, but anyone with the URL can open it.
 
 ## Before launch
 
@@ -16,8 +33,8 @@ Everything Mick has to supply sits in one place, `site.config.ts` under `local`:
 
 | Setting | What to put there | If left empty |
 |---|---|---|
-| `launched` | `true` when going public. Removes the `noindex` tag. | Pages carry `noindex, nofollow` |
-| `formEndpoint` | Formspree or Web3Forms URL. The inbox is chosen in the provider's dashboard. | The form is replaced by an email link |
+| `mode` / `launched` | Not edited by hand. Set by `LOCAL_MODE` (see above). `live` removes the `noindex` tag. | Pages carry `noindex, nofollow` |
+| `formEndpoint` | Formspree or Web3Forms URL. The inbox is chosen in the provider's dashboard. Can also be set without a commit: `gh variable set LOCAL_FORM_ENDPOINT --body <url>`, then re-run the deploy. | The form is replaced by an email link |
 | `formFields` | Hidden fields the provider needs, e.g. `{ access_key: '…' }` for Web3Forms | none |
 | `turnaround` | The answer to "How fast?" | That FAQ question is hidden |
 | `slidesUrl` | Published slides from the Helen Plum program | Slides links are hidden |

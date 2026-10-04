@@ -1,5 +1,7 @@
 // Where the site lives. If it moves to a custom domain or a
 // username.github.io repo, change `site` and set `base` to '/'.
+const localMode = (typeof process !== 'undefined' && process.env.LOCAL_MODE) || 'off';
+
 export const siteConfig = {
   site: 'https://mickswasko-type.github.io',
   base: '/portfolio',
@@ -17,10 +19,16 @@ export const siteConfig = {
   /** Traffic counting. Paste the Umami "Website ID" here to switch it on; empty = no tracking at all. */
   umamiId: 'b878e095-ab69-43ef-a1e5-67ab50b968e5',
 
-  /** The /local services pages. See docs/local-site.md before launching. */
+  /** The /local services pages. See docs/local-site.md. */
   local: {
-    /** Flip to true when /local goes public. Until then every page carries a noindex tag. */
-    launched: false,
+    /**
+     * Set by the LOCAL_MODE repo variable at build time (npm run local -- off|preview|live):
+     *   off      the pages aren't built at all (the default)
+     *   preview  built and reachable by URL, but every page carries noindex
+     *   live     built and indexable
+     */
+    mode: localMode,
+    launched: localMode === 'live',
     /** Static-form provider endpoint (Formspree, Web3Forms or similar). Empty = the form is replaced by an email link. */
     formEndpoint: '',
     /** Extra hidden fields a provider needs, e.g. { access_key: '...' } for Web3Forms. The inbox is set in the provider's dashboard, never here. */

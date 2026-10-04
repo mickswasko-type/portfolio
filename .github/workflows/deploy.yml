@@ -24,7 +24,16 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # The /local pages ship only when the repo variable LOCAL_MODE is "preview" or "live".
+      # Anything else (or unset) deletes them before the build, so they aren't in the site at all.
+      - name: Include or remove /local
+        run: sh scripts/local-prune.sh
+        env:
+          LOCAL_MODE: ${{ vars.LOCAL_MODE }}
       - run: npm run build
+        env:
+          LOCAL_MODE: ${{ vars.LOCAL_MODE }}
+          PUBLIC_LOCAL_FORM_ENDPOINT: ${{ vars.LOCAL_FORM_ENDPOINT }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
