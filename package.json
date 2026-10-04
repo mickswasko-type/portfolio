@@ -12,12 +12,15 @@
     "preview": "astro preview",
     "astro": "astro",
     "resume:pdf": "sh scripts/resume-pdf.sh",
-    "og": "sh scripts/og.sh"
+    "og": "sh scripts/og.sh",
+    "qr": "node scripts/qr.mjs",
+    "og:local": "sh scripts/og-local.sh"
   },
   "dependencies": {
     "astro": "^7.3.5"
   },
   "devDependencies": {
+    "qrcode": "^1.5.4",
     "typescript": "^7.0.2"
   },
   "allowScripts": {

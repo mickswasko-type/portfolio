@@ -1,0 +1,24 @@
+---
+// A mailto link that isn't in the page source. The address ships base64-encoded and is only assembled
+// when someone hovers, focuses, touches or clicks it, so scrapers reading the HTML or running the page
+// without interacting never see it. Without JS it falls back to the contact form.
+import { siteConfig } from '../../../site.config';
+
+interface Props {
+  label?: string;
+}
+const { label = 'email me directly' } = Astro.props;
+const enc = Buffer.from(siteConfig.email).toString('base64');
+---
+
+<a class="obf" href="#contact" data-obf={enc}>{label}</a>
+
+<script>
+  const arm = (a: HTMLAnchorElement) => {
+    if (a.href.startsWith('mailto:')) return;
+    a.href = 'mailto:' + atob(a.dataset.obf || '');
+  };
+  document.querySelectorAll<HTMLAnchorElement>('[data-obf]').forEach((a) => {
+    ['pointerenter', 'focus', 'touchstart', 'click'].forEach((ev) => a.addEventListener(ev, () => arm(a), { once: false }));
+  });
+</script>

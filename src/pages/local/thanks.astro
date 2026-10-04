@@ -1,0 +1,64 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+
+<Base
+  title="Thanks"
+  description="Your note is in. Mick will reply by email."
+  variant="local"
+  noindex
+  ogPath="local/og.png"
+  ogAlt="Neighborhood flyers that make you happy. Mick Swasko, marketing and writing for Lombard, Glen Ellyn and Villa Park."
+>
+  <section class="thanks">
+    <div class="wrap">
+      <div class="kicker">Got it</div>
+      <h1>Thanks. I’ll be in touch.</h1>
+      <p>
+        Your note is in. I’ll reply by email, usually with a question or two so I can see what you’re working on.
+      </p>
+      <p class="meanwhile">While you wait, the one-page checklist is yours to keep.</p>
+      <div class="cta">
+        <a class="btn solid" href={`${base}local/slop-test/`}>Get the Slop Test</a>
+        <a class="btn ghost" href={`${base}local/`}>Back to the services</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .thanks {
+    padding: clamp(48px, 9vw, 120px) 0 clamp(64px, 10vw, 140px);
+    min-height: 56vh;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(44px, 8vw, 100px);
+    line-height: 0.94;
+    letter-spacing: -0.045em;
+    margin: 20px 0 24px;
+    max-width: 14ch;
+    text-wrap: balance;
+  }
+  p {
+    font-size: 21px;
+    line-height: 1.5;
+    max-width: 44ch;
+  }
+  .meanwhile {
+    margin-top: 14px;
+    color: var(--ink-soft);
+  }
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+  }
+  .cta .btn {
+    min-height: 52px;
+  }
+</style>

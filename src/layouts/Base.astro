@@ -7,16 +7,41 @@ interface Props {
   description?: string;
   /** Where the "Work" nav link should point, relative to the home page. */
   current?: 'home' | 'case-study';
+  /** 'local' swaps in the /local header and footer (no email printed). */
+  variant?: 'default' | 'local';
+  /** Keeps a page out of search results. */
+  noindex?: boolean;
+  /** Link-preview image path under the site base, e.g. 'local/og.png'. */
+  ogPath?: string;
+  ogAlt?: string;
 }
 
-const { title, description = siteConfig.description, current = 'home' } = Astro.props;
+const {
+  title,
+  description = siteConfig.description,
+  current = 'home',
+  variant = 'default',
+  noindex = false,
+  ogPath = siteConfig.ogImage,
+  ogAlt = siteConfig.ogImageAlt,
+} = Astro.props;
+const isLocal = variant === 'local';
 const pageTitle = title ? `${title} — ${siteConfig.name}` : siteConfig.title;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const home = current === 'home' ? '' : base;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // Link previews need an absolute URL.
-const ogImage = new URL(`${base}${siteConfig.ogImage}`, Astro.site).href;
+const ogImage = new URL(`${base}${ogPath}`, Astro.site).href;
 const year = new Date().getFullYear();
+
+// /local: remember where a visitor came from (?src=library from the QR code) so the contact form can report it
+// even if they browse a page or two first. Letters, numbers, dashes and underscores only.
+const srcCapture = `
+  try {
+    const m = location.search.match(/[?&]src=([A-Za-z0-9_-]{1,32})/);
+    if (m) sessionStorage.setItem('mm-src', m[1]);
+  } catch (e) {}
+`;
 
 // The clicks worth knowing about: who reaches out, grabs the résumé, or follows a case study out.
 const umamiEvents = `
@@ -59,11 +84,13 @@ const umamiEvents = `
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={siteConfig.ogImageAlt} />
+    <meta property="og:image:alt" content={ogAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <slot name="head" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -90,18 +117,38 @@ const umamiEvents = `
   <body>
     <a class="skip" href="#main">Skip to content</a>
 
-    <header class="site-header" data-header>
+    <header class:list={['site-header', { local: isLocal }]} data-header>
       <div class="wrap bar">
-        <a class="wordmark" href={base} aria-label="Mick Swasko, home">
-          Mick Swasko<span class="dot" aria-hidden="true"></span>
-        </a>
-        <nav aria-label="Primary">
-          <a href={`${home}#work`}>Work</a>
-          <a href={`${home}#about`} class="hide-sm">About</a>
-          <a href={`${home}#experience`} class="hide-sm">Experience</a>
-          <a href={`${base}resume/`}>Résumé</a>
-          <a href={`${home}#contact`} class="nav-cta">Contact</a>
-        </nav>
+        {
+          isLocal ? (
+            <a class="wordmark" href={`${base}local/`} aria-label="Mick Swasko, local services home">
+              Mick Swasko<span class="dot" aria-hidden="true" />
+            </a>
+          ) : (
+            <a class="wordmark" href={base} aria-label="Mick Swasko, home">
+              Mick Swasko<span class="dot" aria-hidden="true" />
+            </a>
+          )
+        }
+        {
+          isLocal ? (
+            <nav aria-label="Primary">
+              <a href={`${base}local/#services`} class="hide-sm">Services</a>
+              <a href={`${base}local/#how`} class="hide-sm">How it works</a>
+              <a href={`${base}local/#faq`} class="hide-sm">FAQ</a>
+              <a href={base}>Portfolio</a>
+              <a href={`${base}local/#contact`} class="nav-cta">Contact</a>
+            </nav>
+          ) : (
+            <nav aria-label="Primary">
+              <a href={`${home}#work`}>Work</a>
+              <a href={`${home}#about`} class="hide-sm">About</a>
+              <a href={`${home}#experience`} class="hide-sm">Experience</a>
+              <a href={`${base}resume/`}>Résumé</a>
+              <a href={`${home}#contact`} class="nav-cta">Contact</a>
+            </nav>
+          )
+        }
       </div>
     </header>
 
@@ -112,15 +159,35 @@ const umamiEvents = `
     <footer class="site-footer on-ink">
       <div class="wrap">
         <div class="foot-top">
-          <a class="foot-name" href={base}>Mick Swasko</a>
-          <a class="foot-mail" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+          <a class="foot-name" href={isLocal ? `${base}local/` : base}>Mick Swasko</a>
+          {
+            isLocal ? (
+              <span class="foot-serve">Serving Lombard, Glen Ellyn, and Villa Park.</span>
+            ) : (
+              <a class="foot-mail" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+            )
+          }
         </div>
         <div class="foot-bottom">
-          <span>Content strategy and storytelling, from {siteConfig.location}.</span>
-          <span class="foot-links">
-            <a href={siteConfig.linkedin} target="_blank" rel="noopener">LinkedIn</a>
-            <a href={`${base}resume/`}>Résumé</a>
-          </span>
+          {
+            isLocal ? (
+              <>
+                <span>Marketing and writing for local businesses.</span>
+                <span class="foot-links">
+                  <a href={base}>Portfolio</a>
+                  <a href={`${base}local/slop-test/`}>The Slop Test</a>
+                </span>
+              </>
+            ) : (
+              <>
+                <span>Content strategy and storytelling, from {siteConfig.location}.</span>
+                <span class="foot-links">
+                  <a href={siteConfig.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+                  <a href={`${base}resume/`}>Résumé</a>
+                </span>
+              </>
+            )
+          }
           <span>© {year} Mick Swasko</span>
           <a href="#main">Back to top ↑</a>
         </div>
@@ -279,6 +346,7 @@ const umamiEvents = `
       });
     </script>
     {siteConfig.umamiId && <script is:inline set:html={umamiEvents} />}
+    {isLocal && <script is:inline set:html={srcCapture} />}
   </body>
 </html>
 
@@ -358,6 +426,23 @@ const umamiEvents = `
     background: #3a322b;
   }
 
+  /* /local is read on a phone: nav targets are 44px tall. */
+  .site-header.local nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .site-header.local nav .nav-cta {
+    padding: 0 16px;
+  }
+  @media (max-width: 640px) {
+    .site-header.local nav a.hide-sm {
+      display: none;
+    }
+    .site-header.local nav .nav-cta {
+      padding: 0 12px;
+    }
+  }
   .site-footer {
     background: var(--ink);
     color: var(--paper);
@@ -390,6 +475,12 @@ const umamiEvents = `
   }
   .foot-mail:hover {
     border-bottom-color: var(--accent);
+  }
+  .foot-serve {
+    font-family: var(--italic);
+    font-style: italic;
+    font-size: clamp(18px, 2.2vw, 22px);
+    color: var(--paper);
   }
   .foot-bottom {
     display: flex;

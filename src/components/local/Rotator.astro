@@ -1,0 +1,276 @@
+---
+import { rotatingWords, staticHeadline } from '../../data/local';
+
+interface Props {
+  /** The newspaper-style flag above the headline. */
+  flag: string;
+}
+const { flag } = Astro.props;
+---
+
+<!--
+  "Neighborhood [word] that make you happy." The words stack in one grid cell, so the slot is always
+  as wide as the longest one and nothing moves. Plays through once, settles back on "flyers", and stops.
+  No JS: it simply reads "flyers". Reduced motion: the static sentence, no animation at all.
+-->
+<div class="rot" data-rot>
+  <div class="kicker row">
+    <span>{flag}</span>
+    <button type="button" class="pause" data-rot-toggle aria-pressed="false" hidden>
+      <span class="when-playing">Pause</span><span class="when-paused">Play</span>
+      <span class="sr-only"> the headline animation</span>
+    </button>
+  </div>
+  <h1>
+    <span class="sr-only">{staticHeadline}</span>
+    <span class="anim" aria-hidden="true">
+      <span class="lead">Neighborhood</span>
+      <span class="slot">
+        {
+          rotatingWords.map((w, i) => (
+            <span class:list={['w', { on: i === 0 }]} data-w>
+              <span class="word">
+                {w}
+                <svg viewBox="0 0 300 24" preserveAspectRatio="none">
+                  <path d="M4 16 C 60 6, 120 4, 180 10 S 270 18, 296 8" pathLength="1" />
+                </svg>
+              </span>
+            </span>
+          ))
+        }
+      </span>
+      <span class="tail">that make you happy.</span>
+    </span>
+    <span class="still" aria-hidden="true">{staticHeadline}</span>
+  </h1>
+</div>
+
+<script>
+  const STEP = 1800;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  document.querySelectorAll<HTMLElement>('[data-rot]').forEach((root) => {
+    if (reduce.matches) return;
+    const words = [...root.querySelectorAll<HTMLElement>('[data-w]')];
+    const btn = root.querySelector<HTMLButtonElement>('[data-rot-toggle]')!;
+    const scope = root.closest<HTMLElement>('[data-rot-scope]') ?? root;
+
+    let at = 0;
+    let userPaused = false;
+    let hover = false;
+    let focus = false;
+    let timer = 0;
+    let finished = false;
+
+    const show = (to: number) => {
+      words[at].classList.remove('on');
+      words[at].classList.add('leave');
+      const gone = words[at];
+      window.setTimeout(() => gone.classList.remove('leave'), 260);
+      at = to;
+      words[at].classList.add('on');
+    };
+
+    const stop = () => {
+      finished = true;
+      window.clearInterval(timer);
+      btn.hidden = true;
+      root.dataset.state = 'done';
+    };
+
+    const tick = () => {
+      if (userPaused || hover || focus) return;
+      if (at < words.length - 1) {
+        show(at + 1);
+      } else {
+        show(0); // back to "flyers", then done
+        stop();
+      }
+    };
+
+    const syncBtn = () => btn.setAttribute('aria-pressed', String(userPaused));
+
+    btn.hidden = false;
+    root.dataset.state = 'playing';
+    timer = window.setInterval(tick, STEP);
+
+    btn.addEventListener('click', () => {
+      userPaused = !userPaused;
+      syncBtn();
+    });
+    // Tapping the headline itself pauses it too, which is the natural thing on a phone.
+    root.querySelector('h1')!.addEventListener('click', () => {
+      if (finished) return;
+      userPaused = !userPaused;
+      syncBtn();
+    });
+    root.addEventListener('pointerenter', (e) => {
+      if (e.pointerType === 'mouse') hover = true;
+    });
+    root.addEventListener('pointerleave', () => (hover = false));
+    scope.addEventListener('focusin', () => (focus = true));
+    scope.addEventListener('focusout', () => (focus = false));
+  });
+</script>
+
+<style>
+  .rot {
+    position: relative;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(34px, 5.6vw, 76px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin: 12px 0 26px;
+    cursor: default;
+  }
+  .anim .lead {
+    margin-right: 0.18em;
+  }
+  .slot {
+    display: inline-grid;
+    vertical-align: top;
+  }
+  .tail {
+    display: block;
+    text-wrap: balance;
+  }
+  .w {
+    grid-area: 1 / 1;
+    justify-self: start;
+    visibility: hidden;
+    opacity: 0;
+  }
+  .word {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .word svg {
+    position: absolute;
+    left: -2%;
+    width: 104%;
+    bottom: -0.04em;
+    height: 0.24em;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .word path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: clamp(4px, 0.6vw, 9px);
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+
+  .w.on {
+    visibility: visible;
+    opacity: 1;
+    animation: drop 0.6s cubic-bezier(0.25, 1.35, 0.4, 1) both;
+  }
+  .w.on path {
+    animation: draw 0.6s cubic-bezier(0.6, 0, 0.3, 1) 0.12s both;
+  }
+  .w.leave {
+    visibility: visible;
+    animation: out 0.24s ease-in forwards;
+  }
+  @keyframes drop {
+    from {
+      opacity: 0;
+      transform: translateY(-0.5em);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes out {
+    to {
+      opacity: 0;
+      transform: translateY(0.18em);
+    }
+  }
+  @keyframes draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* The one-pass animation is paused with this, per WCAG 2.2.2. It disappears once the headline settles. */
+  /* The flag row is always 44px tall, so the control can vanish without moving anything. */
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 48px;
+    padding-top: 0;
+  }
+  .row span:first-child {
+    padding-top: 2px;
+  }
+  .pause {
+    min-height: 44px;
+    padding: 0 2px 0 14px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-family: var(--display);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .pause:hover {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+  }
+  .when-paused,
+  .pause[aria-pressed='true'] .when-playing {
+    display: none;
+  }
+  .pause[aria-pressed='true'] .when-paused {
+    display: inline;
+  }
+
+  .still {
+    display: none;
+  }
+
+  /* Reduced motion: the whole sentence, still. */
+  @media (prefers-reduced-motion: reduce) {
+    .anim {
+      display: none;
+    }
+    .still {
+      display: block;
+      text-wrap: balance;
+    }
+    .pause {
+      display: none;
+    }
+  }
+
+  /* Narrow screens: the changing word gets its own line, so the slot is a full-width block. */
+  @media (max-width: 680px) {
+    h1 {
+      font-size: clamp(34px, 10.4vw, 56px);
+    }
+    .anim .lead {
+      display: block;
+    }
+    .slot {
+      display: grid;
+      margin-bottom: 0.08em;
+    }
+  }
+</style>

@@ -1,0 +1,290 @@
+---
+import Base from '../../layouts/Base.astro';
+import Swoop from '../../components/Swoop.astro';
+import { slopQuestions } from '../../data/local';
+import { siteConfig } from '../../../site.config';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const { launched, slidesUrl, talkDate } = siteConfig.local;
+// Printed on the handout, so it reads as an address, not a link.
+const printUrl = new URL(`${base}local/`, Astro.site).href.replace(/^https?:\/\//, '');
+---
+
+<Base
+  title="The Slop Test"
+  description="Three questions to ask before you print, post, or send anything. A free one-page checklist for local businesses."
+  variant="local"
+  noindex={!launched}
+  ogPath="local/og.png"
+  ogAlt="Neighborhood flyers that make you happy. Mick Swasko, marketing and writing for Lombard, Glen Ellyn and Villa Park."
+>
+  <article class="slop">
+    <div class="wrap">
+      <div class="kicker rise" style="--d: 0.02s">
+        Free resource{talkDate ? ` · Helen Plum Library, ${talkDate}` : ''}
+      </div>
+      <h1>The <Swoop>Slop</Swoop> Test.</h1>
+      <p class="intro rise" style="--d: 0.16s">Before you print it, post it, or send it, ask three questions.</p>
+
+      <ol class="qs">
+        {
+          slopQuestions.map((q, i) => (
+            <li class="q reveal">
+              <span class="n" aria-hidden="true">{i + 1}</span>
+              <p>{q}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <p class="photos reveal">Real things get real photos. No exceptions.</p>
+
+      {
+        slidesUrl && (
+          <p class="slides reveal">
+            <a class="arrow-link" href={slidesUrl} target="_blank" rel="noopener">
+              Slides from the Helen Plum program <span aria-hidden="true">↗</span>
+            </a>
+          </p>
+        )
+      }
+
+      <!-- Handout only: the footer the printed page ends with. -->
+      <div class="print-foot">
+        <img src={`${base}local/qr-slop-test.svg`} alt="" width="96" height="96" />
+        <p>
+          <strong>Mick Swasko</strong><br />
+          Marketing and writing for Lombard, Glen Ellyn, and Villa Park.<br />
+          {printUrl}
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <section class="ask" aria-labelledby="ask-h">
+    <div class="wrap ask-in">
+      <div>
+        <h2 id="ask-h">Want a hand with this?</h2>
+        <p>Tell me what you’re working on.</p>
+      </div>
+      <a class="btn solid" href={`${base}local/#contact`}>Tell me what you’re working on</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .rise {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.8s var(--ease) forwards;
+    animation-delay: var(--d, 0s);
+  }
+  @keyframes rise {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .slop {
+    padding: clamp(36px, 6vw, 80px) 0 clamp(48px, 7vw, 88px);
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(56px, 11vw, 140px);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    margin: 20px 0 clamp(30px, 3.4vw, 44px);
+  }
+  .intro {
+    font-size: clamp(20px, 2.2vw, 26px);
+    line-height: 1.4;
+    max-width: 36ch;
+  }
+
+  .qs {
+    list-style: none;
+    display: grid;
+    gap: 16px;
+    margin-top: clamp(36px, 5vw, 64px);
+  }
+  .q {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(18px, 3vw, 40px);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 6px solid var(--ink);
+    padding: clamp(20px, 3vw, 34px) clamp(20px, 3.4vw, 44px);
+  }
+  .n {
+    /* Fixed width so every question starts at the same x, whatever the numeral. */
+    display: block;
+    width: clamp(48px, 6.4vw, 84px);
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(56px, 8vw, 104px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+  }
+  .q p {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(24px, 3.6vw, 44px);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .photos {
+    margin-top: 16px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: clamp(22px, 3.4vw, 40px) clamp(20px, 3.4vw, 44px);
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(24px, 3.6vw, 44px);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .slides {
+    margin-top: 24px;
+  }
+  .slides .arrow-link {
+    min-height: 44px;
+    font-size: 15px;
+  }
+  .print-foot {
+    display: none;
+  }
+
+  .ask {
+    background: var(--panel);
+    border-top: 1px solid var(--line);
+    padding: clamp(40px, 6vw, 72px) 0;
+  }
+  .ask-in {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px 40px;
+  }
+  .ask h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+  .ask p {
+    margin-top: 8px;
+    font-size: 20px;
+    color: var(--ink-soft);
+  }
+  .ask .btn {
+    min-height: 52px;
+  }
+
+  @media (max-width: 560px) {
+    .q {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .n {
+      width: auto;
+    }
+    .ask .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  /* The handout: one US Letter page, black on white, no chrome. */
+  @media print {
+    @page {
+      size: letter;
+      margin: 0.6in 0.7in;
+    }
+    :global(body) {
+      background: #fff !important;
+      color: #000;
+      font-size: 12pt;
+    }
+    .ask,
+    .slides {
+      display: none !important;
+    }
+    .slop {
+      padding: 0;
+    }
+    .rise,
+    :global(.js .reveal) {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    .kicker {
+      font-size: 12pt;
+      border-top-color: #000;
+    }
+    h1 {
+      font-size: 68pt;
+      margin: 8pt 0 24pt;
+    }
+    .intro {
+      font-size: 16pt;
+      max-width: none;
+    }
+    .qs {
+      gap: 12pt;
+      margin-top: 22pt;
+    }
+    .q {
+      background: #fff;
+      border: 1.5pt solid #000;
+      border-left-width: 7pt;
+      padding: 14pt 18pt;
+      break-inside: avoid;
+    }
+    .n {
+      font-size: 50pt;
+      width: 46pt;
+    }
+    .q p,
+    .photos {
+      font-size: 23pt;
+    }
+    .photos {
+      margin-top: 12pt;
+      background: #000 !important;
+      color: #fff !important;
+      padding: 16pt 20pt;
+      break-inside: avoid;
+    }
+    .print-foot {
+      display: flex;
+      align-items: center;
+      gap: 18pt;
+      margin-top: 26pt;
+      padding-top: 14pt;
+      border-top: 1.5pt solid #000;
+      break-inside: avoid;
+    }
+    .print-foot img {
+      width: 1.15in;
+      height: 1.15in;
+    }
+    .print-foot p {
+      font-size: 12pt;
+      line-height: 1.45;
+    }
+    :global(.swoop path) {
+      stroke: #000 !important;
+      stroke-dashoffset: 0 !important;
+    }
+  }
+</style>

@@ -1,0 +1,243 @@
+---
+import { siteConfig } from '../../../site.config';
+import ObfMail from './ObfMail.astro';
+
+const { formEndpoint, formFields } = siteConfig.local;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+// The endpoint can also come from the environment, so a build can be tested without editing the config.
+const endpoint = formEndpoint || (import.meta.env.PUBLIC_LOCAL_FORM_ENDPOINT as string | undefined) || '';
+// In dev the form always renders (and pretends to send) so the design can be reviewed.
+const live = Boolean(endpoint) || import.meta.env.DEV;
+---
+
+{
+  live ? (
+    <form
+      class="lf"
+      method="post"
+      action={endpoint || undefined}
+      novalidate
+      data-lf
+      data-endpoint={endpoint}
+      data-thanks={`${base}local/thanks/`}
+    >
+      <div class="field">
+        <label for="lf-name">Your name</label>
+        <input id="lf-name" name="name" type="text" autocomplete="name" required aria-describedby="lf-name-err" />
+        <p class="err" id="lf-name-err" hidden />
+      </div>
+      <div class="field">
+        <label for="lf-biz">
+          Business or organization <span class="opt">optional</span>
+        </label>
+        <input id="lf-biz" name="business" type="text" autocomplete="organization" />
+      </div>
+      <div class="field">
+        <label for="lf-email">Email</label>
+        <input id="lf-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="lf-email-err" />
+        <p class="err" id="lf-email-err" hidden />
+      </div>
+      <div class="field">
+        <label for="lf-msg">What do you need help with?</label>
+        <textarea id="lf-msg" name="message" rows="5" required aria-describedby="lf-msg-err" />
+        <p class="err" id="lf-msg-err" hidden />
+      </div>
+
+      {/* Spam trap: invisible to people, irresistible to bots. */}
+      <div class="hp" aria-hidden="true">
+        <label>
+          Leave this empty
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+        </label>
+      </div>
+      <input type="hidden" name="source" value="" data-lf-src />
+      {Object.entries(formFields).map(([k, v]) => <input type="hidden" name={k} value={v} />)}
+
+      <div class="actions">
+        <button class="btn solid send" type="submit" data-lf-send>Send</button>
+        <p class="status" role="status" aria-live="polite" data-lf-status />
+      </div>
+      <p class="alt">
+        Or <ObfMail />.
+      </p>
+      <noscript><p class="alt">Prefer email? Turn on JavaScript to see the link, or use the form.</p></noscript>
+    </form>
+  ) : (
+    <div class="lf off">
+      <p>The form isn’t switched on yet.</p>
+      <p class="alt">
+        For now, <ObfMail />.
+      </p>
+    </div>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-lf]').forEach((form) => {
+    const endpoint = form.dataset.endpoint || '';
+    const thanks = form.dataset.thanks!;
+    const send = form.querySelector<HTMLButtonElement>('[data-lf-send]')!;
+    const status = form.querySelector<HTMLElement>('[data-lf-status]')!;
+    const srcField = form.querySelector<HTMLInputElement>('[data-lf-src]')!;
+    try {
+      srcField.value = sessionStorage.getItem('mm-src') || '';
+    } catch {}
+
+    const rules: Record<string, (v: string) => string> = {
+      name: (v) => (v.trim() ? '' : 'Please tell me your name.'),
+      email: (v) => (!v.trim() ? 'Please add your email so I can reply.' : /^\S+@\S+\.\S+$/.test(v.trim()) ? '' : 'That email doesn’t look quite right.'),
+      message: (v) => (v.trim() ? '' : 'Tell me a little about what you need, even a sentence.'),
+    };
+
+    const check = (el: HTMLInputElement | HTMLTextAreaElement) => {
+      const msg = rules[el.name]?.(el.value) ?? '';
+      const err = form.querySelector<HTMLElement>(`#${el.id}-err`);
+      if (err) {
+        err.textContent = msg;
+        err.hidden = !msg;
+      }
+      if (!msg) el.removeAttribute('aria-invalid');
+      else el.setAttribute('aria-invalid', 'true');
+      return !msg;
+    };
+
+    const fields = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[name="name"],[name="email"],[name="message"]')];
+    fields.forEach((el) => {
+      el.addEventListener('blur', () => el.value && check(el));
+      el.addEventListener('input', () => el.getAttribute('aria-invalid') && check(el));
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = '';
+      const bad = fields.filter((el) => !check(el));
+      if (bad.length) {
+        bad[0].focus();
+        status.textContent = bad.length === 1 ? 'One thing to fix above.' : `${bad.length} things to fix above.`;
+        return;
+      }
+      // A filled honeypot gets a convincing thank-you and goes nowhere.
+      if ((form.querySelector<HTMLInputElement>('[name="_gotcha"]')?.value ?? '') !== '') {
+        location.href = thanks;
+        return;
+      }
+      send.disabled = true;
+      send.textContent = 'Sending…';
+      try {
+        if (!endpoint) {
+          // Dev preview only: nothing is wired up, so walk the happy path.
+          console.info('[local form] dev preview: no endpoint set, skipping the send.');
+        } else {
+          const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+          if (!res.ok) throw new Error(String(res.status));
+        }
+        (window as any).umami?.track('local-form-submit', { src: srcField.value || 'direct' });
+        location.href = thanks;
+      } catch {
+        send.disabled = false;
+        send.textContent = 'Send';
+        status.textContent = 'That didn’t go through. Please try again, or use the email link below.';
+      }
+    });
+  });
+</script>
+
+<style>
+  .lf {
+    display: grid;
+    gap: 18px;
+  }
+  .field label {
+    display: block;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+  .opt {
+    font-family: var(--italic);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-soft);
+    margin-left: 6px;
+  }
+  input[type='text'],
+  input[type='email'],
+  textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 18px; /* 16px+ keeps iOS from zooming in */
+    color: var(--ink);
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    padding: 12px 14px;
+    min-height: 52px;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 2px;
+  }
+  [aria-invalid='true'] {
+    border-color: var(--accent-deep);
+    background: #fff8f6;
+  }
+  .err {
+    margin-top: 6px;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent-deep);
+  }
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
+  .send {
+    min-height: 52px;
+    padding: 0 34px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .send:disabled {
+    opacity: 0.7;
+    cursor: progress;
+  }
+  .status {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent-deep);
+  }
+  .alt {
+    font-size: 17px;
+    color: var(--ink-soft);
+  }
+  .alt :global(.obf) {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding: 12px 0;
+  }
+  .alt :global(.obf:hover) {
+    text-decoration-color: var(--accent);
+  }
+  .off {
+    gap: 8px;
+    font-size: 19px;
+  }
+</style>
