@@ -144,7 +144,15 @@ const umamiEvents = `
               <a href={`${home}#work`}>Work</a>
               <a href={`${home}#about`} class="hide-sm">About</a>
               <a href={`${home}#experience`} class="hide-sm">Experience</a>
-              <a href={`${base}resume/`}>Résumé</a>
+              <a href={`${base}resume/`} class="hide-xs">Résumé</a>
+              {
+                siteConfig.local.mode !== 'off' && (
+                  <a href={`${base}local/`}>
+                    <span class="long">Local services</span>
+                    <span class="short">Local</span>
+                  </a>
+                )
+              }
               <a href={`${home}#contact`} class="nav-cta">Contact</a>
             </nav>
           )
@@ -175,7 +183,7 @@ const umamiEvents = `
                 <span>Marketing and writing for local businesses.</span>
                 <span class="foot-links">
                   <a href={base}>Portfolio</a>
-                  <a href={`${base}local/slop-test/`}>The Slop Test</a>
+                  {siteConfig.local.slopTest && <a href={`${base}local/slop-test/`}>The Slop Test</a>}
                 </span>
               </>
             ) : (
@@ -401,6 +409,9 @@ const umamiEvents = `
     color: var(--ink);
     position: relative;
   }
+  nav .short {
+    display: none;
+  }
   nav a:not(.nav-cta)::after {
     content: '';
     position: absolute;
@@ -434,6 +445,12 @@ const umamiEvents = `
   }
   .site-header.local nav .nav-cta {
     padding: 0 16px;
+  }
+  /* The résumé is also linked from About and the footer; on the narrowest phones the nav makes room for Local services. */
+  @media (max-width: 420px) {
+    nav a.hide-xs {
+      display: none;
+    }
   }
   @media (max-width: 640px) {
     .site-header.local nav a.hide-sm {
@@ -661,10 +678,16 @@ const umamiEvents = `
       font-size: 17px;
     }
     nav {
-      gap: 14px;
+      gap: 12px;
     }
     nav a {
       font-size: 13px;
+    }
+    nav .long {
+      display: none;
+    }
+    nav .short {
+      display: inline;
     }
     nav .nav-cta {
       padding: 7px 11px;

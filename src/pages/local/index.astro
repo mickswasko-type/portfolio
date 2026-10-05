@@ -8,11 +8,11 @@ import { siteConfig } from '../../../site.config';
 import headshot from '../../assets/headshot-halftone.png';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
-const { launched, slidesUrl } = siteConfig.local;
+const { launched, slidesUrl, slopTest } = siteConfig.local;
 const description =
   'Marketing and writing help for businesses in Lombard, Glen Ellyn, and Villa Park, from a neighbor and former Chicago Tribune journalist.';
 const subhead =
-  'Marketing and writing help for businesses in Lombard, Glen Ellyn, and Villa Park, from a neighbor and former Chicago Tribune journalist. AI where it helps, a human where it counts.';
+  'Marketing and writing help for businesses in Lombard, Glen Ellyn, and Villa Park, from a journalist that learned marketing and PR. I use AI where it helps and keep it human where it has to be.';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -46,7 +46,7 @@ const jsonLd = {
       <p class="lede rise" style="--d: 0.16s">{subhead}</p>
       <div class="cta rise" style="--d: 0.24s">
         <a class="btn solid" href="#contact">Tell me what you’re working on</a>
-        <a class="btn ghost" href={`${base}local/slop-test/`}>Get the Slop Test</a>
+        {slopTest && <a class="btn ghost" href={`${base}local/slop-test/`}>Get the Slop Test</a>}
       </div>
       <div class="ledger rise" style="--d: 0.32s">
         <div class="ledger-label">Serving</div>
@@ -60,6 +60,8 @@ const jsonLd = {
   </section>
 
   <!-- ========== LIBRARY STRIP ========== -->
+  {
+    slopTest && (
   <aside class="strip" aria-label="From the library talk">
     <div class="wrap strip-in">
       <p>
@@ -78,6 +80,8 @@ const jsonLd = {
       </span>
     </div>
   </aside>
+    )
+  }
 
   <!-- ========== SERVICES ========== -->
   <section class="services" id="services">
@@ -87,7 +91,7 @@ const jsonLd = {
         <div>
           <h2>Pick the help you need.</h2>
         </div>
-        <p class="aside">Three ways to work together. Every one starts with a conversation.</p>
+        <p class="aside">Three ways to work together. We’ll have a chat about goals and settle on the direction you feel good about.</p>
       </div>
       <ul class="cards">
         {
@@ -151,7 +155,7 @@ const jsonLd = {
           <h2 class="reveal">Checked like it’s running on the front page.</h2>
           <ul class="facts reveal">
             <li>Former Chicago Tribune journalist, with nearly two decades in content and marketing.</li>
-            <li>A neighbor, so you can reach me without a call center, a ticket number, or a contract longer than the project.</li>
+            <li>A neighbor, so you can reach me without a call center or a ticket number.</li>
           </ul>
           <p class="approach reveal">
             I use AI the way a good editor uses a first draft: it gets me to options fast. Then a person, me, checks

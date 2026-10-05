@@ -1,6 +1,7 @@
 // Where the site lives. If it moves to a custom domain or a
 // username.github.io repo, change `site` and set `base` to '/'.
 const localMode = (typeof process !== 'undefined' && process.env.LOCAL_MODE) || 'off';
+const slopTestOn = typeof process !== 'undefined' && process.env.LOCAL_SLOP_TEST === 'on';
 
 export const siteConfig = {
   site: 'https://mickswasko-type.github.io',
@@ -29,12 +30,18 @@ export const siteConfig = {
      */
     mode: localMode,
     launched: localMode === 'live',
+    /**
+     * The Slop Test page and every mention of it (hero button, library strip, footer link, thanks page).
+     * Off for now. Set by the LOCAL_SLOP_TEST repo variable: `npm run local -- slop-test on|off`.
+     */
+    slopTest: slopTestOn,
     /** Static-form provider endpoint (Formspree, Web3Forms or similar). Empty = the form is replaced by an email link. */
     formEndpoint: '',
     /** Extra hidden fields a provider needs, e.g. { access_key: '...' } for Web3Forms. The inbox is set in the provider's dashboard, never here. */
     formFields: {} as Record<string, string>,
     /** FAQ answer for "How fast?". Empty hides that question. */
-    turnaround: '',
+    turnaround:
+      'It depends — on my current bandwidth, on the scope, and on the complexity of the project. If you have a sharp deadline, let’s talk about it. I’ll be upfront about whether I can help.',
     /** Published slides from the Helen Plum program. Empty hides the slides links. */
     slidesUrl: '',
     /** Date of the library talk, e.g. 'October 14'. Empty leaves it off the handout. */

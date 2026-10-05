@@ -6,12 +6,14 @@ import { siteConfig } from '../../../site.config';
 
 interface Props {
   label?: string;
+  /** Render as the site's solid button instead of an inline link. */
+  button?: boolean;
 }
-const { label = 'email me directly' } = Astro.props;
+const { label = 'email me directly', button = false } = Astro.props;
 const enc = Buffer.from(siteConfig.email).toString('base64');
 ---
 
-<a class="obf" href="#contact" data-obf={enc}>{label}</a>
+<a class:list={['obf', { btn: button, solid: button }]} href="#contact" data-obf={enc}>{label}</a>
 
 <script>
   const arm = (a: HTMLAnchorElement) => {

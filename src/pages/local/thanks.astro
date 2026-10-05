@@ -1,7 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { siteConfig } from '../../../site.config';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const { slopTest } = siteConfig.local;
 ---
 
 <Base
@@ -19,10 +21,10 @@ const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
       <p>
         Your note is in. I’ll reply by email, usually with a question or two so I can see what you’re working on.
       </p>
-      <p class="meanwhile">While you wait, the one-page checklist is yours to keep.</p>
+      {slopTest && <p class="meanwhile">While you wait, the one-page checklist is yours to keep.</p>}
       <div class="cta">
-        <a class="btn solid" href={`${base}local/slop-test/`}>Get the Slop Test</a>
-        <a class="btn ghost" href={`${base}local/`}>Back to the services</a>
+        {slopTest && <a class="btn solid" href={`${base}local/slop-test/`}>Get the Slop Test</a>}
+        <a class:list={['btn', slopTest ? 'ghost' : 'solid']} href={`${base}local/`}>Back to the services</a>
       </div>
     </div>
   </section>

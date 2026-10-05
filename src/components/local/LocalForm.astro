@@ -64,10 +64,8 @@ const live = Boolean(endpoint) || import.meta.env.DEV;
     </form>
   ) : (
     <div class="lf off">
-      <p>The form isn’t switched on yet.</p>
-      <p class="alt">
-        For now, <ObfMail />.
-      </p>
+      <p>Email is the best way to reach me. Tell me what you’re working on and I’ll reply.</p>
+      <p><ObfMail label="Email me" button /></p>
     </div>
   )
 }
@@ -237,7 +235,13 @@ const live = Boolean(endpoint) || import.meta.env.DEV;
     text-decoration-color: var(--accent);
   }
   .off {
-    gap: 8px;
-    font-size: 19px;
+    gap: 18px;
+    font-size: 20px;
+    line-height: 1.5;
+  }
+  .off :global(.btn) {
+    min-height: 52px;
+    padding: 0 28px;
+    font-size: 16px;
   }
 </style>

@@ -30,9 +30,11 @@ jobs:
         run: sh scripts/local-prune.sh
         env:
           LOCAL_MODE: ${{ vars.LOCAL_MODE }}
+          LOCAL_SLOP_TEST: ${{ vars.LOCAL_SLOP_TEST }}
       - run: npm run build
         env:
           LOCAL_MODE: ${{ vars.LOCAL_MODE }}
+          LOCAL_SLOP_TEST: ${{ vars.LOCAL_SLOP_TEST }}
           PUBLIC_LOCAL_FORM_ENDPOINT: ${{ vars.LOCAL_FORM_ENDPOINT }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
