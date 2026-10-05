@@ -8,7 +8,7 @@ Three pages that sit next to the portfolio and share its fonts, colors and compo
 | `/local/slop-test/` | `src/pages/local/slop-test.astro` | The QR destination. Also prints to one US Letter page as the handout |
 | `/local/thanks/` | `src/pages/local/thanks.astro` | Form confirmation (always `noindex`) |
 
-**Status: designed and tested. Not merged or deployed yet.** It lives on the `local-services` branch.
+**Status: live** (`LOCAL_MODE=live`, set 2026-10-04). The Slop Test page and everything that mentions it are off for now (`LOCAL_SLOP_TEST` unset). The contact form isn't connected yet, so the contact section shows an "Email me" button.
 
 ## The switch
 
@@ -19,9 +19,10 @@ npm run local -- status     # what it is now
 npm run local -- preview    # built and reachable by URL, hidden from search (noindex)
 npm run local -- live       # built and indexable
 npm run local -- off        # gone from the site
+npm run local -- slop-test on|off   # the Slop Test page and every mention of it
 ```
 
-Each one sets the variable and re-runs the deploy (about a minute). The same thing works from the browser: GitHub repo → Settings → Secrets and variables → Actions → Variables → `LOCAL_MODE`, then Actions → "Build & deploy" → Run workflow.
+Each one sets a repo variable (`LOCAL_MODE` or `LOCAL_SLOP_TEST`) and re-runs the deploy (about a minute). The portfolio's "Local services" nav link appears only while `LOCAL_MODE` is `preview` or `live`, so turning the site off removes the link too. The same thing works from the browser: GitHub repo → Settings → Secrets and variables → Actions → Variables → `LOCAL_MODE`, then Actions → "Build & deploy" → Run workflow.
 
 How it works: the deploy workflow runs `scripts/local-prune.sh` before the build. Unless `LOCAL_MODE` is `preview` or `live`, it deletes `src/pages/local` and `public/local` from the CI checkout, so with the switch off there are no `/local` files in the site at all. Unset means off. The merged code is inert until the variable is set.
 
